@@ -51,9 +51,7 @@ const defaultSocialImage = config?.seo?.defaultSocialImage || undefined;
 			<Header config={config} navigation={headerNavigation} />
 		</TinaIsland>
 		<slot />
-		<TinaIsland name="global-footer" wrapper={islands['global-footer'].wrapper}>
-			<Footer config={config} navigation={footerNavigation} />
-		</TinaIsland>
+		<Footer config={config} navigation={footerNavigation} />
 		{footerCode && <Fragment set:html={footerCode} />}
 	</body>
 </html>

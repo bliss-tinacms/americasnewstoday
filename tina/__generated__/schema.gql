@@ -441,8 +441,6 @@ type PageBlocksOurTeamMockup17LeadershipPeople {
   image: String
   imageAlt: String
   bio: String
-  experience: String
-  focus: String
 }
 
 type PageBlocksOurTeamMockup17Leadership {
@@ -458,8 +456,6 @@ type PageBlocksOurTeamMockup17SeniorStaffPeople {
   image: String
   imageAlt: String
   bio: String
-  experience: String
-  focus: String
 }
 
 type PageBlocksOurTeamMockup17SeniorStaff {
@@ -822,8 +818,6 @@ input PageBlocksOurTeamMockup17LeadershipPeopleFilter {
   image: ImageFilter
   imageAlt: StringFilter
   bio: StringFilter
-  experience: StringFilter
-  focus: StringFilter
 }
 
 input PageBlocksOurTeamMockup17LeadershipFilter {
@@ -839,8 +833,6 @@ input PageBlocksOurTeamMockup17SeniorStaffPeopleFilter {
   image: ImageFilter
   imageAlt: StringFilter
   bio: StringFilter
-  experience: StringFilter
-  focus: StringFilter
 }
 
 input PageBlocksOurTeamMockup17SeniorStaffFilter {
@@ -1154,7 +1146,6 @@ type ConfigSeo {
   description: String
   siteOwner: String
   logo: String
-  defaultSocialImage: String
   favicon: String
   footerLogo: String
 }
@@ -1173,13 +1164,6 @@ type ConfigCodeInjection {
   footerCode: String
 }
 
-type ConfigRedirects {
-  enabled: Boolean
-  source: String!
-  destination: String!
-  permanent: Boolean
-}
-
 type ConfigContactLinks {
   title: String
   link: String
@@ -1191,7 +1175,6 @@ type Config implements Node & Document {
   seo: ConfigSeo
   contactForm: ConfigContactForm
   codeInjection: ConfigCodeInjection
-  redirects: [ConfigRedirects]
   contactLinks: [ConfigContactLinks]
   footerStarfield: Boolean
   id: ID!
@@ -1204,7 +1187,6 @@ input ConfigSeoFilter {
   description: StringFilter
   siteOwner: StringFilter
   logo: ImageFilter
-  defaultSocialImage: ImageFilter
   favicon: ImageFilter
   footerLogo: ImageFilter
 }
@@ -1223,13 +1205,6 @@ input ConfigCodeInjectionFilter {
   footerCode: StringFilter
 }
 
-input ConfigRedirectsFilter {
-  enabled: BooleanFilter
-  source: StringFilter
-  destination: StringFilter
-  permanent: BooleanFilter
-}
-
 input ConfigContactLinksFilter {
   title: StringFilter
   link: StringFilter
@@ -1241,7 +1216,6 @@ input ConfigFilter {
   seo: ConfigSeoFilter
   contactForm: ConfigContactFormFilter
   codeInjection: ConfigCodeInjectionFilter
-  redirects: ConfigRedirectsFilter
   contactLinks: ConfigContactLinksFilter
   footerStarfield: BooleanFilter
 }
@@ -1522,8 +1496,6 @@ input PageBlocksOurTeamMockup17LeadershipPeopleMutation {
   image: String
   imageAlt: String
   bio: String
-  experience: String
-  focus: String
 }
 
 input PageBlocksOurTeamMockup17LeadershipMutation {
@@ -1539,8 +1511,6 @@ input PageBlocksOurTeamMockup17SeniorStaffPeopleMutation {
   image: String
   imageAlt: String
   bio: String
-  experience: String
-  focus: String
 }
 
 input PageBlocksOurTeamMockup17SeniorStaffMutation {
@@ -1773,7 +1743,6 @@ input ConfigSeoMutation {
   description: String
   siteOwner: String
   logo: String
-  defaultSocialImage: String
   favicon: String
   footerLogo: String
 }
@@ -1792,13 +1761,6 @@ input ConfigCodeInjectionMutation {
   footerCode: String
 }
 
-input ConfigRedirectsMutation {
-  enabled: Boolean
-  source: String
-  destination: String
-  permanent: Boolean
-}
-
 input ConfigContactLinksMutation {
   title: String
   link: String
@@ -1810,7 +1772,6 @@ input ConfigMutation {
   seo: ConfigSeoMutation
   contactForm: ConfigContactFormMutation
   codeInjection: ConfigCodeInjectionMutation
-  redirects: [ConfigRedirectsMutation]
   contactLinks: [ConfigContactLinksMutation]
   footerStarfield: Boolean
 }

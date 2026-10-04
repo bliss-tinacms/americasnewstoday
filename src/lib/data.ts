@@ -359,7 +359,7 @@ export async function getConfig() {
 
 	const query = `query Config($relativePath: String!) {
 		config(relativePath: $relativePath) {
-			seo { title description siteOwner logo defaultSocialImage favicon footerLogo }
+			seo { title description siteOwner logo favicon footerLogo }
 			contactForm { formspreeEndpoint heading description buttonText note subject }
 			codeInjection { headerCode footerCode }
 			contactLinks { title link icon }
@@ -370,6 +370,18 @@ export async function getConfig() {
 	if (liveConfig) return { data: { config: liveConfig } } as any;
 	return requestWithMetadata(client.queries.config({ relativePath: 'config.json' }));
 }
+
+export const getEditableConfig = () => {
+	const localConfig = readLocalJson('config', 'config.json');
+	if (localConfig) {
+		return requestWithMetadata(Promise.resolve({
+			data: { config: localConfig as any },
+			query: ConfigDocument,
+			variables: { relativePath: 'config.json' },
+		}), { priority: 'primary' });
+	}
+	return requestWithMetadata(client.queries.config({ relativePath: 'config.json' }), { priority: 'primary' });
+};
 
 
 async function getLiveNavigation(relativePath: 'header.json' | 'footer.json') {
@@ -430,7 +442,7 @@ async function getLivePage(slug: string) {
 				... on PageBlocksContent { body }
 				... on PageBlocksHomepageTemplate { hero { eyebrow title description buttonText buttonLink image imageAlt } why { eyebrow title paragraphOne paragraphTwo standards { label title text } } newsroom { heading subheading submitHeading submitButtonText submitButtonLink prompts { title text } } wireFeature { eyebrow quote author byline image imageAlt } coverage { title description topics { number title text } } contact { eyebrow title description note cards { title email text accent } } }
 				... on PageBlocksAboutMockup17 { hero { eyebrow headline lede } purpose { eyebrow title paragraphOne pullquote paragraphTwo } coverage { eyebrow title intro items { number title text link } } standardsSection { eyebrow title intro items { number title text } } independence { eyebrow title image imageAlt paragraphOne paragraphTwo buttonText buttonLink } newsroom { eyebrow title intro contacts { icon title email text } } }
-				... on PageBlocksOurTeamMockup17 { hero { eyebrow headline lede } leadership { eyebrow title people { name role location image imageAlt bio } } seniorStaff { eyebrow title people { name role location image imageAlt bio } } }
+				... on PageBlocksOurTeamMockup17 { hero { eyebrow headline lede } leadership { eyebrow title people { name role location image imageAlt bio } } seniorStaff { eyebrow title } }
 				... on PageBlocksContactMockup17 { hero { eyebrow headline lede } formSection { eyebrow title description buttonText note formAction subject } inboxes { eyebrow title cards { title description email note } } requests { eyebrow title intro cards { icon title text } } }
 				... on PageBlocksHero { headline tagline starfield image { src alt } actions { label type icon link } }
 				... on PageBlocksCallout { text url }

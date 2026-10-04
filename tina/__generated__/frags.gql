@@ -248,8 +248,6 @@ fragment PageParts on Page {
           image
           imageAlt
           bio
-          experience
-          focus
         }
       }
       seniorStaff {
@@ -264,8 +262,6 @@ fragment PageParts on Page {
           image
           imageAlt
           bio
-          experience
-          focus
         }
       }
     }
@@ -445,7 +441,6 @@ fragment ConfigParts on Config {
     description
     siteOwner
     logo
-    defaultSocialImage
     favicon
     footerLogo
   }
@@ -462,13 +457,6 @@ fragment ConfigParts on Config {
     __typename
     headerCode
     footerCode
-  }
-  redirects {
-    __typename
-    enabled
-    source
-    destination
-    permanent
   }
   contactLinks {
     __typename

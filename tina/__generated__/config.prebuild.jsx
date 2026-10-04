@@ -488,12 +488,6 @@ var GlobalConfigCollection = {
         { name: "siteOwner", label: "Site Owner", type: "string" },
         { name: "logo", label: "Logo", type: "image" },
         {
-          name: "defaultSocialImage",
-          label: "Default Social / Embed Image",
-          type: "image",
-          description: "Fallback image used for Open Graph/Twitter/Discord embeds when a page, post, category, or author does not set its own social share image."
-        },
-        {
           name: "favicon",
           label: "Favicon",
           type: "image",
@@ -527,46 +521,6 @@ var GlobalConfigCollection = {
       fields: [
         { name: "headerCode", label: "Header Code", type: "string", ui: { component: "textarea" } },
         { name: "footerCode", label: "Footer Code", type: "string", ui: { component: "textarea" } }
-      ]
-    },
-    {
-      name: "redirects",
-      label: "Redirects",
-      type: "object",
-      list: true,
-      description: "Manage site redirects. Source Path is the old URL path and Destination Path is where visitors should be sent.",
-      ui: {
-        itemProps: (item) => ({
-          label: item?.source && item?.destination ? `${item.source} \u2192 ${item.destination}` : "Redirect"
-        })
-      },
-      fields: [
-        {
-          name: "enabled",
-          label: "Enabled",
-          type: "boolean",
-          description: "Turn this redirect on or off without deleting it."
-        },
-        {
-          name: "source",
-          label: "Source Path",
-          type: "string",
-          description: "Old path to redirect from, for example /old-page/.",
-          required: true
-        },
-        {
-          name: "destination",
-          label: "Destination Path",
-          type: "string",
-          description: "New path or full URL to redirect to, for example /new-page/.",
-          required: true
-        },
-        {
-          name: "permanent",
-          label: "Permanent",
-          type: "boolean",
-          description: "Use 301 when enabled, or 302 when disabled."
-        }
       ]
     },
     {
@@ -1069,9 +1023,7 @@ var ourTeamMockup17BlockSchema = {
         { name: "location", label: "Location", type: "string" },
         { name: "image", label: "Photo", type: "image" },
         { name: "imageAlt", label: "Photo Alt Text", type: "string" },
-        { name: "bio", label: "Bio", type: "string", ui: { component: "textarea" } },
-        { name: "experience", label: "Experience / Meta 1", type: "string" },
-        { name: "focus", label: "Focus / Meta 2", type: "string" }
+        { name: "bio", label: "Bio", type: "string", ui: { component: "textarea" } }
       ] }
     ] },
     { type: "object", name: "seniorStaff", label: "Senior Editorial Staff Section", fields: [
@@ -1083,9 +1035,7 @@ var ourTeamMockup17BlockSchema = {
         { name: "location", label: "Location", type: "string" },
         { name: "image", label: "Photo", type: "image" },
         { name: "imageAlt", label: "Photo Alt Text", type: "string" },
-        { name: "bio", label: "Bio", type: "string", ui: { component: "textarea" } },
-        { name: "experience", label: "Experience / Meta 1", type: "string" },
-        { name: "focus", label: "Focus / Meta 2", type: "string" }
+        { name: "bio", label: "Bio", type: "string", ui: { component: "textarea" } }
       ] }
     ] }
   ]

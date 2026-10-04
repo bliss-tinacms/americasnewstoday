@@ -409,17 +409,17 @@ function stripConfigLaggingSchemaFields(bodyText: string) {
 }
 
 function corsHeaders(request: Request) {
-  const origin = request.headers.get('origin') || 'https://firstfornews.net';
+  const origin = request.headers.get('origin') || 'https://boilerplate.blissdrive.net';
   const allowed = new Set([
-    'https://firstfornews.net',
-    'https://firstfornews.net',
+    'https://boilerplate.blissdrive.net',
+    'https://boilerplate.blissdrive.net',
     'http://localhost:4321',
   ]);
 
   return {
     'Access-Control-Allow-Origin': allowed.has(origin)
       ? origin
-      : 'https://firstfornews.net',
+      : 'https://boilerplate.blissdrive.net',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-API-KEY',
     'Access-Control-Max-Age': '86400',

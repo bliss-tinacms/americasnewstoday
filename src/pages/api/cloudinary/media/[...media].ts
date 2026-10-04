@@ -47,7 +47,7 @@ function directoryPrefix(directory: string | null) {
 }
 
 function rootPrefix() {
-  const clean = cleanPath(process.env.CLOUDINARY_ROOT_FOLDER || process.env.CLOUDINARY_FOLDER || "firstfornews");
+  const clean = cleanPath(process.env.CLOUDINARY_ROOT_FOLDER || process.env.CLOUDINARY_FOLDER || "boilerplate");
   return clean ? clean + "/" : "";
 }
 

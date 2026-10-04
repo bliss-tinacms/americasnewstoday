@@ -209,7 +209,7 @@ function tinaDirectContentApiUrl() {
 		process.env.NEXT_PUBLIC_TINA_CLIENT_ID ||
 		process.env.PUBLIC_TINA_CLIENT_ID ||
 		process.env.TINA_PUBLIC_CLIENT_ID ||
-		'a9684e57-12db-4e1e-81bb-c908941e164f';
+		'40bc8cd1-d0fe-4061-b99c-d91be2de59e0';
 	const branch = process.env.NEXT_PUBLIC_TINA_BRANCH || process.env.TINA_BRANCH || 'main';
 	if (!clientId) return null;
 	return `https://content.tinajs.io/2.4/content/${encodeURIComponent(clientId)}/github/${encodeURIComponent(branch)}`;
@@ -249,7 +249,7 @@ function tinaProxyEndpoints() {
 
 async function fetchGithubPageFrontmatter(relativePath: string) {
 	const branch = process.env.TINA_BRANCH || process.env.NEXT_PUBLIC_TINA_BRANCH || 'main';
-	const repo = process.env.GITHUB_CONTENT_REPO || 'bliss-tinacms/firstfornews';
+	const repo = process.env.GITHUB_CONTENT_REPO || 'bliss-tinacms/boilerplate';
 	const url = `https://raw.githubusercontent.com/${repo}/${branch}/src/content/page/${relativePath}`;
 	try {
 		const response = await fetch(url, { cache: 'no-store', headers: { 'cache-control': 'no-cache' } });

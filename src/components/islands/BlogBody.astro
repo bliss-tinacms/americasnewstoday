@@ -146,7 +146,7 @@ const authorInitials = authorName.split(/\s+/).filter(Boolean).slice(0, 2).map((
 const categoryLabel = getReferenceLabel(getPostCategories(data)) || 'Article';
 const publishedDate = data?.pubDate ? new Date(data.pubDate) : getFallbackPublishedDate(data);
 const shareUrl = data ? getPostUrl(data) : '/blog/';
-const shareTitle = data?.title || 'First For News';
+const shareTitle = data?.title || 'Americas News Today';
 const tocItems = getTocItems(data?.body);
 const hasToc = tocItems.length > 0;
 
@@ -230,7 +230,7 @@ const heroImageAlt = (() => {
 						<div class="rc-t">Write for us</div>
 						<div class="rc-b">
 							<a href="/write-for-us" class="rr">
-								<div class="rr-h">Share a news tip, expert insight, or original story idea with the First For News editorial team &rarr;</div>
+								<div class="rr-h">Share a news tip, expert insight, or original story idea with the Americas News Today editorial team &rarr;</div>
 							</a>
 						</div>
 					</div>
@@ -247,7 +247,7 @@ const heroImageAlt = (() => {
 						<div class="corr-t">Published by</div>
 						<div class="corr-b">
 							<strong id="post-author-heading"><a href={authorArchiveUrl}>{authorName}</a></strong>
-							{author?.bio ? ` — ${author.bio}` : ' — First For News newsroom contributor.'}
+							{author?.bio ? ` — ${author.bio}` : ' — Americas News Today newsroom contributor.'}
 						</div>
 					</section>
 				</article>

@@ -20,7 +20,7 @@ interface Props {
 const { config, navigation } = Astro.props;
 const currentYear = new Date().getFullYear();
 const seo = config?.seo ?? null;
-const siteTitle = seo?.title || 'First For News';
+const siteTitle = seo?.title || 'Americas News Today';
 // Keep the site logo dynamic CMS-style: the main Logo field drives header and footer.
 // footerLogo remains a legacy fallback only for old content where logo is empty.
 const footerLogo = seo?.logo || seo?.footerLogo || '/brand-assets/a80bca69-bdf7-4a94-80eb-063779debed2.png';
@@ -56,7 +56,7 @@ const fineLinks = [
   </div>
   <div class="w">
     <div class="ft-lg">
-      <p>&copy; {currentYear} First For News. All rights reserved.</p>
+      <p>&copy; {currentYear} Americas News Today. All rights reserved.</p>
       <nav class="ft-fine" aria-label="Footer legal links">
         {fineLinks.map((item) => (
           <a href={item.href}>{item.label}</a>

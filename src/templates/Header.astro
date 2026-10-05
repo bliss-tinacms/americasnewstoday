@@ -20,7 +20,7 @@ type NavigationDocument = {
 
 const { config, navigation } = Astro.props;
 const seo = config?.seo ?? null;
-const siteTitle = seo?.title || 'First For News';
+const siteTitle = seo?.title || 'Americas News Today';
 const logo = seo?.logo || '/brand-assets/a80bca69-bdf7-4a94-80eb-063779debed2.png';
 const menuItems = ((navigation?.items ?? []) as NavItem[]).filter((item) => item && item.label && item.href);
 ---

@@ -71,6 +71,20 @@ function getPostCategories(post: any) {
   return post?.category ? [post.category] : [];
 }
 
+function postDate(post: any) {
+  const date = post?.pubDate || post?.date || post?.updatedDate;
+  if (!date) return 'September 16';
+  try {
+    return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' }).format(new Date(date));
+  } catch (_error) {
+    return 'September 16';
+  }
+}
+
+function authorName(post: any) {
+  return getReferenceLabel(post?.author) || post?.authorAlt || post?.author || 'Staff Reporter';
+}
+
 const hero = editHomepage.hero ?? homepage.hero ?? {};
 const why = homepage.why ?? {};
 const newsroom = homepage.newsroom ?? {};
@@ -80,156 +94,114 @@ const contact = homepage.contact ?? {};
 const editHero = editHomepage.hero ?? hero;
 const editWhy = editHomepage.why ?? why;
 const editNewsroom = editHomepage.newsroom ?? newsroom;
-const editWireFeature = editHomepage.wireFeature ?? wireFeature;
 const editCoverage = editHomepage.coverage ?? coverage;
 const editContact = editHomepage.contact ?? contact;
 
-const featuredPosts = posts.slice(0, 3);
+const featuredPosts = posts.slice(0, 4);
 const fallbackReportImages = [
   '/brand-assets/83bb832b-c99f-45b5-9bc2-3d615f7d4c6a.jpg',
   '/brand-assets/48aafe34-9438-4012-8c50-c9a8be1499c7.jpg',
   '/brand-assets/5971f731-4646-49ca-998c-9d70b5d14e3d.jpg',
+  '/brand-assets/327816c1-cb4e-4c47-8da2-42877a448f1d.jpg',
 ];
 
-const standards = list(why.standards, [
-  { label: '01 / Accuracy', title: 'Accuracy ahead of speed', text: 'Every factual claim should be verifiable. We distinguish established facts from commentary, avoid presenting speculation as certainty, and correct material errors when identified.' },
-  { label: '02 / Clarity', title: 'Written for real people', text: 'Our articles are written for readers, not industry insiders. We avoid unnecessary jargon and present information in a straightforward way.' },
-  { label: '03 / Context', title: 'Meaningful context', text: 'Readers deserve content that explains key details and makes complicated topics easier to follow. Reporting, analysis, and opinion stay visibly distinct.' },
-]);
-
+const defaultStandards = [
+  { label: '01', title: 'Accuracy', text: 'Every factual claim should be verifiable. Significant claims are supported by named sources or public records, and anonymous sources only with a senior editor’s judgment.', practiceLabel: 'In practice', practiceText: 'Errors discovered after publication are corrected on the record. Accuracy is prioritized over speculation.' },
+  { label: '02', title: 'Sourcing & Attribution', text: 'Quoted persons are identified by name and role. Studies, public records, and other reporting are credited and, where possible, linked.', practiceLabel: 'In practice', practiceText: 'Where reporting was first developed elsewhere, that publication is credited on first mention.' },
+  { label: '03', title: 'Fairness', text: 'People and organizations covered receive a meaningful opportunity to respond to material allegations before publication.', practiceLabel: 'In practice', practiceText: 'It does not mean treating contested propositions as equally credible regardless of evidence. When the facts are clear, we report them.' },
+  { label: '04', title: 'Independence', text: 'Editorial decisions are made without advertiser, political, or commercial influence of any kind.', practiceLabel: 'In practice', practiceText: 'Advertisers and sponsoring parties do not review, approve, or modify editorial reporting before publication.' },
+  { label: '05', title: 'News, Analysis & Opinion', text: 'News is presented straight. Analysis interprets the reporting and is labeled. Opinion advances a position and reflects the writer, not the publication.', practiceLabel: 'In practice', practiceText: 'The three appear in different sections of the site, are tagged distinctly, and are visibly distinguishable at a glance.' },
+];
+const standards = list(why.standards, defaultStandards);
 const coverageTopics = list(coverage.topics, [
-  { number: '01', title: 'Business & Economy', text: 'Companies, markets, household economics, and the decisions that reach consumers.' },
-  { number: '02', title: 'Technology', text: 'Products, platforms, and advances changing how people work and communicate.' },
-  { number: '03', title: 'Health & Science', text: 'Research, medical developments, and findings that affect everyday choices.' },
-  { number: '04', title: 'Politics & Policy', text: 'Government, public affairs, and the decisions shaping the national conversation.' },
-  { number: '05', title: 'World', text: 'Developments abroad and the events with consequences that cross borders.' },
-  { number: '06', title: 'Lifestyle & Culture', text: 'Travel, education, culture, and the trends shaping how people live.' },
+  { number: '01', title: 'World News', text: 'Global affairs' },
+  { number: '02', title: 'Business', text: 'Markets & the economy' },
+  { number: '03', title: 'Technology', text: 'Innovation & regulation' },
+  { number: '04', title: 'Environment', text: 'Land, energy & climate' },
+  { number: '05', title: 'Education', text: 'Schools & policy' },
+  { number: '06', title: 'Arts & Culture', text: 'Film, music & ideas' },
+  { number: '07', title: 'Lifestyle', text: 'Home, food & everyday life' },
 ]);
-
-const editorialStandards = [
-  { title: 'Accuracy', text: 'Every factual claim should be verifiable, supported by named sources or public records. Errors discovered after publication are corrected on the record.' },
-  { title: 'Attribution', text: 'Quoted persons are identified by name and role. Studies, records, and other reporting are credited and linked. Anonymity is never granted retroactively.' },
-  { title: 'Fairness', text: 'People and organizations covered receive a meaningful opportunity to respond before publication. Where the facts are clear, we report them regardless of preference.' },
-  { title: 'Independence', text: 'Editorial coverage is not influenced by advertising or sponsorship. Sponsors do not review, approve, or modify reporting before publication.' },
-  { title: 'Labeling', text: 'News is presented straight, analysis interprets it, and opinion reflects its writer. The three are tagged distinctly and visibly distinguishable at a glance.' },
-];
-
 const teamCards = list(contact.cards, [
-  { title: 'Michelle Hastings', email: 'Editor-in-Chief', text: 'Leads the newsroom from Baltimore. Fifteen years in editorial leadership, reporting and editing.', accent: true },
-  { title: 'Patrick Alvarez', email: 'Managing Editor', text: 'Runs day-to-day operations from Austin. Owns the editorial calendar and assignments.', accent: false },
-  { title: 'Kevin Manning', email: 'Standards Editor', text: 'Fact-checks sensitive material from Boise and manages the corrections record.', accent: false },
-  { title: 'Angela Simmons', email: 'Business Editor', text: 'Runs the business desk from Milwaukee. Reaches for the underlying data every time.', accent: false },
+  { title: 'Catherine Palmer', email: 'Editor-in-Chief · Indianapolis', text: 'More than fifteen years in editorial leadership at regional and national publications, with a background reporting on politics, state government, and federal courts before she moved into editing.', accent: true, image: '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg', imageAlt: 'Catherine Palmer' },
+  { title: 'Nicholas Griffin', email: 'Managing Editor · Tampa', text: 'Twelve years at a Southern regional daily before joining. Runs the editorial calendar, story assignments, and the flow of publication across the desks.', accent: false, image: '/brand-assets/a7e46c80-fcbc-4895-958c-9db64571cae0.jpg', imageAlt: 'Nicholas Griffin' },
+  { title: 'Denise Chapman', email: 'Business Editor · Grand Rapids', text: 'A decade covering business, finance, and labor. Reaches for the underlying numbers and separates what a company announced from what its release implied.', accent: false, image: '/brand-assets/b7138736-79a8-4f15-8b02-4a2cca5ed7a6.jpg', imageAlt: 'Denise Chapman' },
+  { title: 'Scott Coleman', email: 'Publisher · Dallas', text: 'Background in media and business operations. Holds responsibility for the site’s direction and for keeping the editorial operation independent of the commercial side.', accent: false, image: '/brand-assets/aff9501c-b302-4049-832e-3b9703c1186e.jpg', imageAlt: 'Scott Coleman' },
 ]);
-const teamImages = [
-  '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg',
-  '/brand-assets/a7e46c80-fcbc-4895-958c-9db64571cae0.jpg',
-  '/brand-assets/b7138736-79a8-4f15-8b02-4a2cca5ed7a6.jpg',
-  '/brand-assets/aff9501c-b302-4049-832e-3b9703c1186e.jpg',
-];
+const leadTeam = teamCards[0];
+const otherTeam = teamCards.slice(1, 4);
 ---
 
-<main class="ffn-home">
-  <section class="hero" style={`background-image:url('${value(hero.image, '/brand-assets/c383ae02-84f6-4be0-8a77-47dee93ce41c.jpg')}')`} aria-labelledby="ffn-hero-title" data-tina-field={tf(editHero, 'image')}>
-    <div class="w">
-      <div class="hero-in">
-        <div class="hero-k"><b data-tina-field={tf(editHero, 'eyebrow')}>{value(hero.eyebrow, 'The Deep Dive')}</b><i data-tina-field={tf(editHero, 'buttonText')}>{value(hero.buttonText, 'Americas News Today')}</i></div>
-        <h1 id="ffn-hero-title" data-tina-field={tf(editHero, 'title')}>{value(hero.title, 'The Story Behind the Headlines That Shape Our World')}</h1>
-        <p class="hero-d" data-tina-field={tf(editHero, 'description')}>{value(hero.description, 'Americas News Today goes beyond breaking updates to explore the facts, context, and details behind the stories people are talking about.')}</p>
+<main class="ant-home">
+  <section class="chero" style={`background-image:url('${value(hero.image, '/brand-assets/c383ae02-84f6-4be0-8a77-47dee93ce41c.jpg')}')`} aria-labelledby="ant-hero-title" data-tina-field={tf(editHero, 'image')}>
+    <div class="chero-in"><div class="chero-w">
+      <div>
+        <div class="ch-kick"><i></i><span data-tina-field={tf(editHero, 'eyebrow')}>{value(hero.eyebrow, 'About the Publication')}</span></div>
+        <h1 id="ant-hero-title" class="ch-h" data-tina-field={tf(editHero, 'title')}>{value(hero.title, 'A wider view of today’s America.')}</h1>
+        <p class="ch-d" data-tina-field={tf(editHero, 'description')}>{value(hero.description, 'America’s News Today is a general news platform dedicated to helping readers understand the events, developments, and ideas influencing life across the country. Our purpose is to make important information easier to find and understand — from nationwide developments to the changing trends that affect communities and households.')}</p>
+        <div class="ch-by"><span>Accuracy</span><span>Context</span><span>Clarity</span><span>Accountability</span></div>
       </div>
-    </div>
-  </section>
-
-  <section class="rp" aria-labelledby="featured-reporting-title">
-    <div class="w">
-      <div class="eye"><i></i><span data-tina-field={tf(editNewsroom, 'subheading')}>{value(newsroom.subheading, 'Published this week')}</span></div>
-      <h2 class="h2" id="featured-reporting-title" data-tina-field={tf(editNewsroom, 'heading')}>{value(newsroom.heading, 'Featured reporting')}</h2>
-      <div class="rp-g">
-        {featuredPosts.map((post, index) => (
-          <a href={getPostUrl(post)} class="rpi">
-            <div class="rpi-img" style={`background-image:url('${post.heroImage || fallbackReportImages[index % fallbackReportImages.length]}')`}></div>
-            <div class="rpi-c">
-              <div class="rpi-k">{getReferenceLabel(getPostCategories(post)) || 'Featured'}</div>
-              <div class="rpi-h">{getPostTitle(post)}</div>
-              <p class="rpi-x">{getPostDescription(post)}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="ms" aria-labelledby="mission-title">
-    <div class="w">
-      <div class="ms-in">
-        <div>
-          <div class="eye"><i></i><span data-tina-field={tf(editWhy, 'eyebrow')}>{value(why.eyebrow, 'Our mission')}</span></div>
-          <h2 id="mission-title" data-tina-field={tf(editWhy, 'title')}>{value(why.title, 'More than headlines. Context that holds up.')}</h2>
-        </div>
-        <p class="ms-lead" data-tina-field={tf(editWhy, 'paragraphOne')}>{value(why.paragraphOne, 'Americas News Today is a general news platform created for readers who want to understand what is happening without wading through unnecessary noise — timely stories, emerging trends, and developments that affect everyday life.')}</p>
-      </div>
-      <div class="ms-slab"><i>&ldquo;</i><p data-tina-field={tf(editWhy, 'paragraphTwo')}>{value(why.paragraphTwo, 'A headline may capture attention. It rarely tells the whole story.')}</p></div>
-      <div class="ms-g">
-        {standards.map((item, index) => {
-          const editItem = editWhy?.standards?.[index] ?? item;
-          return <div class="ms-i"><div class="ms-n" data-tina-field={tf(editItem, 'label')}>{item.label}</div><div class="ms-t" data-tina-field={tf(editItem, 'title')}>{item.title}</div><p class="ms-x" data-tina-field={tf(editItem, 'text')}>{item.text}</p></div>;
-        })}
-      </div>
-    </div>
-  </section>
-
-  <section class="cv" aria-labelledby="coverage-title">
-    <div class="w">
-      <div class="cv-h">
-        <div><div class="eye"><i></i><span>Coverage areas</span></div><h2 class="h2" id="coverage-title" data-tina-field={tf(editCoverage, 'title')}>{value(coverage.title, 'What we cover')}</h2></div>
-        <p class="cv-lead" data-tina-field={tf(editCoverage, 'description')}>{value(coverage.description, 'Six desks, each staffed by an editor who reads the source material before the story runs.')}</p>
-      </div>
-      <div class="cv-in">
-        <figure class="cv-fig">
-          <div class="cv-img" style="background-image:url('/brand-assets/327816c1-cb4e-4c47-8da2-42877a448f1d.jpg')"></div>
-          <figcaption class="cv-cap"><p>Why does this story matter?</p><span>The question behind all six desks</span></figcaption>
-        </figure>
-        <div class="cv-l">
-          {coverageTopics.map((item, index) => {
-            const editItem = editCoverage?.topics?.[index] ?? item;
-            return <a href="/blog/" class="cvr"><div class="cvr-n" data-tina-field={tf(editItem, 'number')}>{item.number}</div><div><div class="cvr-t" data-tina-field={tf(editItem, 'title')}>{item.title}</div><p class="cvr-x" data-tina-field={tf(editItem, 'text')}>{item.text}</p></div></a>;
-          })}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="qt" style={`background-image:url('${value(wireFeature.image, '/brand-assets/28d50137-5e19-405a-81aa-7ad369692f45.jpg')}')`} aria-labelledby="editorial-commitment-title" data-tina-field={tf(editWireFeature, 'image')}>
-    <div class="w"><div class="qt-in">
-      <div class="qt-m" id="editorial-commitment-title" data-tina-field={tf(editWireFeature, 'eyebrow')}>{value(wireFeature.eyebrow, 'Our Editorial Commitment')}</div>
-      <p class="qt-q" data-tina-field={tf(editWireFeature, 'quote')}>{value(wireFeature.quote, 'We will not just report what happened. We will help you understand what comes next.')}</p>
-      <div class="qt-by"><div class="qt-n" data-tina-field={tf(editWireFeature, 'author')}>{value(wireFeature.author, 'Michelle Hastings')}</div><div class="qt-r" data-tina-field={tf(editWireFeature, 'byline')}>{value(wireFeature.byline, 'Editor-in-Chief · Fifteen years in editorial leadership at national and regional publications')}</div></div>
     </div></div>
   </section>
 
-  <section class="st" aria-labelledby="standards-title">
-    <div class="w">
-      <div class="eye"><i></i><span>How we work</span></div>
-      <h2 class="h2" id="standards-title">Editorial standards</h2>
-      <div class="st-doc">
-        <div class="st-top"><span>The Americas News Today Standard</span><b>Five rules we do not break</b></div>
-        <div class="st-body">
-          {editorialStandards.map((item) => <p class="st-p"><b>{item.title}</b>{item.text}</p>)}
-        </div>
-        <div class="st-sign"><div class="st-sn">Signed — the editors of Americas News Today</div><div class="st-sd">Revised August 2026</div></div>
-      </div>
+  <section class="dsp" aria-labelledby="filed-this-week-title"><div class="w">
+    <div class="dsp-h"><div><div class="dsp-eye"><i></i><span data-tina-field={tf(editNewsroom, 'subheading')}>{value(newsroom.subheading, 'Filed this week')}</span></div><div class="dsp-title" id="filed-this-week-title" data-tina-field={tf(editNewsroom, 'heading')}>{value(newsroom.heading, 'More Reporting')}</div></div></div>
+    <div class="dsp-ledger">
+      {featuredPosts.map((post, index) => (
+        <a href={getPostUrl(post)} class="dr">
+          <div class="dr-n">{String(index + 1).padStart(2, '0')}</div>
+          <div class="dr-img" style={`background-image:url('${post.heroImage || fallbackReportImages[index % fallbackReportImages.length]}')`}></div>
+          <div>
+            <div class="dr-cat">{getReferenceLabel(getPostCategories(post)) || 'Featured'}</div>
+            <div class="dr-h">{getPostTitle(post)}</div>
+            <p class="dr-d">{getPostDescription(post)}</p>
+          </div>
+          <div class="dr-m"><div class="dr-by">{authorName(post)}</div><div class="dr-dt">{postDate(post)}</div></div>
+        </a>
+      ))}
     </div>
-  </section>
+  </div></section>
 
-  <section class="tm" aria-labelledby="team-title">
-    <div class="w">
-      <div class="eye"><i></i><span data-tina-field={tf(editContact, 'eyebrow')}>{value(contact.eyebrow, 'Our team')}</span></div>
-      <h2 class="h2" id="team-title" data-tina-field={tf(editContact, 'title')}>{value(contact.title, 'Who does the reporting')}</h2>
-      <div class="tm-g">
-        {teamCards.map((person, index) => {
-          const editPerson = editContact?.cards?.[index] ?? person;
-          return <a href="/our-team/" class="tmi"><img class="tmi-img" src={teamImages[index % teamImages.length]} alt={person.title || ''} /><div class="tmi-b"><div class="tmi-n" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div></a>;
-        })}
-      </div>
+  <section class="about"><div class="w"><div class="about-in">
+    <div class="about-l">
+      <p class="about-l-eye" data-tina-field={tf(editWhy, 'eyebrow')}>{value(why.eyebrow, 'About America’s News Today')}</p>
+      <h2 class="about-l-h" data-tina-field={tf(editWhy, 'title')}>{value(why.title, 'Independent thinking starts with better information')}</h2>
+      <p class="about-l-p" data-tina-field={tf(editWhy, 'paragraphOne')}>{value(why.paragraphOne, 'America’s News Today does not exist to tell readers what conclusions to reach. Our role is to present information clearly so readers can consider the facts, understand different perspectives, and form their own views. Readers come from different backgrounds and hold different opinions; our goal is coverage that stays useful across those differences.')}</p>
+      <a href="/about/" class="about-cta">About Our Newsroom →</a>
     </div>
-  </section>
+    <div class="about-r">
+      <div class="ac-k" data-tina-field={tf(editCoverage, 'title')}>{value(coverage.title, 'What we cover')}</div>
+      {coverageTopics.map((item, index) => {
+        const editItem = editCoverage?.topics?.[index] ?? item;
+        return <a href="/blog/" class="ac"><span class="ac-n" data-tina-field={tf(editItem, 'number')}>{item.number}</span><span class="ac-t" data-tina-field={tf(editItem, 'title')}>{item.title}</span><span class="ac-x" data-tina-field={tf(editItem, 'text')}>{item.text}</span></a>;
+      })}
+    </div>
+  </div></div></section>
+
+  <section class="stds" aria-labelledby="standards-title"><div class="w">
+    <div class="stds-top">
+      <div class="stds-eye"><i></i><span>How we work</span></div>
+      <h2 id="standards-title" class="stds-h">Editorial Standards</h2>
+      <p class="stds-sub" data-tina-field={tf(editCoverage, 'description')}>{value(coverage.description, 'The standards America’s News Today applies to staff reporting, contributed pieces, and any wire or partner material published on the site.')}</p>
+    </div>
+    <div class="stds-g">
+      {standards.slice(0, 5).map((item, index) => {
+        const editItem = editWhy?.standards?.[index] ?? item;
+        return <div class="sp"><div class="sp-top"><span class="sp-n" data-tina-field={tf(editItem, 'label')}>{item.label}</span><span class="sp-name" data-tina-field={tf(editItem, 'title')}>{item.title}</span></div><p class="sp-def" data-tina-field={tf(editItem, 'text')}>{item.text}</p><div class="sp-prac"><div class="sp-pk" data-tina-field={tf(editItem, 'practiceLabel')}>{item.practiceLabel || 'In practice'}</div><p class="sp-px" data-tina-field={tf(editItem, 'practiceText')}>{item.practiceText || ''}</p></div></div>;
+      })}
+      <div class="sn"><div class="sn-eye" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'eyebrow')}>{value(wireFeature.eyebrow, 'A working note')}</div><div class="sn-h" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'quote')}>{value(wireFeature.quote, 'Would we stand behind this piece and explain it to a reader?')}</div><p class="sn-x" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'byline')}>{value(wireFeature.byline, 'Most editorial decisions are matters of judgment. When the rules and the situation do not line up cleanly, the newsroom returns to that question. If the answer is yes, the piece publishes. If not, it holds.')}</p><a href="/editorial-guidelines/" class="sn-cta">Read the full guidelines →</a></div>
+    </div>
+  </div></section>
+
+  <section class="tm" aria-labelledby="team-title"><div class="w">
+    <div class="tm-top"><div class="tm-eye"><i></i><span data-tina-field={tf(editContact, 'eyebrow')}>{value(contact.eyebrow, 'The newsroom')}</span></div><div class="tm-title" id="team-title" data-tina-field={tf(editContact, 'title')}>{value(contact.title, 'Our Team')}</div></div>
+    {leadTeam && <div class="tml"><img class="tml-img" src={leadTeam.image || '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg'} alt={leadTeam.imageAlt || leadTeam.title || ''} data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'image')} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
+    <div class="tmr">
+      {otherTeam.map((person, index) => {
+        const realIndex = index + 1;
+        const editPerson = editContact?.cards?.[realIndex] ?? person;
+        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={person.image || fallbackReportImages[index % fallbackReportImages.length]} alt={person.imageAlt || person.title || ''} data-tina-field={tf(editPerson, 'image')} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
+      })}
+    </div>
+  </div></section>
 </main>

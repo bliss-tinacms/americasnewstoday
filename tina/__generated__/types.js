@@ -120,6 +120,8 @@ export const PagePartsFragmentDoc = gql`
           label
           title
           text
+          practiceLabel
+          practiceText
         }
       }
       newsroom {
@@ -166,6 +168,8 @@ export const PagePartsFragmentDoc = gql`
           title
           email
           text
+          image
+          imageAlt
           accent
         }
       }

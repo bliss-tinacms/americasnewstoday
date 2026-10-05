@@ -15,52 +15,34 @@ type NavigationDocument = {
 interface Props {
   config?: CmsConfig | null;
   navigation?: NavigationDocument | null;
+  coverageNavigation?: NavigationDocument | null;
 }
 
-const { config, navigation } = Astro.props;
+const { config, navigation, coverageNavigation } = Astro.props;
 const currentYear = new Date().getFullYear();
 const seo = config?.seo ?? null;
 const siteTitle = seo?.title || 'Americas News Today';
+const footerDescription = seo?.description || 'A general news platform covering the events, developments, and ideas influencing life across the country — business, technology, health, politics, world affairs, and lifestyle.';
 // Footer Logo must drive the footer when set; fall back to the main Logo only when Footer Logo is empty.
 const footerLogo = seo?.footerLogo || seo?.logo || '/brand-assets/a80bca69-bdf7-4a94-80eb-063779debed2.png';
-const footerMenuItems = ((navigation?.items ?? []) as NavItem[]).filter((item) => item && item.label && item.href);
-const fineLinks = [
+const newsroomItems = ((navigation?.items ?? []) as NavItem[]).filter((item) => item && item.label && item.href);
+const coverageItems = ((coverageNavigation?.items ?? []) as NavItem[]).filter((item) => item && item.label && item.href);
+const infoLinks = [
   { label: 'Privacy', href: '/privacy-policy/' },
   { label: 'Terms', href: '/terms-of-use/' },
   { label: 'Cookie', href: '/cookie-policy/' },
   { label: 'AI', href: '/ai-policy/' },
   { label: 'DMCA', href: '/dmca-policy/' },
   { label: 'Sponsored', href: '/sponsored-content-policy/' },
-  { label: 'Sitemap', href: '/sitemap/' },
 ];
 ---
 
-<footer class="ft" data-brand-footer>
-  <div class="ft-band">
-    <div class="w">
-      <div class="ft-band-in">
-        <p>Timely stories, useful insights, and clear coverage of the topics that matter.</p>
-      </div>
-    </div>
+<footer class="foot" data-brand-footer><div class="w">
+  <div class="fg-grid">
+    <div class="fb"><a href="/" class="fn"><img src={footerLogo} alt={siteTitle} data-tina-field={seo ? tinaField(seo, 'footerLogo') : undefined} loading="lazy" decoding="async" /></a><p data-tina-field={seo ? tinaField(seo, 'description') : undefined}>{footerDescription}</p></div>
+    <div class="fc"><h4>Coverage</h4><ul>{coverageItems.map((item) => <li><a href={item.href || '#'} data-tina-field={tinaField(item, 'label')}>{item.label}</a></li>)}</ul></div>
+    <div class="fc"><h4>{navigation?.title || 'Newsroom'}</h4><ul>{newsroomItems.map((item) => <li><a href={item.href || '#'} data-tina-field={tinaField(item, 'label')}>{item.label}</a></li>)}</ul></div>
+    <div class="fc"><h4>Information</h4><ul>{infoLinks.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul></div>
   </div>
-  <div class="w">
-    <div class="ft-cl">
-      <img src={footerLogo} alt={siteTitle} data-tina-field={seo ? tinaField(seo, 'footerLogo') : undefined} loading="lazy" decoding="async" />
-      <nav class="ft-links" aria-label={navigation?.title || 'Footer menu'}>
-        {footerMenuItems.map((item) => (
-          <a href={item.href || '#'} data-tina-field={tinaField(item, 'label')}>{item.label}</a>
-        ))}
-      </nav>
-    </div>
-  </div>
-  <div class="w">
-    <div class="ft-lg">
-      <p>&copy; {currentYear} Americas News Today. All rights reserved.</p>
-      <nav class="ft-fine" aria-label="Footer legal links">
-        {fineLinks.map((item) => (
-          <a href={item.href}>{item.label}</a>
-        ))}
-      </nav>
-    </div>
-  </div>
-</footer>
+  <div class="foot-btm"><p>&copy; {currentYear} {siteTitle}. All rights reserved. americasnewstoday.org</p></div>
+</div></footer>

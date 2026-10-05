@@ -1,25 +1,13 @@
 {
-  "title": "Footer Menu",
+  "title": "Newsroom",
   "items": [
-    {
-      "label": "Home",
-      "href": "/"
-    },
-    {
-      "label": "About Us",
-      "href": "/about/"
-    },
-    {
-      "label": "Our Team",
-      "href": "/our-team/"
-    },
-    {
-      "label": "Contact Us",
-      "href": "/contact/"
-    },
-    {
-      "label": "Blog",
-      "href": "/blog/"
-    }
+    { "label": "Home", "href": "/" },
+    { "label": "About Us", "href": "/about/" },
+    { "label": "Our Team", "href": "/our-team/" },
+    { "label": "Contact Us", "href": "/contact/" },
+    { "label": "Blog", "href": "/blog/" },
+    { "label": "Editorial Guidelines", "href": "/editorial-guidelines/" },
+    { "label": "Write for Us", "href": "/write-for-us/" },
+    { "label": "Sitemap", "href": "/sitemap/" }
   ]
 }

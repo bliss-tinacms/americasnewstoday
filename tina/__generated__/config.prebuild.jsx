@@ -937,7 +937,9 @@ var homepageTemplateBlockSchema = {
           fields: [
             { name: "label", label: "Small Label", type: "string" },
             { name: "title", label: "Card Title", type: "string" },
-            { name: "text", label: "Card Text", type: "string", ui: { component: "textarea" } }
+            { name: "text", label: "Card Text", type: "string", ui: { component: "textarea" } },
+            { name: "practiceLabel", label: "Practice Label", type: "string" },
+            { name: "practiceText", label: "Practice Text", type: "string", ui: { component: "textarea" } }
           ]
         }
       ]
@@ -1015,6 +1017,8 @@ var homepageTemplateBlockSchema = {
             { name: "title", label: "Card Title", type: "string" },
             { name: "email", label: "Email", type: "string" },
             { name: "text", label: "Card Text", type: "string", ui: { component: "textarea" } },
+            { name: "image", label: "Headshot Image", type: "image" },
+            { name: "imageAlt", label: "Headshot Alt Text", type: "string" },
             { name: "accent", label: "Accent Card", type: "boolean" }
           ]
         }

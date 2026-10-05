@@ -5,6 +5,7 @@ import type { CmsConfig } from '../lib/data';
 interface Props {
   config?: CmsConfig | null;
   navigation?: NavigationDocument | null;
+  utilityNavigation?: NavigationDocument | null;
 }
 
 type NavItem = {
@@ -18,29 +19,43 @@ type NavigationDocument = {
   items?: (NavItem | null)[] | null;
 };
 
-const { config, navigation } = Astro.props;
+const { config, navigation, utilityNavigation } = Astro.props;
 const seo = config?.seo ?? null;
 const siteTitle = seo?.title || 'Americas News Today';
 const logo = seo?.logo || '/brand-assets/a80bca69-bdf7-4a94-80eb-063779debed2.png';
 const menuItems = ((navigation?.items ?? []) as NavItem[]).filter((item) => item && item.label && item.href);
+const utilityItems = ((utilityNavigation?.items ?? []) as NavItem[])
+  .filter((item) => item && item.label && item.href)
+  .slice(1, 5);
+const dateLabel = new Intl.DateTimeFormat('en-US', {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+}).format(new Date());
 ---
 
-<header class="mh" data-brand-header>
-  <input class="ntog" id="ntog" type="checkbox" aria-label="Toggle navigation menu" />
+<div class="util" data-brand-topbar>
   <div class="w">
-    <div class="mh-in">
-      <a href="/" class="mh-logo-link" aria-label={`${siteTitle} home`}>
-        <img src={logo} alt={siteTitle} data-tina-field={seo ? tinaField(seo, 'logo') : undefined} />
-      </a>
-      <label class="brg" for="ntog">
-        <span class="brg-b" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span>Menu</span>
-      </label>
-      <nav class="mnav" aria-label={navigation?.title || 'Primary menu'}>
-        {menuItems.map((item) => (
-          <a href={item.href || '#'} data-tina-field={tinaField(item, 'label')}>{item.label}</a>
-        ))}
-      </nav>
+    <div class="util-l"><span class="util-date">{dateLabel}</span></div>
+    <div>
+      {utilityItems.map((item) => (
+        <a href={item.href || '#'} data-tina-field={tinaField(item, 'label')}>{item.label}</a>
+      ))}
     </div>
   </div>
+</div>
+<header class="hdr" data-brand-header>
+  <input class="navtog" id="navtog" type="checkbox" aria-label="Toggle navigation menu" />
+  <div class="w"><div class="hdr-in">
+    <a href="/" class="logo" aria-label={`${siteTitle} home`}>
+      <img src={logo} alt={siteTitle} data-tina-field={seo ? tinaField(seo, 'logo') : undefined} />
+    </a>
+    <label class="burger" for="navtog"><span class="burger-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="burger-l">Menu</span></label>
+    <nav class="hnav" aria-label={navigation?.title || 'Primary menu'}>
+      {menuItems.map((item, index) => (
+        <a class={index === 1 ? 'on' : undefined} href={item.href || '#'} data-tina-field={tinaField(item, 'label')}>{item.label}</a>
+      ))}
+    </nav>
+  </div></div>
 </header>

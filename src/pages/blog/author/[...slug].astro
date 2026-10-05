@@ -39,7 +39,7 @@ const editableAuthor = (await getUser(parsed.slug || 'admin')).data?.user ?? nul
 const authorObject = allPosts.find((post) => post.author && typeof post.author === 'object')?.author ?? editableAuthor;
 const archiveTitle = editableAuthor?.name || labelFromReference(authorObject) || 'Author';
 const authorSeo = (editableAuthor as any)?.seo || (authorObject as any)?.seo || null;
-const title = authorSeo?.metaTitle || archiveTitle + ' Articles | ' + (config?.seo?.title || 'First For News');
+const title = authorSeo?.metaTitle || archiveTitle + ' Articles | ' + (config?.seo?.title || 'Americas News Today');
 const description = authorSeo?.metaDescription || editableAuthor?.bio || 'Read the latest articles published by ' + archiveTitle + '.';
 const basePath = '/blog/author/' + parsed.slug;
 ---

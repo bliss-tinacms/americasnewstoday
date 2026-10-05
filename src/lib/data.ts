@@ -209,7 +209,7 @@ function tinaDirectContentApiUrl() {
 		process.env.NEXT_PUBLIC_TINA_CLIENT_ID ||
 		process.env.PUBLIC_TINA_CLIENT_ID ||
 		process.env.TINA_PUBLIC_CLIENT_ID ||
-		'40bc8cd1-d0fe-4061-b99c-d91be2de59e0';
+		'fc6d8b6a-9072-4ac2-9a4b-12a482200442';
 	const branch = process.env.NEXT_PUBLIC_TINA_BRANCH || process.env.TINA_BRANCH || 'main';
 	if (!clientId) return null;
 	return `https://content.tinajs.io/2.4/content/${encodeURIComponent(clientId)}/github/${encodeURIComponent(branch)}`;

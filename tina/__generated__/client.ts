@@ -1,5 +1,5 @@
 import { createClient } from "tinacms/dist/client";
 import { queries } from "./types.js";
-export const client = createClient({ cacheDir: '/tmp/boilerplate-clone/tina/__generated__/.cache/1791205065509', url: 'http://localhost:4001/graphql', token: '6a5378a0fcd649b38871a0698d2a4573c08c4b48', queries,  });
+export const client = createClient({ cacheDir: '/tmp/americasnewstoday-clone/tina/__generated__/.cache/1791210659545', url: 'http://localhost:4001/graphql', token: '7d632782370908199676bb26e3acb471a1a40624', queries,  });
 export default client;
   

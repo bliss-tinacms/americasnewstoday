@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify First For News sitemap dynamic data + SEO output.
+"""Verify Americas News Today sitemap dynamic data + SEO output.
 
 Guard for the /sitemap/ route: compares Tina backend page/post collections to
 live public sitemap DOM and checks SEO/meta output. This prevents the sitemap
@@ -30,7 +30,7 @@ def load_env_file() -> None:
 
 load_env_file()
 
-SITE = os.environ.get("SITE_URL", "https://firstfornews.net").rstrip("/")
+SITE = os.environ.get("SITE_URL", "https://americasnewstoday.org").rstrip("/")
 CLIENT_ID = (
     os.environ.get("NEXT_PUBLIC_TINA_CLIENT_ID")
     or os.environ.get("PUBLIC_TINA_CLIENT_ID")
@@ -163,12 +163,12 @@ def main() -> int:
         if (url, text) not in live_links:
             failures.append(f"missing post link {url} {text!r}")
 
-    if "Sitemap | First For News" not in normalize(parser.title_text):
+    if "Sitemap | Americas News Today" not in normalize(parser.title_text):
         failures.append(f"bad <title>: {parser.title_text!r}")
-    if "Browse the public pages and latest reporting published by First For News." not in parser.meta.get("description", ""):
+    if "Browse the public pages and latest reporting published by Americas News Today." not in parser.meta.get("description", ""):
         failures.append("missing sitemap meta description")
     if "ffn-demo-sitemap" not in html or "sitemap-panel" not in html or "Big Shoulders Display" not in html:
-        failures.append("missing First For News sitemap branding markers")
+        failures.append("missing Americas News Today sitemap branding markers")
     if f">{len(expected_pages)}<" not in html or f">{len(expected_posts)}<" not in html:
         failures.append("dynamic page/post counts not rendered")
     if "Tina content collections" not in live_text:

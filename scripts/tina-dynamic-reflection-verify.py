@@ -18,7 +18,7 @@ from pathlib import Path
 
 import requests
 
-SITE = os.environ.get("SITE_URL", "https://firstfornews.net").rstrip("/")
+SITE = os.environ.get("SITE_URL", "https://americasnewstoday.org").rstrip("/")
 CLIENT_ID = (
     os.environ.get("NEXT_PUBLIC_TINA_CLIENT_ID")
     or os.environ.get("PUBLIC_TINA_CLIENT_ID")

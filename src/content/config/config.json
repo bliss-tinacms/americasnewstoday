@@ -1,19 +1,19 @@
 {
   "seo": {
-    "title": "First For News1",
-    "description": "Timely stories, useful insights, and clear coverage of the topics that matter.1",
-    "siteOwner": "First For News",
-    "logo": "https://res.cloudinary.com/qwdyyii2/image/upload/v1791199578/boilerplate/1db87db3-4c7c-4934-99f8-3bab963d06e8.png",
-    "favicon": "https://res.cloudinary.com/qwdyyii2/image/upload/v1789664635/firstfornews/favicon.png",
-    "footerLogo": "https://res.cloudinary.com/qwdyyii2/image/upload/v1789663489/firstfornews/First-for-News-Logo.png"
+    "title": "Americas News Today",
+    "description": "Timely reporting and useful context across the stories shaping life in the Americas and beyond.",
+    "siteOwner": "Americas News Today",
+    "logo": "https://res.cloudinary.com/qwdyyii2/image/upload/v1791210277/americasnewstoday/americasnewstoday/americas-news-today-logo.svg",
+    "favicon": "https://res.cloudinary.com/qwdyyii2/image/upload/v1791210279/americasnewstoday/americasnewstoday/americas-news-today-favicon.svg",
+    "footerLogo": "https://res.cloudinary.com/qwdyyii2/image/upload/v1791210277/americasnewstoday/americasnewstoday/americas-news-today-logo.svg"
   },
   "contactForm": {
-    "formspreeEndpoint": "https://formspree.io/f/xppwzoep",
+    "formspreeEndpoint": "https://formspree.io/f/xqpekzoz",
     "heading": "You live here. You see things we don't.",
     "description": "Story tips, corrections, letters, and general reader correspondence all reach a person on the newsroom staff.",
     "buttonText": "Send to the newsroom",
     "note": "Fields marked * are required. Read during U.S. business hours. Do not use a work account if your message is sensitive.",
-    "subject": "First For News contact form submission"
+    "subject": "Americas News Today contact form submission"
   },
   "codeInjection": {
     "headerCode": "",

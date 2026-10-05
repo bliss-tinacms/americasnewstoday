@@ -48,7 +48,7 @@ function getSiteUrl() {
 	if (process.env.CF_PAGES_URL) return process.env.CF_PAGES_URL;
 	if (process.env.NETLIFY && process.env.URL) return process.env.URL;
 
-	return 'https://boilerplate.blissdrive.net';
+	return 'https://www.americasnewstoday.org';
 }
 
 // https://astro.build/config

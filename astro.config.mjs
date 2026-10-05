@@ -84,7 +84,10 @@ export default defineConfig({
 		// triggers a full Vite resolve + Astro-plugin compile of the
 		// package's source `.astro` files on the first request.
 		ssr: {
-			noExternal: ['@tinacms/astro', '@tinacms/bridge'],
+			// cPanel Passenger clones may not have a reliable per-app node_modules symlink.
+			// Bundle server dependencies into the SSR output so runtime imports do not
+			// fail with ERR_MODULE_NOT_FOUND (for example clsx) on fresh clone apps.
+			noExternal: true,
 		},
 		build: {
 			rollupOptions: {

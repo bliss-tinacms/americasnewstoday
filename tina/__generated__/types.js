@@ -25,7 +25,25 @@ export const BlogPartsFragmentDoc = gql`
   }
   pubDate
   updatedDate
-  categories
+  category {
+    ... on Category {
+      __typename
+      title
+      description
+    }
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+  }
   author {
     ... on User {
       __typename
@@ -34,17 +52,6 @@ export const BlogPartsFragmentDoc = gql`
       avatar
       bio
       email
-      seo {
-        __typename
-        metaTitle
-        metaDescription
-        ogTitle
-        ogDescription
-        ogImage
-        canonicalUrl
-        noindex
-        nofollow
-      }
     }
     ... on Document {
       _sys {
@@ -70,17 +77,6 @@ export const CategoryPartsFragmentDoc = gql`
   __typename
   title
   description
-  seo {
-    __typename
-    metaTitle
-    metaDescription
-    ogTitle
-    ogDescription
-    ogImage
-    canonicalUrl
-    noindex
-    nofollow
-  }
 }
     `;
 export const PagePartsFragmentDoc = gql`
@@ -415,17 +411,6 @@ export const UserPartsFragmentDoc = gql`
   avatar
   bio
   email
-  seo {
-    __typename
-    metaTitle
-    metaDescription
-    ogTitle
-    ogDescription
-    ogImage
-    canonicalUrl
-    noindex
-    nofollow
-  }
 }
     `;
 export const NavigationPartsFragmentDoc = gql`
@@ -882,7 +867,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "http://localhost:4001/graphql",
+      url: "https://content.tinajs.io/2.4/content/40bc8cd1-d0fe-4061-b99c-d91be2de59e0/github/main",
       queries
     })
   )

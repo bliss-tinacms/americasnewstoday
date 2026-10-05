@@ -51,9 +51,6 @@ function filenameFromDocument(document: any): string {
   return cleanPublicSlug(document?._sys?.filename || document?._sys?.basename || "");
 }
 
-function categoryOptions() {
-  return CATEGORY_OPTIONS;
-}
 
 export const BlogCollection: Collection = {
   name: "blog",

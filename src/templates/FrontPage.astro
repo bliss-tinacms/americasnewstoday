@@ -85,7 +85,9 @@ function authorName(post: any) {
   return getReferenceLabel(post?.author) || post?.authorAlt || post?.author || 'Staff Reporter';
 }
 
-const hero = editHomepage.hero ?? homepage.hero ?? {};
+// Public rendering must use Tina Cloud/backend content from `data`.
+// `editData` is only for Tina field metadata; do not let local editable payload override public values.
+const hero = homepage.hero ?? {};
 const why = homepage.why ?? {};
 const newsroom = homepage.newsroom ?? {};
 const wireFeature = homepage.wireFeature ?? {};
@@ -122,6 +124,12 @@ const coverageTopics = list(coverage.topics, [
   { number: '06', title: 'Arts & Culture', text: 'Film, music & ideas' },
   { number: '07', title: 'Lifestyle', text: 'Home, food & everyday life' },
 ]);
+const mockupTeamImages = [
+  '/brand-assets/mockup-team/catherine-palmer.png',
+  '/brand-assets/mockup-team/nicholas-griffin.png',
+  '/brand-assets/mockup-team/denise-chapman.png',
+  '/brand-assets/mockup-team/scott-coleman.png',
+];
 const teamCards = list(contact.cards, [
   { title: 'Catherine Palmer', email: 'Editor-in-Chief · Indianapolis', text: 'More than fifteen years in editorial leadership at regional and national publications, with a background reporting on politics, state government, and federal courts before she moved into editing.', accent: true, image: '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg', imageAlt: 'Catherine Palmer' },
   { title: 'Nicholas Griffin', email: 'Managing Editor · Tampa', text: 'Twelve years at a Southern regional daily before joining. Runs the editorial calendar, story assignments, and the flow of publication across the desks.', accent: false, image: '/brand-assets/a7e46c80-fcbc-4895-958c-9db64571cae0.jpg', imageAlt: 'Nicholas Griffin' },
@@ -196,12 +204,12 @@ const otherTeam = teamCards.slice(1, 4);
 
   <section class="tm" aria-labelledby="team-title"><div class="w">
     <div class="tm-top"><div class="tm-eye"><i></i><span data-tina-field={tf(editContact, 'eyebrow')}>{value(contact.eyebrow, 'The newsroom')}</span></div><div class="tm-title" id="team-title" data-tina-field={tf(editContact, 'title')}>{value(contact.title, 'Our Team')}</div></div>
-    {leadTeam && <div class="tml"><img class="tml-img" src={leadTeam.image || '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg'} alt={leadTeam.imageAlt || leadTeam.title || ''} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
+    {leadTeam && <div class="tml"><img class="tml-img" src={mockupTeamImages[0]} alt={leadTeam.imageAlt || leadTeam.title || ''} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
     <div class="tmr">
       {otherTeam.map((person, index) => {
         const realIndex = index + 1;
         const editPerson = editContact?.cards?.[realIndex] ?? person;
-        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={person.image || fallbackReportImages[index % fallbackReportImages.length]} alt={person.imageAlt || person.title || ''} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
+        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={mockupTeamImages[realIndex] || fallbackReportImages[index % fallbackReportImages.length]} alt={person.imageAlt || person.title || ''} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
       })}
     </div>
   </div></section>

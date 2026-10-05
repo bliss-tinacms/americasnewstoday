@@ -15,9 +15,10 @@ if (!data) return new Response('Not Found', { status: 404 });
 const config = (await getConfig()).data?.config ?? null;
 const posts = await listBlogs();
 const sourceHome = localHome.frontmatter as any;
-const seo = sourceHome?.seo ?? data.seo ?? null;
-const title = seo?.metaTitle || sourceHome?.seoTitle || data.seoTitle || config?.seo?.title || 'Harbor Post';
-const description = seo?.metaDescription || config?.seo?.description || 'Independent local reporting for the harbor counties.';
+// Public SEO must also prefer Tina Cloud/backend values; local content is fallback only.
+const seo = data.seo ?? sourceHome?.seo ?? null;
+const title = seo?.metaTitle || data.seoTitle || sourceHome?.seoTitle || config?.seo?.title || 'Americas News Today';
+const description = seo?.metaDescription || config?.seo?.description || 'Timely reporting and useful context across the stories shaping life in the Americas and beyond.';
 ---
 
 <Base

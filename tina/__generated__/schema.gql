@@ -266,8 +266,6 @@ type PageBlocksHomepageTemplateWhyStandards {
   label: String
   title: String
   text: String
-  practiceLabel: String
-  practiceText: String
 }
 
 type PageBlocksHomepageTemplateWhy {
@@ -317,8 +315,6 @@ type PageBlocksHomepageTemplateContactCards {
   title: String
   email: String
   text: String
-  image: String
-  imageAlt: String
   accent: Boolean
 }
 
@@ -647,8 +643,6 @@ input PageBlocksHomepageTemplateWhyStandardsFilter {
   label: StringFilter
   title: StringFilter
   text: StringFilter
-  practiceLabel: StringFilter
-  practiceText: StringFilter
 }
 
 input PageBlocksHomepageTemplateWhyFilter {
@@ -698,8 +692,6 @@ input PageBlocksHomepageTemplateContactCardsFilter {
   title: StringFilter
   email: StringFilter
   text: StringFilter
-  image: ImageFilter
-  imageAlt: StringFilter
   accent: BooleanFilter
 }
 
@@ -1293,8 +1285,6 @@ input PageBlocksHomepageTemplateWhyStandardsMutation {
   label: String
   title: String
   text: String
-  practiceLabel: String
-  practiceText: String
 }
 
 input PageBlocksHomepageTemplateWhyMutation {
@@ -1344,8 +1334,6 @@ input PageBlocksHomepageTemplateContactCardsMutation {
   title: String
   email: String
   text: String
-  image: String
-  imageAlt: String
   accent: Boolean
 }
 

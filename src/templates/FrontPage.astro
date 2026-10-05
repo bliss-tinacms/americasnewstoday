@@ -187,7 +187,8 @@ const otherTeam = teamCards.slice(1, 4);
     <div class="stds-g">
       {standards.slice(0, 5).map((item, index) => {
         const editItem = editWhy?.standards?.[index] ?? item;
-        return <div class="sp"><div class="sp-top"><span class="sp-n" data-tina-field={tf(editItem, 'label')}>{item.label}</span><span class="sp-name" data-tina-field={tf(editItem, 'title')}>{item.title}</span></div><p class="sp-def" data-tina-field={tf(editItem, 'text')}>{item.text}</p><div class="sp-prac"><div class="sp-pk" data-tina-field={tf(editItem, 'practiceLabel')}>{item.practiceLabel || 'In practice'}</div><p class="sp-px" data-tina-field={tf(editItem, 'practiceText')}>{item.practiceText || ''}</p></div></div>;
+        const practice = defaultStandards[index] ?? defaultStandards[0];
+        return <div class="sp"><div class="sp-top"><span class="sp-n" data-tina-field={tf(editItem, 'label')}>{item.label}</span><span class="sp-name" data-tina-field={tf(editItem, 'title')}>{item.title}</span></div><p class="sp-def" data-tina-field={tf(editItem, 'text')}>{item.text}</p><div class="sp-prac"><div class="sp-pk">{practice.practiceLabel}</div><p class="sp-px">{practice.practiceText}</p></div></div>;
       })}
       <div class="sn"><div class="sn-eye" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'eyebrow')}>{value(wireFeature.eyebrow, 'A working note')}</div><div class="sn-h" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'quote')}>{value(wireFeature.quote, 'Would we stand behind this piece and explain it to a reader?')}</div><p class="sn-x" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'byline')}>{value(wireFeature.byline, 'Most editorial decisions are matters of judgment. When the rules and the situation do not line up cleanly, the newsroom returns to that question. If the answer is yes, the piece publishes. If not, it holds.')}</p><a href="/editorial-guidelines/" class="sn-cta">Read the full guidelines →</a></div>
     </div>
@@ -195,12 +196,12 @@ const otherTeam = teamCards.slice(1, 4);
 
   <section class="tm" aria-labelledby="team-title"><div class="w">
     <div class="tm-top"><div class="tm-eye"><i></i><span data-tina-field={tf(editContact, 'eyebrow')}>{value(contact.eyebrow, 'The newsroom')}</span></div><div class="tm-title" id="team-title" data-tina-field={tf(editContact, 'title')}>{value(contact.title, 'Our Team')}</div></div>
-    {leadTeam && <div class="tml"><img class="tml-img" src={leadTeam.image || '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg'} alt={leadTeam.imageAlt || leadTeam.title || ''} data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'image')} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
+    {leadTeam && <div class="tml"><img class="tml-img" src={leadTeam.image || '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg'} alt={leadTeam.imageAlt || leadTeam.title || ''} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
     <div class="tmr">
       {otherTeam.map((person, index) => {
         const realIndex = index + 1;
         const editPerson = editContact?.cards?.[realIndex] ?? person;
-        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={person.image || fallbackReportImages[index % fallbackReportImages.length]} alt={person.imageAlt || person.title || ''} data-tina-field={tf(editPerson, 'image')} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
+        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={person.image || fallbackReportImages[index % fallbackReportImages.length]} alt={person.imageAlt || person.title || ''} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
       })}
     </div>
   </div></section>

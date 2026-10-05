@@ -110,8 +110,6 @@ fragment PageParts on Page {
           label
           title
           text
-          practiceLabel
-          practiceText
         }
       }
       newsroom {
@@ -158,8 +156,6 @@ fragment PageParts on Page {
           title
           email
           text
-          image
-          imageAlt
           accent
         }
       }

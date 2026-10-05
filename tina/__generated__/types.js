@@ -25,7 +25,25 @@ export const BlogPartsFragmentDoc = gql`
   }
   pubDate
   updatedDate
-  categories
+  category {
+    ... on Category {
+      __typename
+      title
+      description
+    }
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+  }
   author {
     ... on User {
       __typename

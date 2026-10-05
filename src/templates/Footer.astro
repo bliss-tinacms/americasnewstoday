@@ -21,7 +21,9 @@ const { config, navigation } = Astro.props;
 const currentYear = new Date().getFullYear();
 const seo = config?.seo ?? null;
 const siteTitle = seo?.title || 'First For News';
-const footerLogo = seo?.footerLogo || seo?.logo || '/brand-assets/a80bca69-bdf7-4a94-80eb-063779debed2.png';
+// Keep the site logo dynamic CMS-style: the main Logo field drives header and footer.
+// footerLogo remains a legacy fallback only for old content where logo is empty.
+const footerLogo = seo?.logo || seo?.footerLogo || '/brand-assets/a80bca69-bdf7-4a94-80eb-063779debed2.png';
 const footerMenuItems = ((navigation?.items ?? []) as NavItem[]).filter((item) => item && item.label && item.href);
 const fineLinks = [
   { label: 'Privacy', href: '/privacy-policy/' },

@@ -354,9 +354,6 @@ function liveOrGenerated<TData>(query: string, variables: Record<string, unknown
 }
 
 export async function getConfig() {
-	const localConfig = readLocalJson('config', 'config.json');
-	if (localConfig) return { data: { config: localConfig } } as any;
-
 	const query = `query Config($relativePath: String!) {
 		config(relativePath: $relativePath) {
 			seo { title description siteOwner logo favicon footerLogo }
@@ -366,8 +363,13 @@ export async function getConfig() {
 			footerStarfield
 		}
 	}`;
+	// Public rendering must prefer Tina Cloud so backend edits appear on the frontend
+	// like a real CMS. Local deployed JSON is only a fallback for outages/builds.
 	const liveConfig = await fetchLiveTina(query, { relativePath: 'config.json' }, (json) => json?.data?.config);
 	if (liveConfig) return { data: { config: liveConfig } } as any;
+
+	const localConfig = readLocalJson('config', 'config.json');
+	if (localConfig) return { data: { config: localConfig } } as any;
 	return requestWithMetadata(client.queries.config({ relativePath: 'config.json' }));
 }
 
@@ -385,14 +387,6 @@ export const getEditableConfig = () => {
 
 
 async function getLiveNavigation(relativePath: 'header.json' | 'footer.json') {
-	try {
-		const filePath = join(process.cwd(), 'src', 'content', 'navigation', relativePath);
-		const navigation = JSON.parse(readFileSync(filePath, 'utf8'));
-		if (navigation?.items) return { data: { navigation } } as any;
-	} catch (_error) {
-		// Fall through to Tina Cloud/generated client.
-	}
-
 	const query = `query Navigation($relativePath: String!) {
 		navigation(relativePath: $relativePath) {
 			title
@@ -400,8 +394,17 @@ async function getLiveNavigation(relativePath: 'header.json' | 'footer.json') {
 		}
 	}`;
 
+	// Public navigation must also be CMS-live-first; local deployed JSON is fallback only.
 	const liveNavigation = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.navigation);
 	if (liveNavigation) return { data: { navigation: liveNavigation } } as any;
+
+	try {
+		const filePath = join(process.cwd(), 'src', 'content', 'navigation', relativePath);
+		const navigation = JSON.parse(readFileSync(filePath, 'utf8'));
+		if (navigation?.items) return { data: { navigation } } as any;
+	} catch (_error) {
+		// Fall through to generated client.
+	}
 
 	return requestWithMetadata(client.queries.navigation({ relativePath }));
 }
@@ -457,6 +460,13 @@ async function getLivePage(slug: string) {
 		}
 	}`;
 
+	// Public pages must be CMS-live-first so Tina backend saves appear without a redeploy.
+	const livePage = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.page);
+	if (livePage) return { data: { page: livePage } } as any;
+
+	const githubPage = await fetchGithubPageFrontmatter(relativePath);
+	if (githubPage) return { data: { page: githubPage } } as any;
+
 	const localPage = readLocalPageFrontmatter(relativePath);
 	if (localPage) {
 		return {
@@ -468,12 +478,6 @@ async function getLivePage(slug: string) {
 			},
 		} as any;
 	}
-
-	const livePage = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.page);
-	if (livePage) return { data: { page: livePage } } as any;
-
-	const githubPage = await fetchGithubPageFrontmatter(relativePath);
-	if (githubPage) return { data: { page: githubPage } } as any;
 
 	return requestWithMetadata(client.queries.page({ relativePath }), { priority: 'primary' });
 }

@@ -1,5 +1,4 @@
 ﻿import type { Collection } from "tinacms";
-import { seoFields } from "../fields/seo";
 
 export const UserCollection: Collection = {
   name: "user",
@@ -42,7 +41,5 @@ export const UserCollection: Collection = {
       name: "email",
       label: "Email",
     },
-    seoFields,
   ],
 };
-

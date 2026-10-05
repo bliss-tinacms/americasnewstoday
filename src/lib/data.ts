@@ -457,9 +457,6 @@ async function getLivePage(slug: string) {
 		}
 	}`;
 
-	const livePage = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.page);
-	if (livePage) return { data: { page: livePage } } as any;
-
 	const localPage = readLocalPageFrontmatter(relativePath);
 	if (localPage) {
 		return {
@@ -471,6 +468,9 @@ async function getLivePage(slug: string) {
 			},
 		} as any;
 	}
+
+	const livePage = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.page);
+	if (livePage) return { data: { page: livePage } } as any;
 
 	const githubPage = await fetchGithubPageFrontmatter(relativePath);
 	if (githubPage) return { data: { page: githubPage } } as any;

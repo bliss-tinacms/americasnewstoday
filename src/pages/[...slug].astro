@@ -9,7 +9,7 @@ import CategoryArchiveHeader from '../components/islands/CategoryArchiveHeader.a
 import DemoCategoryArchive from '../components/demo/DemoCategoryArchive.astro';
 import DemoAuthorArchive from '../components/demo/DemoAuthorArchive.astro';
 import Demo404 from '../components/demo/Demo404.astro';
-import { getBlog, getCategory, getConfig, getPublicPage, getUser, listBlogs, listPages, type CmsBlog, type CmsCategory } from '../lib/data';
+import { getBlog, getEditableBlog, getCategory, getConfig, getPublicPage, getUser, listBlogs, listPages, type CmsBlog, type CmsCategory } from '../lib/data';
 import { islands } from '../lib/islands';
 
 export const prerender = false;
@@ -230,6 +230,8 @@ if (view === 'not-found') {
   const blog = await getBlog(documentSlug);
   const data = blog.data?.blog;
   if (data?.title || data?._sys?.filename) {
+      const editableBlog = await getEditableBlog(documentSlug).catch(() => null);
+      const editData = editableBlog?.data?.blog ?? data;
       const canonicalSlug = getBlogRouteSlug(data);
       if (canonicalSlug && canonicalSlug !== routeSlug) return Astro.redirect(getBlogPermalink(data) + '/', 301);
       const defaultAuthor = (await getUser('admin')).data?.user ?? null;
@@ -245,6 +247,7 @@ if (view === 'not-found') {
       blogContext = {
         documentSlug,
         data,
+        editData,
         defaultAuthor,
         relatedPosts,
         layoutProps: {
@@ -328,7 +331,7 @@ if (view === 'not-found') {
 {view === 'blog' && blogContext && (
   <BlogPost {...blogContext.layoutProps}>
     <TinaIsland name="blog" wrapper={islands.blog.wrapper} params={{ slug: blogContext.documentSlug }} primary>
-      <BlogBody data={blogContext.data} relatedPosts={blogContext.relatedPosts} defaultAuthor={blogContext.defaultAuthor} />
+      <BlogBody data={blogContext.data} editData={blogContext.editData} relatedPosts={blogContext.relatedPosts} defaultAuthor={blogContext.defaultAuthor} />
     </TinaIsland>
   </BlogPost>
 )}

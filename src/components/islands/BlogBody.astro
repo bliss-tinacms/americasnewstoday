@@ -10,11 +10,13 @@ import { mdxComponents } from '../mdx/components';
 
 interface Props {
 	data?: CmsBlog | null;
+	editData?: CmsBlog | null;
 	relatedPosts?: CmsBlog[];
 	defaultAuthor?: CmsUser | null;
 }
 
-const { data, relatedPosts = [], defaultAuthor = null } = Astro.props;
+const { data, editData = data, relatedPosts = [], defaultAuthor = null } = Astro.props;
+const tinaData = editData || data;
 
 type ReferenceObject = {
 	title?: string | null;
@@ -171,11 +173,11 @@ const heroImageAlt = (() => {
 			<div class="w">
 				<div class="ah-in">
 					{categoryLabel && (
-						<div data-tina-field={tinaField(data, 'categories')} class="ah-k">
+						<div data-tina-field={tinaField(tinaData, 'category')} class="ah-k">
 							<b>{categoryLabel}</b>
 						</div>
 					)}
-					{data.title && <h1 data-tina-field={tinaField(data, 'title')}>{data.title}</h1>}
+					{data.title && <h1 data-tina-field={tinaField(tinaData, 'title')}>{data.title}</h1>}
 					<div class="ah-by">
 						<a href={authorArchiveUrl} aria-label={`View ${authorName} archive`}>
 							{author?.avatar ? (
@@ -184,12 +186,12 @@ const heroImageAlt = (() => {
 								<span class="ah-av post-author-box__placeholder" aria-hidden="true">{authorInitials}</span>
 							)}
 						</a>
-						<div class="ah-au" data-tina-field={tinaField(data, 'author')}>
+						<div class="ah-au" data-tina-field={tinaField(tinaData, 'author')}>
 							<div class="ah-an">By <a href={authorArchiveUrl}>{authorName}</a></div>
 						</div>
 						<div class="ah-dt">
-							{publishedDate && <span data-tina-field={tinaField(data, 'pubDate')}><FormattedDate date={publishedDate} /></span>}
-							{data.updatedDate && <><br /><span data-tina-field={tinaField(data, 'updatedDate')}>Updated <FormattedDate date={new Date(data.updatedDate)} /></span></>}
+							{publishedDate && <span data-tina-field={tinaField(tinaData, 'pubDate')}><FormattedDate date={publishedDate} /></span>}
+							{data.updatedDate && <><br /><span data-tina-field={tinaField(tinaData, 'updatedDate')}>Updated <FormattedDate date={new Date(data.updatedDate)} /></span></>}
 						</div>
 					</div>
 				</div>
@@ -199,7 +201,7 @@ const heroImageAlt = (() => {
 		<section class="bd">
 			<div class="w bd-in">
 				{data.heroImage && (
-					<figure data-tina-field={tinaField(data, 'heroImage')} class="li">
+					<figure data-tina-field={tinaField(tinaData, 'heroImage')} class="li">
 						<img width={1020} height={574} src={data.heroImage} alt={heroImageAlt} />
 					</figure>
 				)}
@@ -238,12 +240,12 @@ const heroImageAlt = (() => {
 
 				<article id="article-body" class="pr" data-toc-ids={JSON.stringify(tocItems.map((item) => item.id))}>
 					{data.body && (
-						<div data-tina-field={tinaField(data, 'body')}>
+						<div data-tina-field={tinaField(tinaData, 'body')}>
 							{typeof data.body === 'string' ? <p>{data.body}</p> : <TinaMarkdown content={data.body} components={mdxComponents} />}
 						</div>
 					)}
 
-					<section id="about-author" data-tina-field={tinaField(data, 'author')} class="corr" aria-labelledby="post-author-heading">
+					<section id="about-author" data-tina-field={tinaField(tinaData, 'author')} class="corr" aria-labelledby="post-author-heading">
 						<div class="corr-t">Published by</div>
 						<div class="corr-b">
 							<strong id="post-author-heading"><a href={authorArchiveUrl}>{authorName}</a></strong>

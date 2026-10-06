@@ -1,3 +1,6 @@
+/* Global header sticky fix: Tina wraps Header in a short island div; display:contents lets .hdr sticky bind to page viewport. */
+div[data-tina-island="/tina-island/global"]{display:contents}
+
 /* Home demo body CSS extracted from uploaded home.html; header/footer rules intentionally excluded. */
 :root{--navy:#002B5C;--navy2:#001F43;--navy3:#E8EEF8;--ink:#0D1B2A;--muted:#4A5568;--slate:#334155;--light:#F7F9FC;--bdr:#D1D9E3;--bdr2:#B8C4D4;--red:#C53030;--gold:#B8972A;--ser:'Source Serif 4',Georgia,serif;--san:'Inter',sans-serif}
 .home-source-body *{box-sizing:border-box;margin:0;padding:0}

@@ -171,3 +171,5 @@ html,body{border-top:0!important;}
 body::before,body::after{border-top:0!important;}
 .util,.hdr{border-top:0!important;box-shadow:none!important;}
 .hdr::before,.util::before{content:none!important;display:none!important;}
+footer.foot[data-brand-footer]{padding-top:76px!important;padding-bottom:34px!important;background:var(--navy2)!important;border-top:0!important;}
+footer.foot[data-brand-footer] .fg-grid{gap:64px!important;margin-bottom:56px!important;align-items:start!important;}

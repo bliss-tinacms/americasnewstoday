@@ -1,4 +1,44 @@
 ---
-// Blank body only. Global Base layout keeps Header and Footer.
+// Generic dynamic page template. Global Base layout keeps Header/Footer.
+// Header uses the same blue demo masthead pattern as archive pages; body renders page content dynamically.
+import TinaMarkdown from '@tinacms/astro/TinaMarkdown.astro';
+import { tinaField } from '@tinacms/astro/tina-field';
+import { mdxComponents } from '../mdx/components';
+
+const { data } = Astro.props;
+const pageTitle = data?.title || data?.seoTitle || 'Page';
+const blocks = Array.isArray(data?.blocks) ? data.blocks : [];
+const contentBlocks = blocks.filter((block: any) => block?._template === 'content' || block?.__typename === 'PageBlocksContent' || block?.body);
+const directBody = data?.body || null;
 ---
-<main id="default-clean-page"></main>
+<main class="page-source-body">
+  <header class="ph">
+    <div class="w">
+      <div class="ph-b">
+        <h1>{pageTitle}</h1>
+      </div>
+    </div>
+  </header>
+
+  <section class="pg-content">
+    <div class="w">
+      <div class="pg-prose">
+        {directBody ? (
+          <div data-tina-field={tinaField(data, 'body')}>
+            {typeof directBody === 'string' ? <p>{directBody}</p> : <TinaMarkdown content={directBody} components={mdxComponents} />}
+          </div>
+        ) : contentBlocks.length ? (
+          contentBlocks.map((block: any) => (
+            <div data-tina-field={tinaField(block, 'body')}>
+              {block?.body ? (
+                typeof block.body === 'string' ? <TinaMarkdown content={block.body} components={mdxComponents} /> : <TinaMarkdown content={block.body} components={mdxComponents} />
+              ) : null}
+            </div>
+          ))
+        ) : (
+          <p>Add page content in the editor.</p>
+        )}
+      </div>
+    </div>
+  </section>
+</main>

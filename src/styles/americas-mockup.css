@@ -796,3 +796,60 @@ html{scroll-behavior:smooth;scroll-padding-top:120px}
 .author-source-body .pr-empty .pr-t{font-family:var(--ser)!important;font-size:24px!important;font-weight:700!important;letter-spacing:-.025em;line-height:1.26;color:var(--ink)!important;margin-bottom:9px!important;text-transform:none!important}
 .author-source-body .pr-empty .pr-x{font-size:16px!important;color:var(--muted)!important;line-height:1.7!important;margin:0!important}
 
+/* Generic page template CSS: blue header + dynamic full-width content body. */
+.page-source-body{font-family:var(--san);font-size:18px;background:#fff;color:var(--ink);-webkit-font-smoothing:antialiased}
+.page-source-body *{box-sizing:border-box}
+.page-source-body .w{max-width:1180px;margin:0 auto;padding:0 36px}
+.page-source-body .ph{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold);position:relative;overflow:hidden}
+.page-source-body .ph::after{content:'';position:absolute;right:-130px;top:-150px;width:470px;height:470px;border:1px solid rgba(255,255,255,.08);border-radius:50%}
+.page-source-body .ph-b{padding:58px 0 54px;position:relative;z-index:2}
+.page-source-body .ph h1{font-family:var(--ser);font-size:52px;font-weight:700;line-height:1.04;letter-spacing:-.035em;margin:0;color:#fff;text-transform:none;text-decoration:none;border:0}
+.page-source-body .pg-content{padding:58px 0 76px;background:#fff;color:var(--ink)}
+.page-source-body .pg-prose{width:100%;max-width:none;color:var(--ink);font-family:var(--san);font-size:18px;line-height:1.78}
+.page-source-body .pg-prose>*+*,
+.page-source-body .pg-prose div>*+*{margin-top:20px}
+.page-source-body .pg-prose p{font-family:var(--san);font-size:18px;font-weight:400;line-height:1.78;color:var(--ink);margin:0 0 20px;text-transform:none;text-decoration:none}
+.page-source-body .pg-prose strong{font-weight:700;color:var(--ink)}
+.page-source-body .pg-prose h2{font-family:var(--ser);font-size:34px;font-weight:700;line-height:1.12;letter-spacing:-.025em;color:var(--navy);margin:42px 0 14px;text-transform:none;text-decoration:none;border:0}
+.page-source-body .pg-prose h3{font-family:var(--ser);font-size:26px;font-weight:700;line-height:1.18;color:var(--navy);margin:34px 0 12px;text-transform:none;text-decoration:none;border:0}
+.page-source-body .pg-prose ul,
+.page-source-body .pg-prose ol{margin:0 0 22px 26px;padding:0;color:var(--ink)}
+.page-source-body .pg-prose li{font-size:18px;line-height:1.72;margin:8px 0;color:var(--ink)}
+.page-source-body .pg-prose a{color:var(--navy);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.page-source-body .pg-prose a:hover{color:var(--red)}
+@media(max-width:960px){
+.page-source-body .ph-b{padding:44px 0 42px}
+.page-source-body .ph h1{font-size:36px}
+.page-source-body .pg-content{padding:46px 0 64px}
+.page-source-body .pg-prose h2{font-size:30px}
+}
+@media(max-width:600px){
+.page-source-body .w{padding:0 20px}
+.page-source-body .ph-b{padding:34px 0 32px}
+.page-source-body .ph h1{font-size:28px}
+.page-source-body .pg-content{padding:38px 0 52px}
+.page-source-body .pg-prose,
+.page-source-body .pg-prose p,
+.page-source-body .pg-prose li{font-size:16px;line-height:1.72}
+.page-source-body .pg-prose h2{font-size:25px}
+.page-source-body .pg-prose h3{font-size:22px}
+}
+
+/* Generic page CSS isolation: site globals must not alter page body text, colors, fonts, weights, lines, or responsive rules. */
+.page-source-body,
+.page-source-body *{font-synthesis-weight:none!important}
+.page-source-body :is(h1,h2,h3,h4,h5,h6,p,span,div,li,td,th,figcaption){text-decoration:none!important}
+.page-source-body :is(h1,h2,h3,h4,h5,h6)::before,
+.page-source-body :is(h1,h2,h3,h4,h5,h6)::after,
+.page-source-body :is(p,span,div)::before,
+.page-source-body :is(p,span,div)::after{content:none!important;display:none!important;border:0!important;background:none!important}
+.page-source-body{background:#fff!important;color:var(--ink)!important}
+.page-source-body .ph,
+.page-source-body .ph *{color:#fff!important}
+.page-source-body .ph h1{font-family:var(--ser)!important;font-weight:700!important;text-transform:none!important;text-decoration:none!important;border:0!important;color:#fff!important}
+.page-source-body .pg-content{background:#fff!important;color:var(--ink)!important}
+.page-source-body .pg-prose{max-width:none!important;width:100%!important;color:var(--ink)!important}
+.page-source-body .pg-prose h2,
+.page-source-body .pg-prose h3{font-family:var(--ser)!important;color:var(--navy)!important;font-weight:700!important;text-transform:none!important;text-decoration:none!important;border:0!important}
+.page-source-body .pg-prose p,
+.page-source-body .pg-prose li{font-family:var(--san)!important;color:var(--ink)!important;font-weight:400!important;text-transform:none!important}

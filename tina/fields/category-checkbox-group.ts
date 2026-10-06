@@ -3,7 +3,6 @@ import React from "react";
 
 const CATEGORY_OPTIONS = [
   { label: "Business", value: "src/content/category/Business.json" },
-  { label: "Environment", value: "src/content/category/Environment.json" },
   { label: "Featured", value: "src/content/category/Featured.json" },
   { label: "Health", value: "src/content/category/Health.json" },
   { label: "Lifestyle", value: "src/content/category/Lifestyle.json" },

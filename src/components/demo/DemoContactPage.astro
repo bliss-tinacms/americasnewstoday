@@ -1,52 +1,9 @@
 ---
-const sourceHtml = `<header class="ph"><div class="w"><div class="ph-in">
-  <div class="ph-kick"><i></i><span>Contact America’s News Today</span></div>
-  <h1>Every message reaches a person in the newsroom.</h1>
-  <p>America’s News Today handles most correspondence through two addresses. Routing your message to the right one helps it reach the appropriate team faster.</p></div></div></header><section class="ms"><div class="w"><div class="ms-in">
-  <div>
-    <div class="eye"><i></i><span>Send a message</span></div>
-    <h2 class="h2">Write to the Newsroom</h2>
-    <p class="ms-lead">Use this form for tips, pitches, corrections, or general correspondence. If your message is time sensitive, say so in the first line.</p>
-    <form>
-      <div class="fg">
-        <div><label class="fl" for="fn">Full Name</label><input class="fi" id="fn" type="text" placeholder="Your full name"></div>
-        <div><label class="fl" for="fe">Email Address</label><input class="fi" id="fe" type="email" placeholder="your@email.com"></div>
-      </div>
-      <div class="fr"><label class="fl" for="ft">Inquiry Type</label>
-        <select class="fi" id="ft"><option>Story Tip</option><option>Correction Request</option><option>Contributor Inquiry</option><option>General Correspondence</option></select>
-      </div>
-      <div class="fr"><label class="fl" for="fm">Message</label>
-        <textarea class="fi" id="fm" placeholder="Describe your tip, correction, or inquiry in as much detail as you can. Include links, dates, and documents where relevant."></textarea>
-      </div>
-      <button class="fsub" type="submit">Submit to Newsroom</button>
-      <p class="fnote">All submissions are treated with discretion. We do not publish tips without independent verification.</p>
-    </form>
-  </div>
-  <aside class="sb">
-    <div class="sb-t">Before you write</div>
-    <p class="sb-x">A few things that help us act on your message faster.</p>
-    <div class="sbr"><div class="sbr-k">On the record</div><div class="sbr-v">If your tip is sensitive, state at the top whether you are <strong>on the record</strong>, <strong>on background</strong>, or <strong>off the record</strong>. Terms have to be agreed before the information is sent, not after.</div></div>
-    <div class="sbr"><div class="sbr-k">Response time</div><div class="sbr-v">This is a working newsroom, not a support desk. Most messages get a reply within <strong>two business days</strong>.</div></div>
-    <div class="sbr"><div class="sbr-k">Documents</div><div class="sbr-v">Original records carry more weight than summaries. Send what you have, and tell us where it came from.</div></div>
-  </aside></div></div></section><section class="nt"><div class="w">
-  <div class="eye"><i></i><span>Specific requests</span></div>
-  <h2 class="h2">Corrections, Legal, and Letters</h2>
-  <div class="nt-l">
-    <div class="ntr">
-      <div class="ntr-n">01</div>
-      <div class="ntr-t">Corrections</div>
-      <p class="ntr-x">If you have identified a factual error in a published piece, send the article URL, the specific error, and the corrected information to <a href="mailto:editorial@americasnewstoday.org">editorial@americasnewstoday.org</a>. Verified corrections are handled promptly and appended to the affected article with a dated correction note.</p>
-    </div>
-    <div class="ntr">
-      <div class="ntr-n">02</div>
-      <div class="ntr-t">DMCA &amp; Legal Notices</div>
-      <p class="ntr-x">Copyright takedown notices, counter-notifications, and other legal correspondence reach the publication through the editorial address. The DMCA Policy page describes the elements a valid notice must include.</p>
-    </div>
-    <div class="ntr">
-      <div class="ntr-n">03</div>
-      <div class="ntr-t">Letters to the Editor</div>
-      <p class="ntr-x">Letters written for publication as reader correspondence should be flagged as such in the subject line. Published letters carry the writer’s name and city. The publication reserves the right to edit for length and clarity, with the writer’s consent.</p>
-    </div>
-  </div></div></section>`;
+import { tinaField } from '@tinacms/astro/tina-field';
+const { data = null, config = null } = Astro.props;
+const block = Array.isArray(data?.blocks) ? data.blocks[0] : data;
+const hero=block?.hero||{}; const formSection=block?.formSection||{}; const inboxes=block?.inboxes||{}; const requests=block?.requests||{};
+const requestCards=Array.isArray(requests?.cards)?requests.cards:[]; const t=(v:any,f='')=>v??f;
+const formAction=formSection.formAction||config?.contactForm?.formspreeEndpoint||undefined;
 ---
-<main class="ffn-demo ffn-demo-contact" set:html={sourceHtml} />
+<main class="ffn-demo ffn-demo-contact"><header class="ph"><div class="w"><div class="ph-in"><div class="ph-kick"><i></i><span data-tina-field={hero?tinaField(hero,'eyebrow'):undefined}>{t(hero.eyebrow,'Contact America’s News Today')}</span></div><h1 data-tina-field={hero?tinaField(hero,'headline'):undefined}>{t(hero.headline,'Every message reaches a person in the newsroom.')}</h1><p data-tina-field={hero?tinaField(hero,'lede'):undefined}>{t(hero.lede,'America’s News Today handles most correspondence through two addresses. Routing your message to the right one helps it reach the appropriate team faster.')}</p></div></div></header><section class="ms"><div class="w"><div class="ms-in"><div><div class="eye"><i></i><span data-tina-field={formSection?tinaField(formSection,'eyebrow'):undefined}>{t(formSection.eyebrow,'Send a message')}</span></div><h2 class="h2" data-tina-field={formSection?tinaField(formSection,'title'):undefined}>{t(formSection.title,'Write to the Newsroom')}</h2><p class="ms-lead" data-tina-field={formSection?tinaField(formSection,'description'):undefined}>{t(formSection.description,'Use this form for tips, pitches, corrections, or general correspondence. If your message is time sensitive, say so in the first line.')}</p><form method="POST" action={formAction}><div class="fg"><div><label class="fl" for="fn">Full Name</label><input class="fi" id="fn" name="full_name" type="text" placeholder="Your full name" /></div><div><label class="fl" for="fe">Email Address</label><input class="fi" id="fe" name="email" type="email" placeholder="your@email.com" /></div></div><div class="fr"><label class="fl" for="ft">Inquiry Type</label><select class="fi" id="ft" name="inquiry_type"><option>Story Tip</option><option>Correction Request</option><option>Contributor Inquiry</option><option>General Correspondence</option></select></div><div class="fr"><label class="fl" for="fm">Message</label><textarea class="fi" id="fm" name="message" placeholder="Describe your tip, correction, or inquiry in as much detail as you can. Include links, dates, and documents where relevant."></textarea></div><button class="fsub" type="submit" data-tina-field={formSection?tinaField(formSection,'buttonText'):undefined}>{t(formSection.buttonText,'Submit to Newsroom')}</button><p class="fnote" data-tina-field={formSection?tinaField(formSection,'note'):undefined}>{t(formSection.note,'All submissions are treated with discretion. We do not publish tips without independent verification.')}</p></form></div><aside class="sb"><div class="sb-t">Before you write</div><p class="sb-x">A few things that help us act on your message faster.</p><div class="sbr"><div class="sbr-k">On the record</div><div class="sbr-v">If your tip is sensitive, state at the top whether you are <strong>on the record</strong>, <strong>on background</strong>, or <strong>off the record</strong>. Terms have to be agreed before the information is sent, not after.</div></div><div class="sbr"><div class="sbr-k">Response time</div><div class="sbr-v">This is a working newsroom, not a support desk. Most messages get a reply within <strong>two business days</strong>.</div></div><div class="sbr"><div class="sbr-k">Documents</div><div class="sbr-v">Original records carry more weight than summaries. Send what you have, and tell us where it came from.</div></div></aside></div></div></section><section class="nt"><div class="w"><div class="eye"><i></i><span data-tina-field={requests?tinaField(requests,'eyebrow'):undefined}>{t(requests.eyebrow,'Specific requests')}</span></div><h2 class="h2" data-tina-field={requests?tinaField(requests,'title'):undefined}>{t(requests.title,'Corrections, Legal, and Letters')}</h2><div class="nt-l">{requestCards.map((card:any,index:number)=><div class="ntr"><div class="ntr-n">{String(index+1).padStart(2,'0')}</div><div class="ntr-t" data-tina-field={tinaField(card,'title')}>{card.title}</div><p class="ntr-x" data-tina-field={tinaField(card,'text')}>{card.text}</p></div>)}</div></div></section></main>

@@ -1,76 +1,11 @@
 ---
-const sourceHtml = `<header class="ah">
-  <div class="w"><div class="ab">
-    <img class="ab-img" src="/brand-assets/mockup-team/catherine-palmer.png" alt="Catherine Palmer">
-    <div>
-      <div class="ab-kick"><i></i><span>Author Archive</span></div>
-      <h1>Catherine Palmer</h1>
-      <p class="ab-bio">Catherine leads the newsroom from Indianapolis. More than fifteen years in editorial leadership at regional and national publications, with a background reporting on politics, state government, and federal courts before she moved into editing. She oversees the corrections record personally.</p>
-    </div>
-  </div></div></header><section class="pl"><div class="w">
-  <div class="pl-h">
-    <div>
-      <div class="pl-eye"><i></i><span>Most recent first</span></div>
-      <div class="pl-t">Stories by Catherine Palmer</div>
-    </div>
-    <div class="pl-c">Page 1 of 9</div>
-  </div>
-  <div class="pl-l">
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/blog-placeholder-about.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">World News</div>
-        <div class="pr-t">The Delegation Signed an Agreement Its Own Ministry Had Not Seen</div>
-        <p class="pr-x">Two officials confirm the text was finalised in transit. The published version differs from the briefing paper in three clauses.</p>
-      </div>
-      <div class="pr-m"><div class="pr-dt">Sept 17</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/blog-placeholder-2.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Education</div>
-        <div class="pr-t">A District Adopted a New Curriculum in a Meeting With No Public Comment</div>
-        <p class="pr-x">The vote is recorded as unanimous. Teachers received the materials eleven days before term began.</p>
-      </div>
-      <div class="pr-m"><div class="pr-dt">Sept 12</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/blog-placeholder-3.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Business</div>
-        <div class="pr-t">The Board Vote That Happened Before the Board Met</div>
-        <p class="pr-x">Minutes record a unanimous decision at a meeting two directors say they did not attend.</p>
-      </div>
-      <div class="pr-m"><div class="pr-dt">Sept 5</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/blog-placeholder-4.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Environment</div>
-        <div class="pr-t">A Permit Was Renewed for the Ninth Year of a Two-Year Programme</div>
-        <p class="pr-x">The original authorisation described the arrangement as temporary. Nothing in the file explains what changed.</p>
-      </div>
-      <div class="pr-m"><div class="pr-dt">Aug 30</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/blog-placeholder-5.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Education</div>
-        <div class="pr-t">Enrolment Figures Were Revised Upward. The Funding Formula Used the Old Ones.</div>
-        <p class="pr-x">The correction arrived after the allocation was set, leaving four districts short for a full academic year.</p>
-      </div>
-      <div class="pr-m"><div class="pr-dt">Aug 24</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/blog-placeholder-about.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">World News</div>
-        <div class="pr-t">Two Ministries Published the Same Statistic. The Numbers Differed by a Third.</div>
-        <p class="pr-x">Neither office will say which figure is correct, and both continue to cite their own in public briefings.</p>
-      </div>
-      <div class="pr-m"><div class="pr-dt">Aug 19</div></div>
-    </a>
-  </div></div></section><section class="pg"><div class="w"><div class="pg-in">
-  <a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><span class="gap">…</span><a href="#">9</a><a href="#" class="nx">Next →</a></div></div></section>`;
+import { tinaField } from '@tinacms/astro/tina-field';
+import { getBlogPermalink } from '../../lib/permalinks';
+import { labelFromReference, getPostCategories } from './DemoHelpers';
+const { archiveTitle='Author', author=null, posts=[], currentPage=1, totalPages=1, basePath='/blog/author/admin' }=Astro.props;
+function postUrl(post:any){const url=getBlogPermalink(post);return url.endsWith('/')?url:url+'/'}
+function pagePath(page:number){return page<=1?basePath+'/':basePath+'/page/'+page+'/'}
+function dt(post:any){return post.pubDate ? new Date(post.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}).replace(',', '') : ''}
+const bio=author?.bio||`${archiveTitle} writes and edits coverage for Americas News Today.`; const avatar=author?.avatar||'';
 ---
-<main class="ffn-demo ffn-demo-author" set:html={sourceHtml} />
+<main class="ffn-demo ffn-demo-author"><header class="ah"><div class="w"><div class="ab">{avatar?<img class="ab-img" src={avatar} alt={archiveTitle} data-tina-field={author?tinaField(author,'avatar'):undefined}/>:<div class="ab-img demo-img"></div>}<div><div class="ab-kick"><i></i><span>Author Archive</span></div><h1 data-tina-field={author?tinaField(author,'name'):undefined}>{archiveTitle}</h1><p class="ab-bio" data-tina-field={author?tinaField(author,'bio'):undefined}>{bio}</p></div></div></div></header><section class="pl"><div class="w"><div class="pl-h"><div><div class="pl-eye"><i></i><span>Most recent first</span></div><div class="pl-t">Stories by {archiveTitle}</div></div><div class="pl-c">Page {currentPage} of {totalPages}</div></div><div class="pl-l">{posts.map((post:any)=><a href={postUrl(post)} class="pr"><div class="pr-img" style={post.heroImage?`background-image: url(&quot;${post.heroImage}&quot;);`:undefined}></div><div><div class="pr-cat">{labelFromReference(getPostCategories(post),'News')}</div><div class="pr-t" data-tina-field={tinaField(post,'title')}>{post.title}</div>{post.description&&<p class="pr-x" data-tina-field={tinaField(post,'description')}>{post.description}</p>}</div><div class="pr-m"><div class="pr-dt">{dt(post)}</div></div></a>)}</div></div></section>{totalPages>1&&<section class="pg"><div class="w"><div class="pg-in"><a href={pagePath(1)} class={currentPage===1?'on':''}>1</a>{totalPages>=2&&<a href={pagePath(2)} class={currentPage===2?'on':''}>2</a>}{totalPages>=3&&<a href={pagePath(3)} class={currentPage===3?'on':''}>3</a>}<span class="gap">…</span><a href={pagePath(totalPages)}>{totalPages}</a><a href={pagePath(Math.min(totalPages,currentPage+1))} class="nx">Next →</a></div></div></section>}</main>

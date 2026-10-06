@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Americas News Today",
+    "title": "Americas News Today111",
     "description": "Timely reporting and useful context across the stories shaping life in the Americas and beyond.",
     "siteOwner": "Americas News Today",
     "logo": "https://res.cloudinary.com/qwdyyii2/image/upload/v1791213955/americasnewstoday/America%27s-News-Today-Logo.png",
@@ -11,7 +11,6 @@
     "formspreeEndpoint": "https://formspree.io/f/xqpekzoz",
     "heading": "You live here. You see things we don't.",
     "description": "Story tips, corrections, letters, and general reader correspondence all reach a person on the newsroom staff.",
-    "buttonText": "Send to the newsroom",
     "note": "Fields marked * are required. Read during U.S. business hours. Do not use a work account if your message is sensitive.",
     "subject": "Americas News Today contact form submission"
   },

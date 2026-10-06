@@ -975,3 +975,14 @@ html body footer.foot[data-brand-footer] .fc a{
   text-decoration:none!important;
 }
 html body footer.foot[data-brand-footer] *{font-family:Inter,system-ui,sans-serif!important;}
+
+
+/* SOURCE-CLONE-100 final exact residual values */
+html body footer.foot[data-brand-footer] .fc ul{
+  display:flex!important;
+  flex-direction:column!important;
+  grid-template-columns:none!important;
+}
+html body main.ffn-demo-404 .er-n{
+  font-family:"Source Serif 4",Georgia,serif!important;
+}

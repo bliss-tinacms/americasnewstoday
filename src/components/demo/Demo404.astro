@@ -1,19 +1,6 @@
 ---
 import { getBlogPermalink } from '../../lib/permalinks';
-import { labelFromReference, getPostCategories } from './DemoHelpers';
-const { posts = [] } = Astro.props;
-const latest = posts.slice(0, 3);
-const sections = ['Business','Technology','Health','Politics','World','Lifestyle'];
-function postUrl(post: any) { const url = getBlogPermalink(post); return url.endsWith('/') ? url : url + '/'; }
-function sectionUrl(label: string) { return '/' + label.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '/'; }
+import { labelFromReference, getAuthorName, getPostCategories } from './DemoHelpers';
+const { posts=[] }=Astro.props; const latest=posts.slice(0,3); function postUrl(post:any){const url=getBlogPermalink(post);return url.endsWith('/')?url:url+'/'}
 ---
-
-<main class="ffn-demo ffn-demo-404">
-  <section class="er"><div class="w"><div class="er-in"><span class="er-num">404</span><div class="er-b"><div class="er-k"><b>Page not found</b></div><h1>This page is not here.</h1><p>The link may be broken, or the story may have moved. Nothing was deleted quietly — if a piece was taken down or corrected, we say so on the page.</p><div class="er-cta"><a href="/" class="pri">Back to the homepage →</a></div></div></div></div></section>
-  <section class="sc"><div class="w"><div class="eye"><i></i><span>While you are here</span></div><div class="h2">Latest reporting</div><div class="mo-g">
-    {latest.map((post: any) => <a href={postUrl(post)} class="mi">{post.heroImage ? <img class="mi-img" src={post.heroImage} alt="" /> : <div class="mi-img demo-img"></div>}<div class="mi-c"><div class="mi-k">{labelFromReference(getPostCategories(post))}</div><div class="mi-h">{post.title}</div>{post.description && <p class="mi-x">{post.description}</p>}</div></a>)}
-  </div></div></section>
-  <section class="bd2"><div class="w"><div class="eye"><i></i><span>Or start from a section</span></div><div class="h2">Browse coverage</div><div class="bd2-g">
-    {sections.map((label, index) => <a href={sectionUrl(label)} class="bd2-i"><div class="bd2-n">{String(index + 1).padStart(2, '0')}</div><div class="bd2-t">{label}</div></a>)}
-  </div></div></section>
-</main>
+<main class="ffn-demo ffn-demo-404"><header class="er"><div class="w"><div class="er-in"><div class="er-n">404</div><div class="er-b"><div class="er-kick"><i></i><span>Page not found</span></div><h1>This page is not where it used to be.</h1><p>The link may be broken, the story may have moved, or the address may contain a typo. Everything else on the site is still here.</p><div class="er-a"><a href="/" class="btn btn-p">Back to the homepage →</a><a href="/blog/" class="btn btn-s">Browse latest reporting</a></div></div></div></div></header><section class="sec"><div class="w"><div class="eye"><i></i><span>Published this week</span></div><h2 class="h2">Latest Reporting</h2><div>{latest.map((post:any)=><a href={postUrl(post)} class="pr"><div class="pr-img" style={post.heroImage?`background-image:url(${post.heroImage})`:undefined}></div><div><div class="pr-cat">{labelFromReference(getPostCategories(post),'News')}</div><div class="pr-t">{post.title}</div>{post.description&&<p class="pr-x">{post.description}</p>}</div><div class="pr-m"><div class="pr-by">{getAuthorName(post.author,'Americas News Today Staff')}</div><div class="pr-dt">{post.pubDate ? new Date(post.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : ''}</div></div></a>)}</div></div></section></main>

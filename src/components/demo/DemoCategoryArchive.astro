@@ -2,35 +2,7 @@
 import { tinaField } from '@tinacms/astro/tina-field';
 import { getBlogPermalink } from '../../lib/permalinks';
 import { labelFromReference, getAuthorName, getPostCategories } from './DemoHelpers';
-const { archiveTitle = 'Business', posts = [], currentPage = 1, totalPages = 1, basePath = '/business', category = null, showCategoryBadge = true } = Astro.props;
-const lead = posts[0];
-const rest = posts.slice(1);
-const hasPosts = posts.length > 0;
-const hasBottomPosts = rest.length > 0;
-function postUrl(post: any) { const url = getBlogPermalink(post); return url.endsWith('/') ? url : url + '/'; }
-function pagePath(page: number) { return page <= 1 ? basePath + '/' : basePath + '/page/' + page + '/'; }
-const emptyHeadline = hasPosts ? `No more articles in ${archiveTitle} yet.` : `There are no articles published yet under ${archiveTitle}.`;
-const emptyBody = hasPosts
-  ? 'There are no additional articles published yet under this category. Please check back soon for new coverage.'
-  : 'There are no articles published yet under this category. Please check back soon for new coverage.';
+const { archiveTitle='Business', posts=[], currentPage=1, totalPages=1, basePath='/business', category=null, showCategoryBadge=true }=Astro.props;
+function postUrl(post:any){const url=getBlogPermalink(post);return url.endsWith('/')?url:url+'/'} function pagePath(page:number){return page<=1?basePath+'/':basePath+'/page/'+page+'/'}
 ---
-
-<main class="ffn-demo ffn-demo-category">
-  <header class="ch"><div class="w"><div class="ch-in">{showCategoryBadge && <div class="ch-k"><b>Category</b></div>}<h1 data-tina-field={category ? tinaField(category, 'title') : undefined}>{archiveTitle}</h1></div></div></header>
-  {lead && (
-    <section class="ld"><div class="w"><a href={postUrl(lead)} class="ld-a">
-      {lead.heroImage ? <div class="ld-img" style={`background-image:url(${lead.heroImage})`}></div> : <div class="ld-img demo-img"></div>}
-      <div class="ld-c"><span class="ld-k">Lead Story</span><div class="ld-h">{lead.title}</div>{lead.description && <p class="ld-x">{lead.description}</p>}<div class="ld-b">{getAuthorName(lead.author)} · {labelFromReference(getPostCategories(lead), archiveTitle)}</div></div>
-    </a></div></section>
-  )}
-  <section class="lg"><div class="w"><div class="lg-h"><div class="eye"><i></i><span>{hasPosts ? 'Most recent first' : 'No articles yet'}</span></div><div class="h2">{hasPosts ? `More in ${archiveTitle}` : emptyHeadline}</div></div>
-    {hasBottomPosts ? (
-      <div>
-        {rest.map((post: any) => <a href={postUrl(post)} class="si">{post.heroImage ? <img class="si-img" src={post.heroImage} alt="" /> : <div class="si-img demo-img"></div>}<div><div class="si-k">{labelFromReference(getPostCategories(post), archiveTitle)}</div><div class="si-h">{post.title}</div>{post.description && <p class="si-x">{post.description}</p>}<div class="si-b">{getAuthorName(post.author)}</div></div></a>)}
-      </div>
-    ) : (
-      <div class="empty-archive"><p>{emptyBody}</p><a href="/" class="empty-archive__link">Back to the homepage</a></div>
-    )}
-  </div></section>
-  {totalPages > 1 && <nav class="pg" aria-label="Archive pagination"><div class="w"><a class="nx" href={pagePath(Math.max(1,currentPage-1))}>Prev</a>{Array.from({ length: Math.min(totalPages, 4) }).map((_, i) => { const p=i+1; return <a class={p===currentPage?'on':''} href={pagePath(p)}>{p}</a>; })}<span class="gap">…</span><a class="nx" href={pagePath(Math.min(totalPages,currentPage+1))}>Next →</a></div></nav>}
-</main>
+<main class="ffn-demo ffn-demo-category"><header class="ah"><div class="w"><div class="ah-b"><div><div class="ah-kick"><i></i><span>{showCategoryBadge?'Category Archive':'Archive'}</span></div><h1 data-tina-field={category ? tinaField(category,'title') : undefined}>{archiveTitle}</h1></div></div></div></header><section class="pl"><div class="w"><div class="pl-h"><div><div class="pl-eye"><i></i><span>Most recent first</span></div><div class="pl-t">Latest Reporting</div></div><div class="pl-c">Page {currentPage} of {totalPages}</div></div><div class="pl-l">{posts.length?posts.map((post:any)=><a href={postUrl(post)} class="pr"><div class="pr-img" style={post.heroImage?`background-image:url(${post.heroImage})`:undefined}></div><div><div class="pr-cat">{labelFromReference(getPostCategories(post), archiveTitle)}</div><div class="pr-t">{post.title}</div>{post.description&&<p class="pr-x">{post.description}</p>}</div><div class="pr-m"><div class="pr-by">{getAuthorName(post.author,'Americas News Today Staff')}</div><div class="pr-dt">{post.pubDate ? new Date(post.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : ''}</div></div></a>):<div class="empty-archive"><p>There are no articles published yet under {archiveTitle}. Please check back soon for new coverage.</p><a href="/" class="empty-archive__link">Back to the homepage</a></div>}</div></div></section>{totalPages>1&&<section class="pg"><div class="w"><div class="pg-in"><a class="nx" href={pagePath(Math.max(1,currentPage-1))}>Prev</a>{Array.from({length:Math.min(totalPages,3)}).map((_,i)=>{const p=i+1;return <a class={p===currentPage?'on':''} href={pagePath(p)}>{p}</a>})}<span class="gap">…</span><a href={pagePath(totalPages)}>{totalPages}</a><a class="nx" href={pagePath(Math.min(totalPages,currentPage+1))}>Next →</a></div></div></section>}</main>

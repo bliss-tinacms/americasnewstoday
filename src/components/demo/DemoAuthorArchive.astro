@@ -2,23 +2,8 @@
 import { tinaField } from '@tinacms/astro/tina-field';
 import { getBlogPermalink } from '../../lib/permalinks';
 import { labelFromReference, getPostCategories } from './DemoHelpers';
-const { archiveTitle = 'Author', author = null, posts = [], currentPage = 1, totalPages = 1, basePath = '/author/admin' } = Astro.props;
-function postUrl(post: any) { const url = getBlogPermalink(post); return url.endsWith('/') ? url : url + '/'; }
-function pagePath(page: number) { return page <= 1 ? basePath + '/' : basePath + '/page/' + page + '/'; }
-const bio = author?.bio || `${archiveTitle} writes and edits coverage for Americas News Today.`;
-const avatar = author?.avatar || '';
-const role = author?.role || '';
+const { archiveTitle='Author', author=null, posts=[], currentPage=1, totalPages=1, basePath='/author/admin' }=Astro.props;
+function postUrl(post:any){const url=getBlogPermalink(post);return url.endsWith('/')?url:url+'/'} function pagePath(page:number){return page<=1?basePath+'/':basePath+'/page/'+page+'/'}
+const bio=author?.bio||`${archiveTitle} writes and edits coverage for Americas News Today.`; const avatar=author?.avatar||'';
 ---
-
-<main class="ffn-demo ffn-demo-author">
-  <header class="ah"><div class="w"><div class="ah-in">
-    {avatar ? <img class="ah-img" src={avatar} alt={archiveTitle} data-tina-field={author ? tinaField(author, 'avatar') : undefined} /> : <div class="ah-img demo-img"></div>}
-    <div><div class="ah-k"><b>Author</b></div><h1 data-tina-field={author ? tinaField(author, 'name') : undefined}>{archiveTitle}</h1>{role && <div class="ah-r" data-tina-field={author ? tinaField(author, 'role') : undefined}>{role}</div>}<p class="ah-b" data-tina-field={author ? tinaField(author, 'bio') : undefined}>{bio}</p></div>
-  </div></div></header>
-  <section class="lg"><div class="w"><div class="lg-h"><div class="eye"><i></i><span>Most recent first</span></div><div class="h2">Stories by {archiveTitle}</div></div>
-    <div>
-      {posts.map((post: any) => <a href={postUrl(post)} class="si">{post.heroImage ? <img class="si-img" src={post.heroImage} alt="" /> : <div class="si-img demo-img"></div>}<div><div class="si-k">{labelFromReference(getPostCategories(post))}</div><div class="si-h">{post.title}</div>{post.description && <p class="si-x">{post.description}</p>}</div></a>)}
-    </div>
-  </div></section>
-  {totalPages > 1 && <nav class="pg" aria-label="Archive pagination"><div class="w"><a class="nx" href={pagePath(Math.max(1,currentPage-1))}>Prev</a>{Array.from({ length: Math.min(totalPages, 3) }).map((_, i) => { const p=i+1; return <a class={p===currentPage?'on':''} href={pagePath(p)}>{p}</a>; })}<span class="gap">…</span><a class="nx" href={pagePath(Math.min(totalPages,currentPage+1))}>Next →</a></div></nav>}
-</main>
+<main class="ffn-demo ffn-demo-author"><header class="ah"><div class="w"><div class="ab">{avatar?<img class="ab-img" src={avatar} alt={archiveTitle} data-tina-field={author?tinaField(author,'avatar'):undefined}/>:<div class="ab-img demo-img"></div>}<div><div class="ab-kick"><i></i><span>Author Archive</span></div><h1 data-tina-field={author?tinaField(author,'name'):undefined}>{archiveTitle}</h1><p class="ab-bio" data-tina-field={author?tinaField(author,'bio'):undefined}>{bio}</p></div></div></div></header><section class="pl"><div class="w"><div class="pl-h"><div><div class="pl-eye"><i></i><span>Most recent first</span></div><div class="pl-t">Stories by {archiveTitle}</div></div><div class="pl-c">Page {currentPage} of {totalPages}</div></div><div class="pl-l">{posts.map((post:any)=><a href={postUrl(post)} class="pr"><div class="pr-img" style={post.heroImage?`background-image:url(${post.heroImage})`:undefined}></div><div><div class="pr-cat">{labelFromReference(getPostCategories(post),'News')}</div><div class="pr-t">{post.title}</div>{post.description&&<p class="pr-x">{post.description}</p>}</div><div class="pr-m"><div class="pr-dt">{post.pubDate ? new Date(post.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : ''}</div></div></a>)}</div></div></section>{totalPages>1&&<section class="pg"><div class="w"><div class="pg-in"><a class="nx" href={pagePath(Math.max(1,currentPage-1))}>Prev</a>{Array.from({length:Math.min(totalPages,3)}).map((_,i)=>{const p=i+1;return <a class={p===currentPage?'on':''} href={pagePath(p)}>{p}</a>})}<span class="gap">…</span><a href={pagePath(totalPages)}>{totalPages}</a><a class="nx" href={pagePath(Math.min(totalPages,currentPage+1))}>Next →</a></div></div></section>}</main>

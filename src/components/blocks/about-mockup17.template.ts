@@ -78,6 +78,8 @@ export const aboutMockup17BlockSchema = {
         { name: 'imageAlt', label: 'Image Alt Text', type: 'string' },
         { name: 'paragraphOne', label: 'Paragraph 1', type: 'string', ui: { component: 'textarea' } },
         { name: 'paragraphTwo', label: 'Paragraph 2', type: 'string', ui: { component: 'textarea' } },
+        { name: 'buttonText', label: 'Button Text', type: 'string' },
+        { name: 'buttonLink', label: 'Button Link', type: 'string' },
       ],
     },
     {

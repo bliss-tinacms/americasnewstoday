@@ -256,6 +256,8 @@ type PageBlocksHomepageTemplateHero {
   eyebrow: String
   title: String
   description: String
+  buttonText: String
+  buttonLink: String
   image: String
   imageAlt: String
 }
@@ -381,6 +383,8 @@ type PageBlocksAboutMockup17Independence {
   imageAlt: String
   paragraphOne: String
   paragraphTwo: String
+  buttonText: String
+  buttonLink: String
 }
 
 type PageBlocksAboutMockup17NewsroomContacts {
@@ -458,6 +462,7 @@ type PageBlocksContactMockup17FormSection {
   eyebrow: String
   title: String
   description: String
+  buttonText: String
   note: String
   formAction: String
   subject: String
@@ -628,6 +633,8 @@ input PageBlocksHomepageTemplateHeroFilter {
   eyebrow: StringFilter
   title: StringFilter
   description: StringFilter
+  buttonText: StringFilter
+  buttonLink: StringFilter
   image: ImageFilter
   imageAlt: StringFilter
 }
@@ -753,6 +760,8 @@ input PageBlocksAboutMockup17IndependenceFilter {
   imageAlt: StringFilter
   paragraphOne: StringFilter
   paragraphTwo: StringFilter
+  buttonText: StringFilter
+  buttonLink: StringFilter
 }
 
 input PageBlocksAboutMockup17NewsroomContactsFilter {
@@ -830,6 +839,7 @@ input PageBlocksContactMockup17FormSectionFilter {
   eyebrow: StringFilter
   title: StringFilter
   description: StringFilter
+  buttonText: StringFilter
   note: StringFilter
   formAction: StringFilter
   subject: StringFilter
@@ -1102,6 +1112,7 @@ type ConfigContactForm {
   formspreeEndpoint: String
   heading: String
   description: String
+  buttonText: String
   note: String
   subject: String
 }
@@ -1142,6 +1153,7 @@ input ConfigContactFormFilter {
   formspreeEndpoint: StringFilter
   heading: StringFilter
   description: StringFilter
+  buttonText: StringFilter
   note: StringFilter
   subject: StringFilter
 }
@@ -1263,6 +1275,8 @@ input PageBlocksHomepageTemplateHeroMutation {
   eyebrow: String
   title: String
   description: String
+  buttonText: String
+  buttonLink: String
   image: String
   imageAlt: String
 }
@@ -1388,6 +1402,8 @@ input PageBlocksAboutMockup17IndependenceMutation {
   imageAlt: String
   paragraphOne: String
   paragraphTwo: String
+  buttonText: String
+  buttonLink: String
 }
 
 input PageBlocksAboutMockup17NewsroomContactsMutation {
@@ -1465,6 +1481,7 @@ input PageBlocksContactMockup17FormSectionMutation {
   eyebrow: String
   title: String
   description: String
+  buttonText: String
   note: String
   formAction: String
   subject: String
@@ -1668,6 +1685,7 @@ input ConfigContactFormMutation {
   formspreeEndpoint: String
   heading: String
   description: String
+  buttonText: String
   note: String
   subject: String
 }

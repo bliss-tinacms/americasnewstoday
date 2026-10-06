@@ -20,6 +20,7 @@ export const contactMockup17BlockSchema = {
         { name: 'eyebrow', label: 'Eyebrow', type: 'string' },
         { name: 'title', label: 'Title', type: 'string' },
         { name: 'description', label: 'Description', type: 'string', ui: { component: 'textarea' } },
+        { name: 'buttonText', label: 'Button Text', type: 'string' },
         { name: 'note', label: 'Form Note', type: 'string', ui: { component: 'textarea' } },
         { name: 'formAction', label: 'Form Action URL / Formspree Endpoint', type: 'string', description: 'Optional. Leave blank to keep the form non-submitting until an endpoint is added.' },
         { name: 'subject', label: 'Email Subject', type: 'string' },

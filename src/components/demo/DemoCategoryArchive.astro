@@ -69,6 +69,7 @@ const visiblePages = pagesToShow();
 const safeCurrentPage = Math.max(1, Number(currentPage) || 1);
 const safeTotalPages = Math.max(1, Number(totalPages) || 1);
 const hasPosts = posts.length > 0;
+const showPagination = hasPosts && safeTotalPages > 1;
 ---
 <main class="category-source-body">
   <header class="ah">
@@ -110,13 +111,15 @@ const hasPosts = posts.length > 0;
     </div>
   </div></section>
 
-  <section class="pg"><div class="w"><div class="pg-in">
-    {visiblePages.map((page, index) => (
-      <>
-        {index > 0 && page - visiblePages[index - 1] > 1 && <span class="gap">…</span>}
-        <a href={pagePath(page)} class={page === safeCurrentPage ? 'on' : undefined}>{page}</a>
-      </>
-    ))}
-    {safeCurrentPage < safeTotalPages && <a href={pagePath(safeCurrentPage + 1)} class="nx">Next →</a>}
-  </div></div></section>
+  {showPagination && (
+    <section class="pg"><div class="w"><div class="pg-in">
+      {visiblePages.map((page, index) => (
+        <>
+          {index > 0 && page - visiblePages[index - 1] > 1 && <span class="gap">…</span>}
+          <a href={pagePath(page)} class={page === safeCurrentPage ? 'on' : undefined}>{page}</a>
+        </>
+      ))}
+      {safeCurrentPage < safeTotalPages && <a href={pagePath(safeCurrentPage + 1)} class="nx">Next →</a>}
+    </div></div></section>
+  )}
 </main>

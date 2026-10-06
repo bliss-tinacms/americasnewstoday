@@ -259,7 +259,7 @@ html{scroll-behavior:smooth}
 .about-source-body .crc:last-child{border-right:none}
 .about-source-body .crc:hover{box-shadow:0 10px 26px rgba(0,43,92,.09);z-index:2;position:relative}
 .about-source-body .crc-t{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
-.about-source-body .crc-a{font-family:var(--ser);font-size:19px;font-weight:700;color:var(--navy);margin-bottom:10px;overflow-wrap:anywhere}
+.about-source-body .crc-a{font-family:var(--ser);font-size:16px;font-weight:700;color:var(--navy);margin-bottom:10px;overflow-wrap:anywhere}
 .about-source-body .crc-x{font-size:16px;color:var(--muted);line-height:1.7}
 .about-source-body .acc-p{font-size:18px;color:var(--slate);line-height:1.85;max-width:60em;margin-top:20px}
 /* CLOSING BAND */

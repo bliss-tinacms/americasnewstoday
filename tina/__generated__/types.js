@@ -115,11 +115,17 @@ export const PagePartsFragmentDoc = gql`
         title
         paragraphOne
         paragraphTwo
+        ctaText
+        ctaLink
+        standardsEyebrow
+        standardsTitle
         standards {
           __typename
           label
           title
           text
+          practiceLabel
+          practiceText
         }
       }
       newsroom {
@@ -141,6 +147,8 @@ export const PagePartsFragmentDoc = gql`
         quote
         author
         byline
+        buttonText
+        buttonLink
         image
         imageAlt
       }
@@ -161,6 +169,7 @@ export const PagePartsFragmentDoc = gql`
         title
         description
         note
+        leadLabel
         cards {
           __typename
           title
@@ -869,7 +878,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "http://localhost:4001/graphql",
+      url: "https://content.tinajs.io/2.4/content/fc6d8b6a-9072-4ac2-9a4b-12a482200442/github/main",
       queries
     })
   )

@@ -107,37 +107,18 @@ const fallbackReportImages = [
   '/brand-assets/327816c1-cb4e-4c47-8da2-42877a448f1d.jpg',
 ];
 
-const defaultStandards = [
-  { label: '01', title: 'Accuracy', text: 'Every factual claim should be verifiable. Significant claims are supported by named sources or public records, and anonymous sources only with a senior editor’s judgment.', practiceLabel: 'In practice', practiceText: 'Errors discovered after publication are corrected on the record. Accuracy is prioritized over speculation.' },
-  { label: '02', title: 'Sourcing & Attribution', text: 'Quoted persons are identified by name and role. Studies, public records, and other reporting are credited and, where possible, linked.', practiceLabel: 'In practice', practiceText: 'Where reporting was first developed elsewhere, that publication is credited on first mention.' },
-  { label: '03', title: 'Fairness', text: 'People and organizations covered receive a meaningful opportunity to respond to material allegations before publication.', practiceLabel: 'In practice', practiceText: 'It does not mean treating contested propositions as equally credible regardless of evidence. When the facts are clear, we report them.' },
-  { label: '04', title: 'Independence', text: 'Editorial decisions are made without advertiser, political, or commercial influence of any kind.', practiceLabel: 'In practice', practiceText: 'Advertisers and sponsoring parties do not review, approve, or modify editorial reporting before publication.' },
-  { label: '05', title: 'News, Analysis & Opinion', text: 'News is presented straight. Analysis interprets the reporting and is labeled. Opinion advances a position and reflects the writer, not the publication.', practiceLabel: 'In practice', practiceText: 'The three appear in different sections of the site, are tagged distinctly, and are visibly distinguishable at a glance.' },
-];
+const defaultStandards: any[] = [];
 const standards = list(why.standards, defaultStandards);
-const coverageTopics = list(coverage.topics, [
-  { number: '01', title: 'World News', text: 'Global affairs' },
-  { number: '02', title: 'Business', text: 'Markets & the economy' },
-  { number: '03', title: 'Technology', text: 'Innovation & regulation' },
-  { number: '04', title: 'Environment', text: 'Land, energy & climate' },
-  { number: '05', title: 'Education', text: 'Schools & policy' },
-  { number: '06', title: 'Arts & Culture', text: 'Film, music & ideas' },
-  { number: '07', title: 'Lifestyle', text: 'Home, food & everyday life' },
-]);
+const coverageTopics = list(coverage.topics, []);
 const mockupTeamImages = [
   '/brand-assets/mockup-team/catherine-palmer.png',
   '/brand-assets/mockup-team/nicholas-griffin.png',
   '/brand-assets/mockup-team/denise-chapman.png',
   '/brand-assets/mockup-team/scott-coleman.png',
 ];
-const teamCards = list(contact.cards, [
-  { title: 'Catherine Palmer', email: 'Editor-in-Chief · Indianapolis', text: 'More than fifteen years in editorial leadership at regional and national publications, with a background reporting on politics, state government, and federal courts before she moved into editing.', accent: true, image: '/brand-assets/9b9d565c-4720-4313-8124-1c5b0962c481.jpg', imageAlt: 'Catherine Palmer' },
-  { title: 'Nicholas Griffin', email: 'Managing Editor · Tampa', text: 'Twelve years at a Southern regional daily before joining. Runs the editorial calendar, story assignments, and the flow of publication across the desks.', accent: false, image: '/brand-assets/a7e46c80-fcbc-4895-958c-9db64571cae0.jpg', imageAlt: 'Nicholas Griffin' },
-  { title: 'Denise Chapman', email: 'Business Editor · Grand Rapids', text: 'A decade covering business, finance, and labor. Reaches for the underlying numbers and separates what a company announced from what its release implied.', accent: false, image: '/brand-assets/b7138736-79a8-4f15-8b02-4a2cca5ed7a6.jpg', imageAlt: 'Denise Chapman' },
-  { title: 'Scott Coleman', email: 'Publisher · Dallas', text: 'Background in media and business operations. Holds responsibility for the site’s direction and for keeping the editorial operation independent of the commercial side.', accent: false, image: '/brand-assets/aff9501c-b302-4049-832e-3b9703c1186e.jpg', imageAlt: 'Scott Coleman' },
-]);
-function teamImage(_person: any, index: number) {
-  return mockupTeamImages[index] || fallbackReportImages[index % fallbackReportImages.length];
+const teamCards = list(contact.cards, []);
+function teamImage(person: any, index: number) {
+  return person?.image || mockupTeamImages[index] || fallbackReportImages[index % fallbackReportImages.length];
 }
 const leadTeam = teamCards[0];
 const otherTeam = teamCards.slice(1, 4);
@@ -147,16 +128,16 @@ const otherTeam = teamCards.slice(1, 4);
   <section class="chero" style={`background-image:url('${value(hero.image, '/brand-assets/c383ae02-84f6-4be0-8a77-47dee93ce41c.jpg')}')`} aria-labelledby="ant-hero-title" data-tina-field={tf(editHero, 'image')}>
     <div class="chero-in"><div class="chero-w">
       <div>
-        <div class="ch-kick"><i></i><span data-tina-field={tf(editHero, 'eyebrow')}>{value(hero.eyebrow, 'About the Publication')}</span></div>
-        <h1 id="ant-hero-title" class="ch-h" data-tina-field={tf(editHero, 'title')}>{value(hero.title, 'A wider view of today’s America.')}</h1>
-        <p class="ch-d" data-tina-field={tf(editHero, 'description')}>{value(hero.description, 'America’s News Today is a general news platform dedicated to helping readers understand the events, developments, and ideas influencing life across the country. Our purpose is to make important information easier to find and understand — from nationwide developments to the changing trends that affect communities and households.')}</p>
+        <div class="ch-kick"><i></i><span data-tina-field={tf(editHero, 'eyebrow')}>{value(hero.eyebrow, '')}</span></div>
+        <h1 id="ant-hero-title" class="ch-h" data-tina-field={tf(editHero, 'title')}>{value(hero.title, '')}</h1>
+        <p class="ch-d" data-tina-field={tf(editHero, 'description')}>{value(hero.description, '')}</p>
         <div class="ch-by"><span>Accuracy</span><span>Context</span><span>Clarity</span><span>Accountability</span></div>
       </div>
     </div></div>
   </section>
 
   <section class="dsp" aria-labelledby="filed-this-week-title"><div class="w">
-    <div class="dsp-h"><div><div class="dsp-eye"><i></i><span data-tina-field={tf(editNewsroom, 'subheading')}>{value(newsroom.subheading, 'Filed this week')}</span></div><div class="dsp-title" id="filed-this-week-title" data-tina-field={tf(editNewsroom, 'heading')}>{value(newsroom.heading, 'More Reporting')}</div></div></div>
+    <div class="dsp-h"><div><div class="dsp-eye"><i></i><span data-tina-field={tf(editNewsroom, 'subheading')}>{value(newsroom.subheading, '')}</span></div><div class="dsp-title" id="filed-this-week-title" data-tina-field={tf(editNewsroom, 'heading')}>{value(newsroom.heading, '')}</div></div></div>
     <div class="dsp-ledger">
       {featuredPosts.map((post, index) => (
         <a href={getPostUrl(post)} class="dr">
@@ -175,13 +156,13 @@ const otherTeam = teamCards.slice(1, 4);
 
   <section class="about"><div class="w"><div class="about-in">
     <div class="about-l">
-      <p class="about-l-eye" data-tina-field={tf(editWhy, 'eyebrow')}>{value(why.eyebrow, 'About America’s News Today')}</p>
-      <h2 class="about-l-h" data-tina-field={tf(editWhy, 'title')}>{value(why.title, 'Independent thinking starts with better information')}</h2>
-      <p class="about-l-p" data-tina-field={tf(editWhy, 'paragraphOne')}>{value(why.paragraphOne, 'America’s News Today does not exist to tell readers what conclusions to reach. Our role is to present information clearly so readers can consider the facts, understand different perspectives, and form their own views. Readers come from different backgrounds and hold different opinions; our goal is coverage that stays useful across those differences.')}</p>
-      <a href="/about/" class="about-cta">About Our Newsroom →</a>
+      <p class="about-l-eye" data-tina-field={tf(editWhy, 'eyebrow')}>{value(why.eyebrow, '')}</p>
+      <h2 class="about-l-h" data-tina-field={tf(editWhy, 'title')}>{value(why.title, '')}</h2>
+      <p class="about-l-p" data-tina-field={tf(editWhy, 'paragraphOne')}>{value(why.paragraphOne, '')}</p>
+      <a href={value(why.ctaLink, '/about/')} class="about-cta" data-tina-field={tf(editWhy, 'ctaText')}>{value(why.ctaText, '')}</a>
     </div>
     <div class="about-r">
-      <div class="ac-k" data-tina-field={tf(editCoverage, 'title')}>{value(coverage.title, 'What we cover')}</div>
+      <div class="ac-k" data-tina-field={tf(editCoverage, 'title')}>{value(coverage.title, '')}</div>
       {coverageTopics.map((item, index) => {
         const editItem = editCoverage?.topics?.[index] ?? item;
         return <a href="/blog/" class="ac"><span class="ac-n" data-tina-field={tf(editItem, 'number')}>{item.number}</span><span class="ac-t" data-tina-field={tf(editItem, 'title')}>{item.title}</span><span class="ac-x" data-tina-field={tf(editItem, 'text')}>{item.text}</span></a>;
@@ -191,28 +172,27 @@ const otherTeam = teamCards.slice(1, 4);
 
   <section class="stds" aria-labelledby="standards-title"><div class="w">
     <div class="stds-top">
-      <div class="stds-eye"><i></i><span>How we work</span></div>
-      <h2 id="standards-title" class="stds-h">Editorial Standards</h2>
-      <p class="stds-sub" data-tina-field={tf(editCoverage, 'description')}>{value(coverage.description, 'The standards America’s News Today applies to staff reporting, contributed pieces, and any wire or partner material published on the site.')}</p>
+      <div class="stds-eye"><i></i><span data-tina-field={tf(editWhy, 'standardsEyebrow')}>{value(why.standardsEyebrow, '')}</span></div>
+      <h2 id="standards-title" class="stds-h" data-tina-field={tf(editWhy, 'standardsTitle')}>{value(why.standardsTitle, '')}</h2>
+      <p class="stds-sub" data-tina-field={tf(editCoverage, 'description')}>{value(coverage.description, '')}</p>
     </div>
     <div class="stds-g">
       {standards.slice(0, 5).map((item, index) => {
         const editItem = editWhy?.standards?.[index] ?? item;
-        const practice = defaultStandards[index] ?? defaultStandards[0];
-        return <div class="sp"><div class="sp-top"><span class="sp-n" data-tina-field={tf(editItem, 'label')}>{item.label}</span><span class="sp-name" data-tina-field={tf(editItem, 'title')}>{item.title}</span></div><p class="sp-def" data-tina-field={tf(editItem, 'text')}>{item.text}</p><div class="sp-prac"><div class="sp-pk">{practice.practiceLabel}</div><p class="sp-px">{practice.practiceText}</p></div></div>;
+        return <div class="sp"><div class="sp-top"><span class="sp-n" data-tina-field={tf(editItem, 'label')}>{item.label}</span><span class="sp-name" data-tina-field={tf(editItem, 'title')}>{item.title}</span></div><p class="sp-def" data-tina-field={tf(editItem, 'text')}>{item.text}</p><div class="sp-prac"><div class="sp-pk" data-tina-field={tf(editItem, 'practiceLabel')}>{value(item.practiceLabel, '')}</div><p class="sp-px" data-tina-field={tf(editItem, 'practiceText')}>{value(item.practiceText, '')}</p></div></div>;
       })}
-      <div class="sn"><div class="sn-eye" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'eyebrow')}>{value(wireFeature.eyebrow, 'A working note')}</div><div class="sn-h" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'quote')}>{value(wireFeature.quote, 'Would we stand behind this piece and explain it to a reader?')}</div><p class="sn-x" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'byline')}>{value(wireFeature.byline, 'Most editorial decisions are matters of judgment. When the rules and the situation do not line up cleanly, the newsroom returns to that question. If the answer is yes, the piece publishes. If not, it holds.')}</p><a href="/editorial-guidelines/" class="sn-cta">Read the full guidelines →</a></div>
+      <div class="sn"><div class="sn-eye" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'eyebrow')}>{value(wireFeature.eyebrow, '')}</div><div class="sn-h" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'quote')}>{value(wireFeature.quote, '')}</div><p class="sn-x" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'byline')}>{value(wireFeature.byline, '')}</p><a href={value(wireFeature.buttonLink, '/editorial-guidelines/')} class="sn-cta" data-tina-field={tf(editHomepage.wireFeature ?? wireFeature, 'buttonText')}>{value(wireFeature.buttonText, '')}</a></div>
     </div>
   </div></section>
 
   <section class="tm" aria-labelledby="team-title"><div class="w">
-    <div class="tm-top"><div class="tm-eye"><i></i><span data-tina-field={tf(editContact, 'eyebrow')}>{value(contact.eyebrow, 'The newsroom')}</span></div><div class="tm-title" id="team-title" data-tina-field={tf(editContact, 'title')}>{value(contact.title, 'Our Team')}</div></div>
-    {leadTeam && <div class="tml"><img class="tml-img" src={teamImage(leadTeam, 0)} alt={leadTeam.imageAlt || leadTeam.title || ''} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
+    <div class="tm-top"><div class="tm-eye"><i></i><span data-tina-field={tf(editContact, 'eyebrow')}>{value(contact.eyebrow, '')}</span></div><div class="tm-title" id="team-title" data-tina-field={tf(editContact, 'title')}>{value(contact.title, '')}</div></div>
+    {leadTeam && <div class="tml"><img class="tml-img" src={teamImage(leadTeam, 0)} alt={leadTeam.imageAlt || leadTeam.title || ''} data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'image')} /><div class="tml-b"><span class="tml-bar" data-tina-field={tf(editContact, 'leadLabel')}>{value(contact.leadLabel, '')}</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
     <div class="tmr">
       {otherTeam.map((person, index) => {
         const realIndex = index + 1;
         const editPerson = editContact?.cards?.[realIndex] ?? person;
-        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={teamImage(person, realIndex)} alt={person.imageAlt || person.title || ''} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
+        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={teamImage(person, realIndex)} alt={person.imageAlt || person.title || ''} data-tina-field={tf(editPerson, 'image')} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
       })}
     </div>
   </div></section>

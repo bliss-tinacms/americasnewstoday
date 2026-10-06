@@ -266,6 +266,8 @@ type PageBlocksHomepageTemplateWhyStandards {
   label: String
   title: String
   text: String
+  practiceLabel: String
+  practiceText: String
 }
 
 type PageBlocksHomepageTemplateWhy {
@@ -273,6 +275,10 @@ type PageBlocksHomepageTemplateWhy {
   title: String
   paragraphOne: String
   paragraphTwo: String
+  ctaText: String
+  ctaLink: String
+  standardsEyebrow: String
+  standardsTitle: String
   standards: [PageBlocksHomepageTemplateWhyStandards]
 }
 
@@ -295,6 +301,8 @@ type PageBlocksHomepageTemplateWireFeature {
   quote: String
   author: String
   byline: String
+  buttonText: String
+  buttonLink: String
   image: String
   imageAlt: String
 }
@@ -314,6 +322,8 @@ type PageBlocksHomepageTemplateCoverage {
 type PageBlocksHomepageTemplateContactCards {
   title: String
   email: String
+  image: String
+  imageAlt: String
   text: String
   accent: Boolean
 }
@@ -323,6 +333,7 @@ type PageBlocksHomepageTemplateContact {
   title: String
   description: String
   note: String
+  leadLabel: String
   cards: [PageBlocksHomepageTemplateContactCards]
 }
 
@@ -643,6 +654,8 @@ input PageBlocksHomepageTemplateWhyStandardsFilter {
   label: StringFilter
   title: StringFilter
   text: StringFilter
+  practiceLabel: StringFilter
+  practiceText: StringFilter
 }
 
 input PageBlocksHomepageTemplateWhyFilter {
@@ -650,6 +663,10 @@ input PageBlocksHomepageTemplateWhyFilter {
   title: StringFilter
   paragraphOne: StringFilter
   paragraphTwo: StringFilter
+  ctaText: StringFilter
+  ctaLink: StringFilter
+  standardsEyebrow: StringFilter
+  standardsTitle: StringFilter
   standards: PageBlocksHomepageTemplateWhyStandardsFilter
 }
 
@@ -672,6 +689,8 @@ input PageBlocksHomepageTemplateWireFeatureFilter {
   quote: StringFilter
   author: StringFilter
   byline: StringFilter
+  buttonText: StringFilter
+  buttonLink: StringFilter
   image: ImageFilter
   imageAlt: StringFilter
 }
@@ -691,6 +710,8 @@ input PageBlocksHomepageTemplateCoverageFilter {
 input PageBlocksHomepageTemplateContactCardsFilter {
   title: StringFilter
   email: StringFilter
+  image: ImageFilter
+  imageAlt: StringFilter
   text: StringFilter
   accent: BooleanFilter
 }
@@ -700,6 +721,7 @@ input PageBlocksHomepageTemplateContactFilter {
   title: StringFilter
   description: StringFilter
   note: StringFilter
+  leadLabel: StringFilter
   cards: PageBlocksHomepageTemplateContactCardsFilter
 }
 
@@ -1285,6 +1307,8 @@ input PageBlocksHomepageTemplateWhyStandardsMutation {
   label: String
   title: String
   text: String
+  practiceLabel: String
+  practiceText: String
 }
 
 input PageBlocksHomepageTemplateWhyMutation {
@@ -1292,6 +1316,10 @@ input PageBlocksHomepageTemplateWhyMutation {
   title: String
   paragraphOne: String
   paragraphTwo: String
+  ctaText: String
+  ctaLink: String
+  standardsEyebrow: String
+  standardsTitle: String
   standards: [PageBlocksHomepageTemplateWhyStandardsMutation]
 }
 
@@ -1314,6 +1342,8 @@ input PageBlocksHomepageTemplateWireFeatureMutation {
   quote: String
   author: String
   byline: String
+  buttonText: String
+  buttonLink: String
   image: String
   imageAlt: String
 }
@@ -1333,6 +1363,8 @@ input PageBlocksHomepageTemplateCoverageMutation {
 input PageBlocksHomepageTemplateContactCardsMutation {
   title: String
   email: String
+  image: String
+  imageAlt: String
   text: String
   accent: Boolean
 }
@@ -1342,6 +1374,7 @@ input PageBlocksHomepageTemplateContactMutation {
   title: String
   description: String
   note: String
+  leadLabel: String
   cards: [PageBlocksHomepageTemplateContactCardsMutation]
 }
 

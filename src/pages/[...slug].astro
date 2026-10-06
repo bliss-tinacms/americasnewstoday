@@ -7,6 +7,7 @@ import PageBody from '../components/islands/PageBody.astro';
 import BlogBody from '../components/islands/BlogBody.astro';
 import CategoryArchiveHeader from '../components/islands/CategoryArchiveHeader.astro';
 import DemoCategoryArchive from '../components/demo/DemoCategoryArchive.astro';
+import DemoAuthorArchive from '../components/demo/DemoAuthorArchive.astro';
 import Demo404 from '../components/demo/Demo404.astro';
 import { getBlog, getCategory, getConfig, getPublicPage, getUser, listBlogs, listPages, type CmsBlog, type CmsCategory } from '../lib/data';
 import { islands } from '../lib/islands';
@@ -16,11 +17,19 @@ export const prerender = false;
 const POSTS_PER_PAGE = 30;
 const routeSlug = (Astro.params.slug ?? '').toString().toLowerCase().replace(/^\/+|\/+$/g, '');
 const localBlogModules = import.meta.glob('../content/blog/*.mdx', { eager: true });
+const localUserModules = import.meta.glob('../content/user/*.json', { eager: true });
 const localBlogFrontmatterByFilename = new Map(
   Object.entries(localBlogModules).map(([filePath, mod]) => {
     const filename = filePath.split('/').pop()?.replace(/\.mdx$/i, '') || '';
     const frontmatter = (mod as any).frontmatter || (mod as any).default?.frontmatter || {};
     return [filename, frontmatter];
+  }).filter(([filename]) => filename)
+);
+const localUsersBySlug = new Map(
+  Object.entries(localUserModules).map(([filePath, mod]) => {
+    const filename = filePath.split('/').pop()?.replace(/\.json$/i, '') || '';
+    const data = ((mod as any).default || mod || {}) as Record<string, any>;
+    return [String(filename || data.name || data.title).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''), { ...data, _sys: { filename } }];
   }).filter(([filename]) => filename)
 );
 const config = (await getConfig()).data?.config ?? null;
@@ -73,6 +82,23 @@ function getPostCategories(post: any) {
   if (Array.isArray(categories) && categories.length) return categories.map((item) => typeof item === 'string' ? item : item?.category).filter(Boolean);
   return post?.category;
 }
+function getPostAuthor(post: any) {
+  return post?.author || post?.authorAlt || null;
+}
+function authorSlugsFromReference(reference: unknown) {
+  const slugs = slugsFromReference(reference);
+  if (slugs.length) return slugs;
+  const label = labelFromReference(reference);
+  return label ? [slugify(label)] : [];
+}
+function parseAuthorParam(value?: string) {
+  const parts = String(value || '').toLowerCase().split('/').filter(Boolean);
+  if (parts[0] !== 'author') return null;
+  const pageIndex = parts.indexOf('page');
+  const slug = parts.slice(1, pageIndex >= 0 ? pageIndex : undefined).join('/');
+  if (!slug) return null;
+  return { slug, page: pageIndex >= 0 ? Math.max(1, Number(parts[pageIndex + 1] || '1') || 1) : 1 };
+}
 function parseArchiveParam(value?: string) {
   const parts = String(value || '').toLowerCase().split('/').filter(Boolean);
   const pageIndex = parts.indexOf('page');
@@ -114,12 +140,13 @@ function categoryFileMap() {
 }
 
 const matchedPage = allPages.find((page) => getPageRouteSlug(page) === routeSlug || page._sys.filename === routeSlug);
-let view: 'page' | 'category' | 'blog' | 'not-found' = 'not-found';
+let view: 'page' | 'category' | 'author' | 'blog' | 'not-found' = 'not-found';
 let pageData: any = null;
 let pageTitle = '';
 let pageDescription = '';
 
 let categoryContext: any = null;
+let authorContext: any = null;
 let blogContext: any = null;
 
 if (matchedPage) {
@@ -132,6 +159,35 @@ if (matchedPage) {
     pageData = data;
     pageTitle = seo?.metaTitle || data.seoTitle || config?.seo?.title || 'Americas News Today';
     pageDescription = seo?.metaDescription || config?.seo?.description || 'Welcome to Americas News Today.';
+  }
+}
+
+if (view === 'not-found') {
+  const parsedAuthor = parseAuthorParam(routeSlug);
+  if (parsedAuthor) {
+    const localAuthor = localUsersBySlug.get(parsedAuthor.slug) || null;
+    const editableAuthor = localAuthor?._sys?.filename ? (await getUser(localAuthor._sys.filename)).data?.user ?? null : null;
+    const author = editableAuthor || localAuthor;
+    if (author) {
+      const allAuthorPosts = allPosts.filter((post) => authorSlugsFromReference(getPostAuthor(post)).includes(parsedAuthor.slug));
+      const totalPages = Math.max(1, Math.ceil(allAuthorPosts.length / POSTS_PER_PAGE));
+      const currentPage = Math.min(Math.max(1, parsedAuthor.page), totalPages);
+      const posts = allAuthorPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
+      const authorName = author.name || titleCase(parsedAuthor.slug) || 'Author';
+      const authorSeo = (author as any)?.seo || null;
+      view = 'author';
+      authorContext = {
+        parsed: parsedAuthor,
+        author,
+        posts,
+        totalPages,
+        currentPage,
+        basePath: '/author/' + parsedAuthor.slug,
+        seo: authorSeo,
+        seoTitle: authorSeo?.metaTitle || authorName + ' Articles | ' + (config?.seo?.title || 'Americas News Today'),
+        description: authorSeo?.metaDescription || author.bio || (allAuthorPosts.length > 0 ? 'Read the latest articles by ' + authorName + ' from Americas News Today.' : 'Articles by ' + authorName + ' will be published soon on Americas News Today.'),
+      };
+    }
   }
 }
 
@@ -249,6 +305,21 @@ if (view === 'not-found') {
     <TinaIsland name="category" wrapper={islands.category.wrapper} params={{ slug: categoryContext.categoryDocumentSlug }} primary>
       <DemoCategoryArchive archiveTitle={categoryContext.archiveTitle} posts={categoryContext.posts} currentPage={categoryContext.currentPage} totalPages={categoryContext.totalPages} basePath={categoryContext.basePath} category={categoryContext.categoryFromPosts} />
     </TinaIsland>
+  </Base>
+)}
+
+{view === 'author' && authorContext && (
+  <Base
+    title={authorContext.seoTitle}
+    description={authorContext.description}
+    image={authorContext.author?.avatar || undefined}
+    ogTitle={authorContext.seo?.ogTitle || authorContext.seoTitle}
+    ogDescription={authorContext.seo?.ogDescription || authorContext.description}
+    canonicalUrl={authorContext.seo?.canonicalUrl || authorContext.basePath + '/'}
+    noindex={authorContext.seo?.noindex || false}
+    nofollow={authorContext.seo?.nofollow || false}
+  >
+    <DemoAuthorArchive author={authorContext.author} posts={authorContext.posts} currentPage={authorContext.currentPage} totalPages={authorContext.totalPages} basePath={authorContext.basePath} />
   </Base>
 )}
 

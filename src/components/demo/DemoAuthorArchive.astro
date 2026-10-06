@@ -1,4 +1,117 @@
 ---
-// Blank body only. Global Base layout keeps Header and Footer.
+// Author archive body structure copied from uploaded author-archive.html demo source.
+// Values are dynamic from the author and posts passed by the route. Global Header/Footer remain from Base layout.
+import { getBlogPermalink } from '../../lib/permalinks';
+import { labelFromReference, getPostCategories, firstImage } from './DemoHelpers';
+
+interface Props {
+  author?: any;
+  posts?: any[];
+  currentPage?: number;
+  totalPages?: number;
+  basePath?: string;
+}
+
+const {
+  author = {},
+  posts = [],
+  currentPage = 1,
+  totalPages = 1,
+  basePath = '/author',
+} = Astro.props;
+
+function formatDate(value?: string | Date | null) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date).replace('.', '');
+}
+function cleanPath(path: string) {
+  return ('/' + String(path || '').replace(/^\/+|\/+$/g, '')).replace(/\/+/g, '/');
+}
+function pagePath(page: number) {
+  const base = cleanPath(basePath);
+  return page <= 1 ? `${base}/` : `${base}/page/${page}/`;
+}
+function postCategoryLabel(post: any) {
+  const categories = getPostCategories(post);
+  return labelFromReference(Array.isArray(categories) ? categories[0] : categories, 'News');
+}
+function postExcerpt(post: any) {
+  return post?.description || post?.excerpt || post?.seo?.metaDescription || '';
+}
+function postImage(post: any, index: number) {
+  return firstImage(post) || `/brand-assets/author-demo/author-demo-${4 + (index % 5)}.jpg`;
+}
+function pagesToShow() {
+  const total = Math.max(1, Number(totalPages) || 1);
+  const current = Math.min(Math.max(1, Number(currentPage) || 1), total);
+  if (total <= 5) return Array.from({ length: total }, (_, index) => index + 1);
+  const set = new Set<number>([1, current - 1, current, current + 1, total]);
+  return Array.from(set).filter((page) => page >= 1 && page <= total).sort((a, b) => a - b);
+}
+const visiblePages = pagesToShow();
+const safeCurrentPage = Math.max(1, Number(currentPage) || 1);
+const safeTotalPages = Math.max(1, Number(totalPages) || 1);
+const hasPosts = posts.length > 0;
+const showPagination = hasPosts && safeTotalPages > 1;
+const authorName = author?.name || author?.title || 'Author';
+const authorRole = author?.role || '';
+const authorBio = author?.bio || '';
+const authorPhoto = author?.avatar || author?.photo || '/brand-assets/author-demo/author-demo-2.jpg';
 ---
-<main id="author-clean-page"></main>
+<main class="author-source-body">
+  <header class="ah">
+    <div class="w"><div class="ab">
+      <img class="ab-img" src={authorPhoto} alt={authorName} />
+      <div>
+        <div class="ab-kick"><i></i><span>Author Archive</span></div>
+        <h1>{authorName}</h1>
+        {authorRole && <div class="ab-role">{authorRole}</div>}
+        {authorBio && <p class="ab-bio">{authorBio}</p>}
+      </div>
+    </div></div>
+  </header>
+
+  <section class="pl"><div class="w">
+    <div class="pl-h">
+      <div>
+        <div class="pl-eye"><i></i><span>Most recent first</span></div>
+        <div class="pl-t">Stories by {authorName}</div>
+      </div>
+      <div class="pl-c">Page {safeCurrentPage} of {safeTotalPages}</div>
+    </div>
+
+    <div class="pl-l">
+      {hasPosts ? posts.map((post, index) => (
+        <a href={getBlogPermalink(post) + '/'} class="pr">
+          <div class="pr-img" style={`background-image: url(${postImage(post, index)});`}></div>
+          <div>
+            <div class="pr-cat">{postCategoryLabel(post)}</div>
+            <div class="pr-t">{post?.title || 'Untitled'}</div>
+            <p class="pr-x">{postExcerpt(post)}</p>
+          </div>
+          <div class="pr-m"><div class="pr-dt">{formatDate(post?.pubDate || post?.date)}</div></div>
+        </a>
+      )) : (
+        <div class="pr-empty">
+          <div class="pr-cat">{authorName}</div>
+          <div class="pr-t">There are no published articles by this author yet.</div>
+          <p class="pr-x">Please check back soon for the latest reporting.</p>
+        </div>
+      )}
+    </div>
+  </div></section>
+
+  {showPagination && (
+    <section class="pg"><div class="w"><div class="pg-in">
+      {visiblePages.map((page, index) => (
+        <>
+          {index > 0 && page - visiblePages[index - 1] > 1 && <span class="gap">…</span>}
+          <a href={pagePath(page)} class={page === safeCurrentPage ? 'on' : undefined}>{page}</a>
+        </>
+      ))}
+      {safeCurrentPage < safeTotalPages && <a href={pagePath(safeCurrentPage + 1)} class="nx">Next →</a>}
+    </div></div></section>
+  )}
+</main>

@@ -893,8 +893,8 @@ var ourTeamMockup17BlockSchema = {
         { name: "name", label: "Name", type: "string" },
         { name: "role", label: "Role", type: "string" },
         { name: "location", label: "Location", type: "string" },
-        { name: "image", label: "Team Member Image", type: "image" },
-        { name: "imageAlt", label: "Team Member Image Alt Text", type: "string" },
+        { name: "image", label: "Photo", type: "image" },
+        { name: "imageAlt", label: "Photo Alt Text", type: "string" },
         { name: "bio", label: "Bio", type: "string", ui: { component: "textarea" } }
       ] }
     ] }
@@ -914,8 +914,8 @@ var homepageTemplateBlockSchema = {
         { name: "eyebrow", label: "Eyebrow", type: "string" },
         { name: "title", label: "Headline", type: "string" },
         { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-        { name: "buttonText", label: "Featured Story Label", type: "string", description: "Text label shown beside the hero eyebrow. This is not a button and does not link anywhere." },
-        { name: "buttonLink", label: "Unused Legacy Link", type: "string", description: "Kept only for TinaCloud schema compatibility. The Featured Story label does not use this link." },
+        { name: "buttonText", type: "string", description: "Editorial note CTA text." },
+        { name: "buttonLink", type: "string", description: "Editorial note CTA link." },
         { name: "image", label: "Hero Image", type: "image" },
         { name: "imageAlt", label: "Hero Image Alt Text", type: "string" }
       ]
@@ -958,8 +958,8 @@ var homepageTemplateBlockSchema = {
           name: "prompts",
           label: "In Practice Items",
           fields: [
-            { name: "title", label: "Title", type: "string" },
-            { name: "text", label: "Text", type: "string", ui: { component: "textarea" } }
+            { name: "title", label: "Practice Label", type: "string" },
+            { name: "text", label: "Practice Text", type: "string", ui: { component: "textarea" } }
           ]
         }
       ]
@@ -1010,7 +1010,7 @@ var homepageTemplateBlockSchema = {
           type: "object",
           list: true,
           name: "cards",
-          label: "Team Member Cards",
+          label: "Team Member Text Cards",
           fields: [
             { name: "title", label: "Team Member Name", type: "string" },
             { name: "email", label: "Role / Location", type: "string" },

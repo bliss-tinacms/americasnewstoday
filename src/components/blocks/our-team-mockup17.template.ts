@@ -19,7 +19,7 @@ export const ourTeamMockup17BlockSchema = {
       { name: 'eyebrow', label: 'Eyebrow', type: 'string' }, { name: 'title', label: 'Title', type: 'string' },
       { name: 'people', label: 'Staff Cards', type: 'object', list: true, fields: [
         { name: 'name', label: 'Name', type: 'string' }, { name: 'role', label: 'Role', type: 'string' }, { name: 'location', label: 'Location', type: 'string' },
-        { name: 'image', label: 'Team Member Image', type: 'image' }, { name: 'imageAlt', label: 'Team Member Image Alt Text', type: 'string' }, { name: 'bio', label: 'Bio', type: 'string', ui: { component: 'textarea' } },
+        { name: 'image', label: 'Photo', type: 'image' }, { name: 'imageAlt', label: 'Photo Alt Text', type: 'string' }, { name: 'bio', label: 'Bio', type: 'string', ui: { component: 'textarea' } },
       ]},
     ]},
   ],

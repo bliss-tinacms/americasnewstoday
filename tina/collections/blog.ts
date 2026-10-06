@@ -2,7 +2,7 @@ import type { Collection } from "tinacms";
 import { youTubeEmbedTemplate } from "../../src/components/mdx/YouTubeEmbed.template";
 import { seoFields } from "../fields/seo";
 import { viewFrontendField } from "../fields/view-frontend";
-import { CategoryCheckboxGroupField, CATEGORY_OPTIONS } from "../fields/category-checkbox-group";
+import { CategoryCheckboxGroupField, HiddenBlogCategoryCompatibilityField, CATEGORY_OPTIONS } from "../fields/category-checkbox-group";
 
 
 function slugifyFilename(value?: string | null): string {
@@ -82,6 +82,15 @@ export const BlogCollection: Collection = {
     seoFields,
     { name: "pubDate", label: "Publication Date", type: "datetime" },
     { name: "updatedDate", label: "Updated Date", type: "datetime" },
+    {
+      name: "category",
+      label: "",
+      type: "reference",
+      collections: ["category"],
+      ui: {
+        component: HiddenBlogCategoryCompatibilityField,
+      },
+    },
     {
       name: "categories",
       label: "Categories",

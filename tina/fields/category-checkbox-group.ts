@@ -62,6 +62,10 @@ function toTinaCategoryObjects(values: string[]) {
   return values.map((value) => ({ category: value }));
 }
 
+export function HiddenBlogCategoryCompatibilityField() {
+  return null;
+}
+
 export function CategoryCheckboxGroupField({ input, field, disabled = false }: any) {
   const [hydratedSelected, setHydratedSelected] = React.useState<string[] | null>(null);
 

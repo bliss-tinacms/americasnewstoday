@@ -935,3 +935,43 @@ html body main.ffn-demo-category .pr{
 html body main.ffn-demo-author .pr{
   grid-template-columns:200px 680px 140px;
 }
+
+
+/* SOURCE-CLONE-100 final important footer override: beats old demo-lock footer patch */
+html body footer.foot[data-brand-footer]{
+  font-family:Inter,system-ui,sans-serif!important;
+  background:var(--navy2,#001F43)!important;
+  color:#fff!important;
+  padding:52px 0 24px!important;
+}
+html body footer.foot[data-brand-footer] .w{
+  max-width:1108px!important;
+  padding:0!important;
+}
+html body footer.foot[data-brand-footer] .fg-grid{
+  display:grid!important;
+  grid-template-columns:2fr 1fr 1fr 1fr!important;
+  gap:48px!important;
+  column-gap:48px!important;
+  row-gap:48px!important;
+  margin:0 0 48px!important;
+  padding:0!important;
+}
+html body footer.foot[data-brand-footer] .fc ul{
+  display:grid!important;
+  gap:8px!important;
+  row-gap:8px!important;
+  column-gap:8px!important;
+  margin:0!important;
+  padding:0!important;
+  list-style:none!important;
+}
+html body footer.foot[data-brand-footer] .fc a{
+  font-size:13px!important;
+  font-weight:400!important;
+  padding:0!important;
+  margin:0!important;
+  color:rgba(255,255,255,.76)!important;
+  text-decoration:none!important;
+}
+html body footer.foot[data-brand-footer] *{font-family:Inter,system-ui,sans-serif!important;}

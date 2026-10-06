@@ -206,7 +206,10 @@ function hydrateBlogCategories<T extends Record<string, any>>(node: T): T {
 
 function ensureBlogCategories<T extends Record<string, any>>(node: T, local?: Record<string, any> | null): T {
 	const categories = Array.isArray(node?.categories) ? node.categories : [];
-	if (categories.length || !local?.category) return node;
+	if (categories.length) return node;
+	const localCategories = Array.isArray(local?.categories) ? local.categories : [];
+	if (localCategories.length) return { ...node, categories: localCategories } as T;
+	if (!local?.category) return node;
 	return { ...node, categories: Array.isArray(local.category) ? local.category : [local.category] } as T;
 }
 
@@ -573,7 +576,7 @@ export async function getBlog(slug: string) {
 			permalink
 			pubDate
 			updatedDate
-			category { ... on Category { title description _sys { filename } } }
+			categories
 			author { ... on User { name role avatar bio email _sys { filename } } }
 			heroImage
 			authorAlt
@@ -584,7 +587,10 @@ export async function getBlog(slug: string) {
 	}`;
 	const liveBlog = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.blog);
 	const override = readBlogOverride(relativePath);
-	if (liveBlog) return { data: { blog: hydrateBlogCategories(hydratePermalink('blog', { ...(liveBlog as any), ...(override ?? {}) })) } } as any;
+	if (liveBlog) {
+		const localBlog = readLocalBlogFrontmatter(relativePath) as Record<string, any> | null;
+		return { data: { blog: ensureBlogCategories(hydrateBlogCategories(hydratePermalink('blog', mergeDefined(localBlog, liveBlog as any, override ?? {}))), localBlog) } } as any;
+	}
 	const localBlog = readLocalBlogFrontmatter(relativePath);
 	if (localBlog || override) return { data: { blog: hydrateBlogCategories(hydratePermalink('blog', { ...(localBlog as any), ...(override ?? {}) })) } } as any;
 	return requestWithMetadata(client.queries.blog({ relativePath }), { priority: 'primary' });
@@ -698,7 +704,7 @@ export async function listBlogs() {
 					heroImage
 					heroImageAlt
 					seo { metaTitle metaDescription ogTitle ogDescription ogImage canonicalUrl noindex nofollow }
-					category { ... on Category { title description _sys { filename } } }
+					categories
 					author { ... on User { name role avatar bio email _sys { filename } } }
 					_sys { filename }
 				}

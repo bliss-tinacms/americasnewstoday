@@ -28,6 +28,7 @@ const BlogEditorStaleCompatibleDocument = `query Blog($relativePath: String!) {
     permalink
     pubDate
     updatedDate
+    categories
     author { ... on User { name role avatar bio email _sys { filename } } }
     heroImage
     authorAlt
@@ -200,9 +201,7 @@ function hydrateBlogCategories<T extends Record<string, any>>(node: T): T {
 			.map((item) => (typeof item === 'string' ? item : item?.category))
 			.filter(Boolean);
 		if (references.length) {
-			const next = { ...node, categories: references } as Record<string, any>;
-			delete next.category;
-			return next as T;
+			return { ...node, categories: references } as T;
 		}
 	}
 	const legacyCategory = node?.category;
@@ -211,14 +210,10 @@ function hydrateBlogCategories<T extends Record<string, any>>(node: T): T {
 			.map((item) => (typeof item === 'string' ? item : item?.category || item?._sys?.path || item?._sys?.relativePath))
 			.filter(Boolean);
 		if (references.length) {
-			const next = { ...node, categories: references } as Record<string, any>;
-			delete next.category;
-			return next as T;
+			return { ...node, categories: references } as T;
 		}
 	}
-	const next = { ...node } as Record<string, any>;
-	delete next.category;
-	return next as T;
+	return { ...node } as T;
 }
 
 function ensureBlogCategories<T extends Record<string, any>>(node: T, local?: Record<string, any> | null): T {
@@ -591,7 +586,8 @@ export async function getBlog(slug: string) {
 			permalink
 			pubDate
 			updatedDate
-			category
+			category { ... on Category { title description _sys { filename path relativePath } } }
+			categories
 			author { ... on User { name role avatar bio email _sys { filename } } }
 			heroImage
 			authorAlt
@@ -719,7 +715,8 @@ export async function listBlogs() {
 					heroImage
 					heroImageAlt
 					seo { metaTitle metaDescription ogTitle ogDescription ogImage canonicalUrl noindex nofollow }
-					category
+					category { ... on Category { title description _sys { filename path relativePath } } }
+			categories
 					author { ... on User { name role avatar bio email _sys { filename } } }
 					_sys { filename }
 				}

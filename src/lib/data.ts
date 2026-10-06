@@ -165,6 +165,17 @@ function hydratePermalink<T extends { _sys?: { filename?: string | null } | null
 	return permalink ? ({ ...node, permalink } as T) : node;
 }
 
+function mergeDefined<T extends Record<string, any>>(...sources: (Record<string, any> | null | undefined)[]): T {
+	const out: Record<string, any> = {};
+	for (const source of sources) {
+		if (!source || typeof source !== 'object') continue;
+		for (const [key, value] of Object.entries(source)) {
+			if (value !== undefined && value !== null) out[key] = value;
+		}
+	}
+	return out as T;
+}
+
 function hydrateBlogCategories<T extends Record<string, any>>(node: T): T {
 	const categories = node?.categories;
 	if (Array.isArray(categories) && categories.length) {
@@ -191,6 +202,12 @@ function hydrateBlogCategories<T extends Record<string, any>>(node: T): T {
 	const next = { ...node } as Record<string, any>;
 	delete next.category;
 	return next as T;
+}
+
+function ensureBlogCategories<T extends Record<string, any>>(node: T, local?: Record<string, any> | null): T {
+	const categories = Array.isArray(node?.categories) ? node.categories : [];
+	if (categories.length || !local?.category) return node;
+	return { ...node, categories: Array.isArray(local.category) ? local.category : [local.category] } as T;
 }
 
 function toTinaEditableBlog<T extends Record<string, any>>(node: T): T {
@@ -696,8 +713,9 @@ export async function listBlogs() {
 		return nodes
 			.map((node) => {
 				const relativePath = (node as any)?._sys?.relativePath || ((node as any)?._sys?.filename ? `${(node as any)._sys.filename}.mdx` : null);
+				const local = readLocalBlogFrontmatter((node as any)?._sys?.filename || null) as Record<string, any> | null;
 				const override = readBlogOverride(relativePath);
-				return hydrateBlogCategories(hydratePermalink('blog', { ...(node as any), ...(override ?? {}) }));
+				return ensureBlogCategories(hydrateBlogCategories(hydratePermalink('blog', mergeDefined(local, node as any, override ?? {}))), local);
 			})
 			.sort((a, b) => {
 				const ad = a.pubDate ? new Date(a.pubDate).valueOf() : 0;
@@ -722,8 +740,9 @@ export async function listBlogs() {
 		.flatMap((edge) => (edge?.node ? [edge.node] : []))
 		.map((node) => {
 			const relativePath = (node as any)?._sys?.relativePath || ((node as any)?._sys?.filename ? `${(node as any)._sys.filename}.mdx` : null);
+			const local = readLocalBlogFrontmatter((node as any)?._sys?.filename || null) as Record<string, any> | null;
 			const override = readBlogOverride(relativePath);
-			return hydrateBlogCategories(hydratePermalink('blog', { ...(node as any), ...(override ?? {}) }));
+			return ensureBlogCategories(hydrateBlogCategories(hydratePermalink('blog', mergeDefined(local, node as any, override ?? {}))), local);
 		})
 		.sort((a, b) => {
 			const ad = a.pubDate ? new Date(a.pubDate).valueOf() : 0;

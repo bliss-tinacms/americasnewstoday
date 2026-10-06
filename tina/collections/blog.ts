@@ -2,7 +2,6 @@ import type { Collection } from "tinacms";
 import { youTubeEmbedTemplate } from "../../src/components/mdx/YouTubeEmbed.template";
 import { seoFields } from "../fields/seo";
 import { viewFrontendField } from "../fields/view-frontend";
-import { CategoryCheckboxGroupField, HiddenBlogCategoryCompatibilityField, CATEGORY_OPTIONS } from "../fields/category-checkbox-group";
 
 
 function slugifyFilename(value?: string | null): string {
@@ -53,7 +52,15 @@ function filenameFromDocument(document: any): string {
 }
 
 function categoryOptions() {
-  return CATEGORY_OPTIONS;
+  return [
+    { label: "Business", value: "src/content/category/Business.json" },
+    { label: "Featured", value: "src/content/category/Featured.json" },
+    { label: "Health", value: "src/content/category/Health.json" },
+    { label: "Lifestyle", value: "src/content/category/Lifestyle.json" },
+    { label: "Politics", value: "src/content/category/Politics.json" },
+    { label: "Technology", value: "src/content/category/Technology.json" },
+    { label: "World", value: "src/content/category/World.json" },
+  ];
 }
 
 export const BlogCollection: Collection = {
@@ -88,7 +95,7 @@ export const BlogCollection: Collection = {
       type: "reference",
       collections: ["category"],
       ui: {
-        component: HiddenBlogCategoryCompatibilityField,
+        component: "hidden",
       },
     },
     {
@@ -97,9 +104,6 @@ export const BlogCollection: Collection = {
       type: "string",
       list: true,
       options: categoryOptions(),
-      ui: {
-        component: CategoryCheckboxGroupField,
-      },
       description: "Assign this post to one or more categories. Values save as category document paths.",
     },
 

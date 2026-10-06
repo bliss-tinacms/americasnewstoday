@@ -1,38 +1,101 @@
 ---
-import { tinaField } from '@tinacms/astro/tina-field';
-const { data = null } = Astro.props;
-const block = Array.isArray(data?.blocks) ? data.blocks[0] : data;
-const hero = block?.hero || {};
-const purpose = block?.purpose || {};
-const coverage = block?.coverage || {};
-const standards = block?.standardsSection || {};
-const independence = block?.independence || {};
-const newsroom = block?.newsroom || {};
-const coverageItems = Array.isArray(coverage?.items) && coverage.items.length ? coverage.items : [];
-const standardItems = Array.isArray(standards?.items) && standards.items.length ? standards.items : [];
-const contacts = Array.isArray(newsroom?.contacts) && newsroom.contacts.length ? newsroom.contacts : [];
-const t = (value: unknown, fallback = '') => String(value || fallback);
----
-<main class="ffn-demo ffn-demo-about">
-  <header class="ph"><div class="w"><div class="ph-in">
-    <div class="ph-kick"><i></i><span data-tina-field={hero ? tinaField(hero, 'eyebrow') : undefined}>{t(hero.eyebrow, 'About America’s News Today')}</span></div>
-    <h1 data-tina-field={hero ? tinaField(hero, 'headline') : undefined}>{t(hero.headline, 'A wider view of the country, in one place.')}</h1>
-    <p data-tina-field={hero ? tinaField(hero, 'lede') : undefined}>{t(hero.lede, 'America’s News Today is a general news platform dedicated to helping readers understand the events, developments, and ideas influencing life across the country.')}</p>
-  </div></div></header>
-  <section id="purpose" class="sec"><div class="w"><div class="pp">
-    <div class="pp-h"><h2 class="h2" data-tina-field={purpose ? tinaField(purpose, 'title') : undefined}>{t(purpose.title, 'Our Purpose')}</h2><div class="pp-tag" data-tina-field={purpose ? tinaField(purpose, 'eyebrow') : undefined}>{t(purpose.eyebrow, 'Why we publish')}</div></div>
-    <p class="pp-lead" data-tina-field={purpose ? tinaField(purpose, 'paragraphOne') : undefined}>{t(purpose.paragraphOne, 'Our purpose is to make important information easier to find and understand — from nationwide developments to the changing trends that reach communities and households.')}</p>
-    <div class="pp-cols">
-      <div class="pp-c"><div class="pp-ck">The scale of it</div><p data-tina-field={purpose ? tinaField(purpose, 'paragraphTwo') : undefined}>{t(purpose.paragraphTwo, 'America is shaped by millions of people, communities, industries, and experiences. No single subject can fully capture what is happening across the country, which is why we report across all of them.')}</p></div>
-      <div class="pp-c"><div class="pp-ck">National to local</div><p data-tina-field={purpose ? tinaField(purpose, 'pullquote') : undefined}>{t(purpose.pullquote, 'We examine how national conversations connect with local realities and why each development matters to readers.')}</p></div>
+const sourceHtml = `<header class="ph"><div class="w"><div class="ph-in">
+  <div class="ph-kick"><i></i><span>About America’s News Today</span></div>
+  <h1>A wider view of the country, in one place.</h1>
+  <p>America’s News Today is a general news platform dedicated to helping readers understand the events, developments, and ideas influencing life across the country. We bring together timely reporting, useful context, and diverse subject coverage in one accessible destination.</p></div></div></header><section id="purpose" class="sec"><div class="w"><div class="pp">
+  <div class="pp-h">
+    <h2 class="h2">Our Purpose</h2>
+    <div class="pp-tag">Why we publish</div>
+  </div>
+  <p class="pp-lead">Our purpose is to make important information easier to find and understand — from nationwide developments to the changing trends that reach <b>communities and households</b>.</p>
+  <div class="pp-cols">
+    <div class="pp-c">
+      <div class="pp-ck">The scale of it</div>
+      <p>America is shaped by millions of people, communities, industries, and experiences. No single subject can fully capture what is happening across the country, which is why we report across all of them.</p>
     </div>
-  </div></div></section>
-  <section class="bh"><div class="w"><p class="acc-p" data-tina-field={standards ? tinaField(standards, 'intro') : undefined}>{t(standards.intro, 'America’s News Today exists for readers who want clear reporting, useful context, and a broader understanding of the stories shaping public life.')}</p></div></section>
-  <section class="sec alt"><div class="w"><div class="cr">
-    <div class="cr-l"><div class="sec-eye"><i></i><span data-tina-field={coverage ? tinaField(coverage, 'eyebrow') : undefined}>{t(coverage.eyebrow, 'What we cover')}</span></div><h2 class="h2" data-tina-field={coverage ? tinaField(coverage, 'title') : undefined}>{t(coverage.title, 'Coverage across the subjects that shape daily life')}</h2><p data-tina-field={coverage ? tinaField(coverage, 'intro') : undefined}>{t(coverage.intro, 'Our reporting spans the areas readers follow every day, from public affairs and business to culture, technology, education, environment, and lifestyle.')}</p></div>
-    <div class="cg">{coverageItems.map((item:any, index:number)=><a class="crc" href={item.link || '#'}><div class="crc-a" data-tina-field={tinaField(item,'number')}>{item.number || String(index+1).padStart(2,'0')}</div><div class="crc-t" data-tina-field={tinaField(item,'title')}>{item.title}</div><p class="crc-x" data-tina-field={tinaField(item,'text')}>{item.text}</p></a>)}</div>
-  </div></div></section>
-  <section class="sec"><div class="w"><div class="sec-eye"><i></i><span data-tina-field={standards ? tinaField(standards, 'eyebrow') : undefined}>{t(standards.eyebrow, 'Standards')}</span></div><h2 class="h2" data-tina-field={standards ? tinaField(standards, 'title') : undefined}>{t(standards.title, 'How we work')}</h2><div class="st">{standardItems.map((item:any,index:number)=><div class="st-d"><div class="st-n" data-tina-field={tinaField(item,'number')}>{item.number || String(index+1).padStart(2,'0')}</div><div><div class="st-t" data-tina-field={tinaField(item,'title')}>{item.title}</div><p data-tina-field={tinaField(item,'text')}>{item.text}</p></div></div>)}</div></div></section>
-  <section class="ind"><div class="w"><div class="ind-in"><div><div class="sec-eye"><i></i><span data-tina-field={independence ? tinaField(independence,'eyebrow') : undefined}>{t(independence.eyebrow,'Independence')}</span></div><h2 class="h2" data-tina-field={independence ? tinaField(independence,'title') : undefined}>{t(independence.title,'Independent reporting, accountable process')}</h2><p data-tina-field={independence ? tinaField(independence,'paragraphOne') : undefined}>{t(independence.paragraphOne,'We value accuracy, context, and clarity in every story we publish.')}</p><p data-tina-field={independence ? tinaField(independence,'paragraphTwo') : undefined}>{t(independence.paragraphTwo,'Corrections, updates, and reader feedback are treated as part of the public record.')}</p><a class="ind-cta" href={independence.buttonLink || '/editorial-guidelines/'} data-tina-field={independence ? tinaField(independence,'buttonText') : undefined}>{t(independence.buttonText,'Read our standards')}</a></div><div class="ind-st"><div class="ist"><div class="ist-n">01</div><div class="ist-l">Verify</div></div><div class="ist"><div class="ist-n">02</div><div class="ist-l">Explain</div></div><div class="ist"><div class="ist-n">03</div><div class="ist-l">Correct</div></div></div></div></div></section>
-  <section class="cl"><div class="w"><h2 data-tina-field={newsroom ? tinaField(newsroom,'title') : undefined}>{t(newsroom.title,'Stay close to the stories shaping America.')}</h2><p data-tina-field={newsroom ? tinaField(newsroom,'intro') : undefined}>{t(newsroom.intro,'Visit us regularly for timely stories, practical information, and thoughtful coverage of the issues and ideas influencing America today.')}</p><a href="/" class="cl-cta">Read today’s stories</a></div></section>
-</main>
+    <div class="pp-c">
+      <div class="pp-ck">National to local</div>
+      <p>We examine how national conversations connect with local realities. A policy decision, technological advancement, business trend, or cultural shift lands differently from one community to another. Our coverage aims to make those connections clearer.</p>
+    </div>
+  </div></div></div></section><section id="coverage" class="sec alt"><div class="w">
+  <div class="sec-eye"><i></i><span>Editorial scope</span></div>
+  <h2 class="h2">A Wider View of Today’s America</h2>
+  <div class="cg">
+    <a href="#" class="cg-r"><div class="cg-n">01</div><div class="cg-t">National News</div><p class="cg-x">Developments and decisions shaping the national conversation.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">02</div><div class="cg-t">Business</div><p class="cg-x">Companies, markets, industries, and the forces reaching households.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">03</div><div class="cg-t">Technology</div><p class="cg-x">Innovation and the products changing how people live and work.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">04</div><div class="cg-t">Health</div><p class="cg-x">Research, care, and the findings that affect everyday decisions.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">05</div><div class="cg-t">Education</div><p class="cg-x">Schools, districts, and the policy decisions behind them.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">06</div><div class="cg-t">Entertainment</div><p class="cg-x">Film, music, media, and the culture industries around them.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">07</div><div class="cg-t">Lifestyle</div><p class="cg-x">Home, money, food, and the practical side of daily life.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">08</div><div class="cg-t">Science</div><p class="cg-x">Discovery and research, explained for a general reader.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">09</div><div class="cg-t">Travel</div><p class="cg-x">Movement, destinations, and the economics of getting there.</p></a>
+    <a href="#" class="cg-r"><div class="cg-n">10</div><div class="cg-t">Environment</div><p class="cg-x">Land, water, weather, and the decisions that shape them.</p></a>
+  </div></div></section><section id="headline" class="sec"><div class="w">
+  <div class="sec-eye"><i></i><span>How we write</span></div>
+  <div class="bh">
+    <div class="bh-l">
+      <h2 class="h2">Going Beyond the Headline</h2>
+      <div class="bh-q">
+        <p>Whether someone is following a developing story or exploring a subject for the first time, we strive to provide a helpful and understandable starting point.</p>
+        <span>Our standard for every piece</span>
+      </div>
+    </div>
+    <div class="bh-r">
+      <div class="bh-row"><div class="bh-n">01</div><p>A headline can introduce a story, but understanding often requires more. Readers need context, relevant details, and clear explanations to determine why a development deserves their attention.</p></div>
+      <div class="bh-row"><div class="bh-n">02</div><p>Our content is written to be informative without becoming unnecessarily complicated. We explain unfamiliar topics in straightforward language while preserving the facts and details readers need.</p></div>
+    </div>
+  </div></div></section><section id="values" class="sec alt"><div class="w">
+  <div class="sec-eye"><i></i><span>How we work</span></div>
+  <h2 class="h2">Our Editorial Values</h2>
+  <table class="st">
+    <thead><tr><th style="width: 190px;">Value</th><th>What It Means in Practice</th></tr></thead>
+    <tbody>
+      <tr><td class="st-n">Accuracy</td><td class="st-d">We prioritize accuracy over speculation. Significant factual errors are corrected when confirmed.</td></tr>
+      <tr><td class="st-n">Sourcing</td><td class="st-d">We use reliable and relevant sources, and we identify them so readers can weigh them.</td></tr>
+      <tr><td class="st-n">Context</td><td class="st-d">Facts, figures, and statements are presented with the context needed to understand them.</td></tr>
+      <tr><td class="st-n">Separation</td><td class="st-d">News reporting is kept distinct from opinion and commentary, and labeled accordingly.</td></tr>
+      <tr><td class="st-n">Honest Headlines</td><td class="st-d">We avoid misleading headlines and exaggerated claims. A headline should match the story beneath it.</td></tr>
+      <tr><td class="st-n">Disclosure</td><td class="st-d">Sponsored or promotional material is identified appropriately, never presented as reporting.</td></tr>
+      <tr><td class="st-n">Attribution</td><td class="st-d">We respect copyright, attribution, and intellectual property in every piece we publish.</td></tr>
+      <tr><td class="st-n">Updates</td><td class="st-d">As stories develop, articles may be updated to include newly verified information or important changes.</td></tr>
+    </tbody>
+  </table></div></section><section id="independence" class="ind"><div class="w"><div class="ind-in">
+  <div>
+    <div class="sec-eye"><i></i><span>Our role</span></div>
+    <h2>Independent thinking starts with better information.</h2>
+    <p>America’s News Today does not exist to tell readers what conclusions to reach. Our role is to present information clearly so readers can consider the facts, understand different perspectives, and form their own views.</p>
+    <p>We recognize that readers come from different backgrounds and hold different opinions. Our goal is to produce coverage that remains useful across those differences by focusing on clarity, relevance, and responsible presentation.</p>
+    <a href="#" class="ind-cta">Read our editorial guidelines →</a>
+  </div>
+  <div class="ind-stats">
+    <div class="ist"><span class="ist-n">10</span><span class="ist-l">Subject areas</span></div>
+    <div class="ist"><span class="ist-n">8</span><span class="ist-l">Published values</span></div>
+    <div class="ist"><span class="ist-n">0</span><span class="ist-l">Sponsor review</span></div>
+    <div class="ist"><span class="ist-n">50</span><span class="ist-l">States covered</span></div>
+  </div></div></div></section><section id="accountability" class="sec alt"><div class="w">
+  <div class="sec-eye"><i></i><span>Accountability to our readers</span></div>
+  <h2 class="h2">Tell Us When We Get It Wrong</h2>
+  <p class="acc-p">Reader trust is central to our work. When a concern is raised about the accuracy of an article, we review the available information and make corrections when appropriate. We welcome specific, constructive feedback supported by reliable evidence. Articles written by contributors or guest authors may express views that belong to the individual writer and do not necessarily represent the position of America’s News Today.</p>
+  <div class="cr">
+    <a href="mailto:corrections@americasnewstoday.org" class="crc">
+      <div class="crc-t">Corrections</div>
+      <div class="crc-a">corrections@americasnewstoday.org</div>
+      <p class="crc-x">Send the article link, the specific error, and the correct information.</p>
+    </a>
+    <a href="mailto:editorial@americasnewstoday.org" class="crc">
+      <div class="crc-t">Editorial &amp; Tips</div>
+      <div class="crc-a">editorial@americasnewstoday.org</div>
+      <p class="crc-x">Story tips, records, and pitches from contributing writers.</p>
+    </a>
+    <a href="mailto:info@americasnewstoday.org" class="crc">
+      <div class="crc-t">General Inquiries</div>
+      <div class="crc-a">info@americasnewstoday.org</div>
+      <p class="crc-x">Advertising, partnerships, technical issues, and reader correspondence.</p>
+    </a>
+  </div></div></section><section class="cl"><div class="w">
+  <h2>Stay current with America’s News Today</h2>
+  <p>The country never stops changing, and the stories shaping its future continue to unfold every day. Visit us regularly for timely stories, practical information, and thoughtful coverage of the issues and ideas influencing America today.</p>
+  <a href="/" class="cl-cta">Read today’s stories</a></div></section>`;
+---
+<main class="ffn-demo ffn-demo-about" set:html={sourceHtml} />

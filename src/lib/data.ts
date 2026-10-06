@@ -20,6 +20,24 @@ import { requestWithMetadata } from '@tinacms/astro/data';
 import client from '../../tina/__generated__/client';
 import { BlogDocument, CategoryDocument, ConfigDocument, PageDocument, UserDocument } from '../../tina/__generated__/types';
 
+const BlogEditorStaleCompatibleDocument = `query Blog($relativePath: String!) {
+  blog(relativePath: $relativePath) {
+    title
+    description
+    seo { metaTitle metaDescription ogTitle ogDescription ogImage canonicalUrl noindex nofollow }
+    permalink
+    pubDate
+    updatedDate
+    category { ... on Category { title description _sys { filename } } }
+    author { ... on User { name role avatar bio email _sys { filename } } }
+    heroImage
+    authorAlt
+    heroImageAlt
+    body
+    _sys { filename }
+  }
+}`;
+
 function localContentRoots() {
 	const roots = [
 		process.cwd(),
@@ -538,7 +556,7 @@ export const getEditableBlog = async (slug: string) => {
 			const override = readBlogOverride(relativePath);
 			return requestWithMetadata(Promise.resolve({
 				data: { ...result.data, blog: toTinaEditableBlog({ ...(result.data.blog as any), ...(override ?? {}) }) },
-				query: result.query,
+				query: BlogEditorStaleCompatibleDocument,
 				variables: result.variables ?? { relativePath },
 			}), { priority: 'primary' });
 		}
@@ -549,7 +567,7 @@ export const getEditableBlog = async (slug: string) => {
 			const override = readBlogOverride(relativePath);
 			return requestWithMetadata(Promise.resolve({
 				data: { ...live.data, blog: toTinaEditableBlog({ ...(live.data.blog as any), ...(override ?? {}) }) },
-				query: BlogDocument,
+				query: BlogEditorStaleCompatibleDocument,
 				variables: { relativePath },
 			}), { priority: 'primary' });
 		}
@@ -558,7 +576,7 @@ export const getEditableBlog = async (slug: string) => {
 		if (localBlog || override) {
 			return requestWithMetadata(Promise.resolve({
 				data: { blog: hydratePermalink('blog', toTinaEditableBlog({ ...(localBlog as any), ...(override ?? {}) })) },
-				query: BlogDocument,
+				query: BlogEditorStaleCompatibleDocument,
 				variables: { relativePath },
 			}), { priority: 'primary' });
 		}

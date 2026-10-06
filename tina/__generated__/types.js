@@ -115,17 +115,11 @@ export const PagePartsFragmentDoc = gql`
         title
         paragraphOne
         paragraphTwo
-        ctaText
-        ctaLink
-        standardsEyebrow
-        standardsTitle
         standards {
           __typename
           label
           title
           text
-          practiceLabel
-          practiceText
         }
       }
       newsroom {
@@ -147,8 +141,6 @@ export const PagePartsFragmentDoc = gql`
         quote
         author
         byline
-        buttonText
-        buttonLink
         image
         imageAlt
       }
@@ -169,13 +161,10 @@ export const PagePartsFragmentDoc = gql`
         title
         description
         note
-        leadLabel
         cards {
           __typename
           title
           email
-          image
-          imageAlt
           text
           accent
         }

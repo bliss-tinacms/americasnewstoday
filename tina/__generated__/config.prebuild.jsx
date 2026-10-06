@@ -867,22 +867,22 @@ var contactMockup17BlockSchema = {
 // src/components/blocks/our-team-mockup17.template.ts
 var ourTeamMockup17BlockSchema = {
   name: "ourTeamMockup17",
-  label: "Our Team Page Template Sections",
+  label: "Our Team Section Images / People",
   fields: [
     { type: "object", name: "hero", label: "Hero Section", fields: [
       { name: "eyebrow", label: "Eyebrow", type: "string" },
       { name: "headline", label: "Headline", type: "string" },
       { name: "lede", label: "Lede", type: "string", ui: { component: "textarea" } }
     ] },
-    { type: "object", name: "leadership", label: "Leadership Section", fields: [
+    { type: "object", name: "leadership", label: "Our Team Editable Images Section", fields: [
       { name: "eyebrow", label: "Eyebrow", type: "string" },
       { name: "title", label: "Title", type: "string" },
-      { name: "people", label: "Leadership People", type: "object", list: true, fields: [
+      { name: "people", label: "Team Member Image Cards", type: "object", list: true, fields: [
         { name: "name", label: "Name", type: "string" },
         { name: "role", label: "Role", type: "string" },
         { name: "location", label: "Location", type: "string" },
-        { name: "image", label: "Photo", type: "image" },
-        { name: "imageAlt", label: "Photo Alt Text", type: "string" },
+        { name: "image", label: "Team Member Image", type: "image" },
+        { name: "imageAlt", label: "Team Member Image Alt Text", type: "string" },
         { name: "bio", label: "Bio", type: "string", ui: { component: "textarea" } }
       ] }
     ] },
@@ -893,8 +893,8 @@ var ourTeamMockup17BlockSchema = {
         { name: "name", label: "Name", type: "string" },
         { name: "role", label: "Role", type: "string" },
         { name: "location", label: "Location", type: "string" },
-        { name: "image", label: "Photo", type: "image" },
-        { name: "imageAlt", label: "Photo Alt Text", type: "string" },
+        { name: "image", label: "Team Member Image", type: "image" },
+        { name: "imageAlt", label: "Team Member Image Alt Text", type: "string" },
         { name: "bio", label: "Bio", type: "string", ui: { component: "textarea" } }
       ] }
     ] }
@@ -928,11 +928,7 @@ var homepageTemplateBlockSchema = {
         { name: "eyebrow", label: "Eyebrow", type: "string" },
         { name: "title", label: "Heading", type: "string" },
         { name: "paragraphOne", label: "Paragraph 1", type: "string", ui: { component: "textarea" } },
-        { name: "paragraphTwo", label: "Paragraph 2", type: "string", ui: { component: "textarea" } },
-        { name: "ctaText", label: "About CTA Text", type: "string" },
-        { name: "ctaLink", label: "About CTA Link", type: "string" },
-        { name: "standardsEyebrow", label: "Editorial Standards Eyebrow", type: "string" },
-        { name: "standardsTitle", label: "Editorial Standards Heading", type: "string" },
+        { name: "paragraphTwo", label: "Editorial Standards Heading", type: "string", ui: { component: "textarea" } },
         {
           type: "object",
           list: true,
@@ -941,9 +937,7 @@ var homepageTemplateBlockSchema = {
           fields: [
             { name: "label", label: "Standard Number", type: "string" },
             { name: "title", label: "Standard Title", type: "string" },
-            { name: "text", label: "Standard Definition", type: "string", ui: { component: "textarea" } },
-            { name: "practiceLabel", label: "Practice Label", type: "string" },
-            { name: "practiceText", label: "Practice Text", type: "string", ui: { component: "textarea" } }
+            { name: "text", label: "Standard Definition", type: "string", ui: { component: "textarea" } }
           ]
         }
       ]
@@ -955,14 +949,14 @@ var homepageTemplateBlockSchema = {
       fields: [
         { name: "heading", label: "More Reporting Heading", type: "string" },
         { name: "subheading", label: "More Reporting Eyebrow", type: "string" },
-        { name: "submitHeading", label: "Legacy Submit Panel Heading", type: "string" },
-        { name: "submitButtonText", label: "Submit Button Text", type: "string" },
-        { name: "submitButtonLink", label: "Submit Button Link", type: "string" },
+        { name: "submitHeading", label: "Editorial Note CTA Text", type: "string" },
+        { name: "submitButtonText", label: "About CTA Text", type: "string" },
+        { name: "submitButtonLink", label: "About CTA Link", type: "string" },
         {
           type: "object",
           list: true,
           name: "prompts",
-          label: "Submit Prompt Items",
+          label: "In Practice Items",
           fields: [
             { name: "title", label: "Title", type: "string" },
             { name: "text", label: "Text", type: "string", ui: { component: "textarea" } }
@@ -973,14 +967,12 @@ var homepageTemplateBlockSchema = {
     {
       type: "object",
       name: "wireFeature",
-      label: "Editorial Standards Note Card",
+      label: "Editorial Standards / Note Card",
       fields: [
-        { name: "eyebrow", label: "Eyebrow", type: "string" },
-        { name: "quote", label: "Quote", type: "string", ui: { component: "textarea" } },
-        { name: "author", label: "Author Name", type: "string" },
+        { name: "eyebrow", label: "Editorial Standards Eyebrow", type: "string" },
+        { name: "quote", label: "Note Heading", type: "string", ui: { component: "textarea" } },
+        { name: "author", label: "Note Eyebrow", type: "string" },
         { name: "byline", label: "Note Text", type: "string" },
-        { name: "buttonText", label: "Note CTA Text", type: "string" },
-        { name: "buttonLink", label: "Note CTA Link", type: "string" },
         { name: "image", label: "Feature Image", type: "image" },
         { name: "imageAlt", label: "Feature Image Alt Text", type: "string" }
       ]
@@ -1013,8 +1005,7 @@ var homepageTemplateBlockSchema = {
         { name: "eyebrow", label: "Eyebrow", type: "string" },
         { name: "title", label: "Heading", type: "string" },
         { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-        { name: "note", label: "Section Note", type: "string", ui: { component: "textarea" } },
-        { name: "leadLabel", label: "Lead Team Member Label", type: "string" },
+        { name: "note", label: "Lead Team Member Label", type: "string", ui: { component: "textarea" } },
         {
           type: "object",
           list: true,
@@ -1023,8 +1014,6 @@ var homepageTemplateBlockSchema = {
           fields: [
             { name: "title", label: "Team Member Name", type: "string" },
             { name: "email", label: "Role / Location", type: "string" },
-            { name: "image", label: "Team Member Image", type: "image" },
-            { name: "imageAlt", label: "Team Member Image Alt Text", type: "string" },
             { name: "text", label: "Bio / Card Text", type: "string", ui: { component: "textarea" } },
             { name: "accent", label: "Lead Team Member", type: "boolean" }
           ]

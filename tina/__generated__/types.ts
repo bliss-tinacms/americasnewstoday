@@ -428,8 +428,6 @@ export type PageBlocksHomepageTemplateWhyStandards = {
   label?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
-  practiceLabel?: Maybe<Scalars['String']['output']>;
-  practiceText?: Maybe<Scalars['String']['output']>;
 };
 
 export type PageBlocksHomepageTemplateWhy = {
@@ -438,10 +436,6 @@ export type PageBlocksHomepageTemplateWhy = {
   title?: Maybe<Scalars['String']['output']>;
   paragraphOne?: Maybe<Scalars['String']['output']>;
   paragraphTwo?: Maybe<Scalars['String']['output']>;
-  ctaText?: Maybe<Scalars['String']['output']>;
-  ctaLink?: Maybe<Scalars['String']['output']>;
-  standardsEyebrow?: Maybe<Scalars['String']['output']>;
-  standardsTitle?: Maybe<Scalars['String']['output']>;
   standards?: Maybe<Array<Maybe<PageBlocksHomepageTemplateWhyStandards>>>;
 };
 
@@ -467,8 +461,6 @@ export type PageBlocksHomepageTemplateWireFeature = {
   quote?: Maybe<Scalars['String']['output']>;
   author?: Maybe<Scalars['String']['output']>;
   byline?: Maybe<Scalars['String']['output']>;
-  buttonText?: Maybe<Scalars['String']['output']>;
-  buttonLink?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   imageAlt?: Maybe<Scalars['String']['output']>;
 };
@@ -491,8 +483,6 @@ export type PageBlocksHomepageTemplateContactCards = {
   __typename?: 'PageBlocksHomepageTemplateContactCards';
   title?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  imageAlt?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
   accent?: Maybe<Scalars['Boolean']['output']>;
 };
@@ -503,7 +493,6 @@ export type PageBlocksHomepageTemplateContact = {
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   note?: Maybe<Scalars['String']['output']>;
-  leadLabel?: Maybe<Scalars['String']['output']>;
   cards?: Maybe<Array<Maybe<PageBlocksHomepageTemplateContactCards>>>;
 };
 
@@ -866,8 +855,6 @@ export type PageBlocksHomepageTemplateWhyStandardsFilter = {
   label?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   text?: InputMaybe<StringFilter>;
-  practiceLabel?: InputMaybe<StringFilter>;
-  practiceText?: InputMaybe<StringFilter>;
 };
 
 export type PageBlocksHomepageTemplateWhyFilter = {
@@ -875,10 +862,6 @@ export type PageBlocksHomepageTemplateWhyFilter = {
   title?: InputMaybe<StringFilter>;
   paragraphOne?: InputMaybe<StringFilter>;
   paragraphTwo?: InputMaybe<StringFilter>;
-  ctaText?: InputMaybe<StringFilter>;
-  ctaLink?: InputMaybe<StringFilter>;
-  standardsEyebrow?: InputMaybe<StringFilter>;
-  standardsTitle?: InputMaybe<StringFilter>;
   standards?: InputMaybe<PageBlocksHomepageTemplateWhyStandardsFilter>;
 };
 
@@ -901,8 +884,6 @@ export type PageBlocksHomepageTemplateWireFeatureFilter = {
   quote?: InputMaybe<StringFilter>;
   author?: InputMaybe<StringFilter>;
   byline?: InputMaybe<StringFilter>;
-  buttonText?: InputMaybe<StringFilter>;
-  buttonLink?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
   imageAlt?: InputMaybe<StringFilter>;
 };
@@ -922,8 +903,6 @@ export type PageBlocksHomepageTemplateCoverageFilter = {
 export type PageBlocksHomepageTemplateContactCardsFilter = {
   title?: InputMaybe<StringFilter>;
   email?: InputMaybe<StringFilter>;
-  image?: InputMaybe<ImageFilter>;
-  imageAlt?: InputMaybe<StringFilter>;
   text?: InputMaybe<StringFilter>;
   accent?: InputMaybe<BooleanFilter>;
 };
@@ -933,7 +912,6 @@ export type PageBlocksHomepageTemplateContactFilter = {
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
   note?: InputMaybe<StringFilter>;
-  leadLabel?: InputMaybe<StringFilter>;
   cards?: InputMaybe<PageBlocksHomepageTemplateContactCardsFilter>;
 };
 
@@ -1642,8 +1620,6 @@ export type PageBlocksHomepageTemplateWhyStandardsMutation = {
   label?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
-  practiceLabel?: InputMaybe<Scalars['String']['input']>;
-  practiceText?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PageBlocksHomepageTemplateWhyMutation = {
@@ -1651,10 +1627,6 @@ export type PageBlocksHomepageTemplateWhyMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   paragraphOne?: InputMaybe<Scalars['String']['input']>;
   paragraphTwo?: InputMaybe<Scalars['String']['input']>;
-  ctaText?: InputMaybe<Scalars['String']['input']>;
-  ctaLink?: InputMaybe<Scalars['String']['input']>;
-  standardsEyebrow?: InputMaybe<Scalars['String']['input']>;
-  standardsTitle?: InputMaybe<Scalars['String']['input']>;
   standards?: InputMaybe<Array<InputMaybe<PageBlocksHomepageTemplateWhyStandardsMutation>>>;
 };
 
@@ -1677,8 +1649,6 @@ export type PageBlocksHomepageTemplateWireFeatureMutation = {
   quote?: InputMaybe<Scalars['String']['input']>;
   author?: InputMaybe<Scalars['String']['input']>;
   byline?: InputMaybe<Scalars['String']['input']>;
-  buttonText?: InputMaybe<Scalars['String']['input']>;
-  buttonLink?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   imageAlt?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1698,8 +1668,6 @@ export type PageBlocksHomepageTemplateCoverageMutation = {
 export type PageBlocksHomepageTemplateContactCardsMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  imageAlt?: InputMaybe<Scalars['String']['input']>;
   text?: InputMaybe<Scalars['String']['input']>;
   accent?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -1709,7 +1677,6 @@ export type PageBlocksHomepageTemplateContactMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
-  leadLabel?: InputMaybe<Scalars['String']['input']>;
   cards?: InputMaybe<Array<InputMaybe<PageBlocksHomepageTemplateContactCardsMutation>>>;
 };
 
@@ -2178,8 +2145,6 @@ export type PageBlocksHomepageTemplateWhyStandardsFilter = {
   label?: StringFilter | null | undefined;
   title?: StringFilter | null | undefined;
   text?: StringFilter | null | undefined;
-  practiceLabel?: StringFilter | null | undefined;
-  practiceText?: StringFilter | null | undefined;
 };
 
 export type PageBlocksHomepageTemplateWhyFilter = {
@@ -2187,10 +2152,6 @@ export type PageBlocksHomepageTemplateWhyFilter = {
   title?: StringFilter | null | undefined;
   paragraphOne?: StringFilter | null | undefined;
   paragraphTwo?: StringFilter | null | undefined;
-  ctaText?: StringFilter | null | undefined;
-  ctaLink?: StringFilter | null | undefined;
-  standardsEyebrow?: StringFilter | null | undefined;
-  standardsTitle?: StringFilter | null | undefined;
   standards?: PageBlocksHomepageTemplateWhyStandardsFilter | null | undefined;
 };
 
@@ -2213,8 +2174,6 @@ export type PageBlocksHomepageTemplateWireFeatureFilter = {
   quote?: StringFilter | null | undefined;
   author?: StringFilter | null | undefined;
   byline?: StringFilter | null | undefined;
-  buttonText?: StringFilter | null | undefined;
-  buttonLink?: StringFilter | null | undefined;
   image?: ImageFilter | null | undefined;
   imageAlt?: StringFilter | null | undefined;
 };
@@ -2234,8 +2193,6 @@ export type PageBlocksHomepageTemplateCoverageFilter = {
 export type PageBlocksHomepageTemplateContactCardsFilter = {
   title?: StringFilter | null | undefined;
   email?: StringFilter | null | undefined;
-  image?: ImageFilter | null | undefined;
-  imageAlt?: StringFilter | null | undefined;
   text?: StringFilter | null | undefined;
   accent?: BooleanFilter | null | undefined;
 };
@@ -2245,7 +2202,6 @@ export type PageBlocksHomepageTemplateContactFilter = {
   title?: StringFilter | null | undefined;
   description?: StringFilter | null | undefined;
   note?: StringFilter | null | undefined;
-  leadLabel?: StringFilter | null | undefined;
   cards?: PageBlocksHomepageTemplateContactCardsFilter | null | undefined;
 };
 
@@ -2625,7 +2581,7 @@ export type BlogPartsFragment = { __typename: 'Blog', viewPostShortcut: string |
 export type CategoryPartsFragment = { __typename: 'Category', title: string, description: string | null };
 
 export type PagePartsFragment = { __typename: 'Page', viewPageShortcut: string | null, title: string, permalink: string | null, seo: { __typename: 'PageSeo', metaTitle: string | null, metaDescription: string | null, ogTitle: string | null, ogDescription: string | null, ogImage: string | null, canonicalUrl: string | null, noindex: boolean | null, nofollow: boolean | null } | null, blocks: Array<
-    | { __typename: 'PageBlocksHomepageTemplate', hero: { __typename: 'PageBlocksHomepageTemplateHero', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, why: { __typename: 'PageBlocksHomepageTemplateWhy', eyebrow: string | null, title: string | null, paragraphOne: string | null, paragraphTwo: string | null, ctaText: string | null, ctaLink: string | null, standardsEyebrow: string | null, standardsTitle: string | null, standards: Array<{ __typename: 'PageBlocksHomepageTemplateWhyStandards', label: string | null, title: string | null, text: string | null, practiceLabel: string | null, practiceText: string | null } | null> | null } | null, newsroom: { __typename: 'PageBlocksHomepageTemplateNewsroom', heading: string | null, subheading: string | null, submitHeading: string | null, submitButtonText: string | null, submitButtonLink: string | null, prompts: Array<{ __typename: 'PageBlocksHomepageTemplateNewsroomPrompts', title: string | null, text: string | null } | null> | null } | null, wireFeature: { __typename: 'PageBlocksHomepageTemplateWireFeature', eyebrow: string | null, quote: string | null, author: string | null, byline: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, coverage: { __typename: 'PageBlocksHomepageTemplateCoverage', title: string | null, description: string | null, topics: Array<{ __typename: 'PageBlocksHomepageTemplateCoverageTopics', number: string | null, title: string | null, text: string | null } | null> | null } | null, contact: { __typename: 'PageBlocksHomepageTemplateContact', eyebrow: string | null, title: string | null, description: string | null, note: string | null, leadLabel: string | null, cards: Array<{ __typename: 'PageBlocksHomepageTemplateContactCards', title: string | null, email: string | null, image: string | null, imageAlt: string | null, text: string | null, accent: boolean | null } | null> | null } | null }
+    | { __typename: 'PageBlocksHomepageTemplate', hero: { __typename: 'PageBlocksHomepageTemplateHero', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, why: { __typename: 'PageBlocksHomepageTemplateWhy', eyebrow: string | null, title: string | null, paragraphOne: string | null, paragraphTwo: string | null, standards: Array<{ __typename: 'PageBlocksHomepageTemplateWhyStandards', label: string | null, title: string | null, text: string | null } | null> | null } | null, newsroom: { __typename: 'PageBlocksHomepageTemplateNewsroom', heading: string | null, subheading: string | null, submitHeading: string | null, submitButtonText: string | null, submitButtonLink: string | null, prompts: Array<{ __typename: 'PageBlocksHomepageTemplateNewsroomPrompts', title: string | null, text: string | null } | null> | null } | null, wireFeature: { __typename: 'PageBlocksHomepageTemplateWireFeature', eyebrow: string | null, quote: string | null, author: string | null, byline: string | null, image: string | null, imageAlt: string | null } | null, coverage: { __typename: 'PageBlocksHomepageTemplateCoverage', title: string | null, description: string | null, topics: Array<{ __typename: 'PageBlocksHomepageTemplateCoverageTopics', number: string | null, title: string | null, text: string | null } | null> | null } | null, contact: { __typename: 'PageBlocksHomepageTemplateContact', eyebrow: string | null, title: string | null, description: string | null, note: string | null, cards: Array<{ __typename: 'PageBlocksHomepageTemplateContactCards', title: string | null, email: string | null, text: string | null, accent: boolean | null } | null> | null } | null }
     | { __typename: 'PageBlocksAboutMockup17', hero: { __typename: 'PageBlocksAboutMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, purpose: { __typename: 'PageBlocksAboutMockup17Purpose', eyebrow: string | null, title: string | null, paragraphOne: string | null, pullquote: string | null, paragraphTwo: string | null } | null, coverage: { __typename: 'PageBlocksAboutMockup17Coverage', eyebrow: string | null, title: string | null, intro: string | null, items: Array<{ __typename: 'PageBlocksAboutMockup17CoverageItems', number: string | null, title: string | null, text: string | null, link: string | null } | null> | null } | null, standardsSection: { __typename: 'PageBlocksAboutMockup17StandardsSection', eyebrow: string | null, title: string | null, intro: string | null, items: Array<{ __typename: 'PageBlocksAboutMockup17StandardsSectionItems', number: string | null, title: string | null, text: string | null } | null> | null } | null, independence: { __typename: 'PageBlocksAboutMockup17Independence', eyebrow: string | null, title: string | null, image: string | null, imageAlt: string | null, paragraphOne: string | null, paragraphTwo: string | null, buttonText: string | null, buttonLink: string | null } | null, newsroom: { __typename: 'PageBlocksAboutMockup17Newsroom', eyebrow: string | null, title: string | null, intro: string | null, contacts: Array<{ __typename: 'PageBlocksAboutMockup17NewsroomContacts', icon: string | null, title: string | null, email: string | null, text: string | null } | null> | null } | null }
     | { __typename: 'PageBlocksOurTeamMockup17', hero: { __typename: 'PageBlocksOurTeamMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, leadership: { __typename: 'PageBlocksOurTeamMockup17Leadership', eyebrow: string | null, title: string | null, people: Array<{ __typename: 'PageBlocksOurTeamMockup17LeadershipPeople', name: string | null, role: string | null, location: string | null, image: string | null, imageAlt: string | null, bio: string | null } | null> | null } | null, seniorStaff: { __typename: 'PageBlocksOurTeamMockup17SeniorStaff', eyebrow: string | null, title: string | null, people: Array<{ __typename: 'PageBlocksOurTeamMockup17SeniorStaffPeople', name: string | null, role: string | null, location: string | null, image: string | null, imageAlt: string | null, bio: string | null } | null> | null } | null }
     | { __typename: 'PageBlocksContactMockup17', hero: { __typename: 'PageBlocksContactMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, formSection: { __typename: 'PageBlocksContactMockup17FormSection', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, note: string | null, formAction: string | null, subject: string | null } | null, inboxes: { __typename: 'PageBlocksContactMockup17Inboxes', eyebrow: string | null, title: string | null, cards: Array<{ __typename: 'PageBlocksContactMockup17InboxesCards', title: string | null, description: string | null, email: string | null, note: string | null } | null> | null } | null, requests: { __typename: 'PageBlocksContactMockup17Requests', eyebrow: string | null, title: string | null, intro: string | null, cards: Array<{ __typename: 'PageBlocksContactMockup17RequestsCards', icon: string | null, title: string | null, text: string | null } | null> | null } | null }
@@ -2690,7 +2646,7 @@ export type PageQueryVariables = Exact<{
 
 
 export type PageQuery = { page: { __typename: 'Page', id: string, viewPageShortcut: string | null, title: string, permalink: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, seo: { __typename: 'PageSeo', metaTitle: string | null, metaDescription: string | null, ogTitle: string | null, ogDescription: string | null, ogImage: string | null, canonicalUrl: string | null, noindex: boolean | null, nofollow: boolean | null } | null, blocks: Array<
-      | { __typename: 'PageBlocksHomepageTemplate', hero: { __typename: 'PageBlocksHomepageTemplateHero', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, why: { __typename: 'PageBlocksHomepageTemplateWhy', eyebrow: string | null, title: string | null, paragraphOne: string | null, paragraphTwo: string | null, ctaText: string | null, ctaLink: string | null, standardsEyebrow: string | null, standardsTitle: string | null, standards: Array<{ __typename: 'PageBlocksHomepageTemplateWhyStandards', label: string | null, title: string | null, text: string | null, practiceLabel: string | null, practiceText: string | null } | null> | null } | null, newsroom: { __typename: 'PageBlocksHomepageTemplateNewsroom', heading: string | null, subheading: string | null, submitHeading: string | null, submitButtonText: string | null, submitButtonLink: string | null, prompts: Array<{ __typename: 'PageBlocksHomepageTemplateNewsroomPrompts', title: string | null, text: string | null } | null> | null } | null, wireFeature: { __typename: 'PageBlocksHomepageTemplateWireFeature', eyebrow: string | null, quote: string | null, author: string | null, byline: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, coverage: { __typename: 'PageBlocksHomepageTemplateCoverage', title: string | null, description: string | null, topics: Array<{ __typename: 'PageBlocksHomepageTemplateCoverageTopics', number: string | null, title: string | null, text: string | null } | null> | null } | null, contact: { __typename: 'PageBlocksHomepageTemplateContact', eyebrow: string | null, title: string | null, description: string | null, note: string | null, leadLabel: string | null, cards: Array<{ __typename: 'PageBlocksHomepageTemplateContactCards', title: string | null, email: string | null, image: string | null, imageAlt: string | null, text: string | null, accent: boolean | null } | null> | null } | null }
+      | { __typename: 'PageBlocksHomepageTemplate', hero: { __typename: 'PageBlocksHomepageTemplateHero', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, why: { __typename: 'PageBlocksHomepageTemplateWhy', eyebrow: string | null, title: string | null, paragraphOne: string | null, paragraphTwo: string | null, standards: Array<{ __typename: 'PageBlocksHomepageTemplateWhyStandards', label: string | null, title: string | null, text: string | null } | null> | null } | null, newsroom: { __typename: 'PageBlocksHomepageTemplateNewsroom', heading: string | null, subheading: string | null, submitHeading: string | null, submitButtonText: string | null, submitButtonLink: string | null, prompts: Array<{ __typename: 'PageBlocksHomepageTemplateNewsroomPrompts', title: string | null, text: string | null } | null> | null } | null, wireFeature: { __typename: 'PageBlocksHomepageTemplateWireFeature', eyebrow: string | null, quote: string | null, author: string | null, byline: string | null, image: string | null, imageAlt: string | null } | null, coverage: { __typename: 'PageBlocksHomepageTemplateCoverage', title: string | null, description: string | null, topics: Array<{ __typename: 'PageBlocksHomepageTemplateCoverageTopics', number: string | null, title: string | null, text: string | null } | null> | null } | null, contact: { __typename: 'PageBlocksHomepageTemplateContact', eyebrow: string | null, title: string | null, description: string | null, note: string | null, cards: Array<{ __typename: 'PageBlocksHomepageTemplateContactCards', title: string | null, email: string | null, text: string | null, accent: boolean | null } | null> | null } | null }
       | { __typename: 'PageBlocksAboutMockup17', hero: { __typename: 'PageBlocksAboutMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, purpose: { __typename: 'PageBlocksAboutMockup17Purpose', eyebrow: string | null, title: string | null, paragraphOne: string | null, pullquote: string | null, paragraphTwo: string | null } | null, coverage: { __typename: 'PageBlocksAboutMockup17Coverage', eyebrow: string | null, title: string | null, intro: string | null, items: Array<{ __typename: 'PageBlocksAboutMockup17CoverageItems', number: string | null, title: string | null, text: string | null, link: string | null } | null> | null } | null, standardsSection: { __typename: 'PageBlocksAboutMockup17StandardsSection', eyebrow: string | null, title: string | null, intro: string | null, items: Array<{ __typename: 'PageBlocksAboutMockup17StandardsSectionItems', number: string | null, title: string | null, text: string | null } | null> | null } | null, independence: { __typename: 'PageBlocksAboutMockup17Independence', eyebrow: string | null, title: string | null, image: string | null, imageAlt: string | null, paragraphOne: string | null, paragraphTwo: string | null, buttonText: string | null, buttonLink: string | null } | null, newsroom: { __typename: 'PageBlocksAboutMockup17Newsroom', eyebrow: string | null, title: string | null, intro: string | null, contacts: Array<{ __typename: 'PageBlocksAboutMockup17NewsroomContacts', icon: string | null, title: string | null, email: string | null, text: string | null } | null> | null } | null }
       | { __typename: 'PageBlocksOurTeamMockup17', hero: { __typename: 'PageBlocksOurTeamMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, leadership: { __typename: 'PageBlocksOurTeamMockup17Leadership', eyebrow: string | null, title: string | null, people: Array<{ __typename: 'PageBlocksOurTeamMockup17LeadershipPeople', name: string | null, role: string | null, location: string | null, image: string | null, imageAlt: string | null, bio: string | null } | null> | null } | null, seniorStaff: { __typename: 'PageBlocksOurTeamMockup17SeniorStaff', eyebrow: string | null, title: string | null, people: Array<{ __typename: 'PageBlocksOurTeamMockup17SeniorStaffPeople', name: string | null, role: string | null, location: string | null, image: string | null, imageAlt: string | null, bio: string | null } | null> | null } | null }
       | { __typename: 'PageBlocksContactMockup17', hero: { __typename: 'PageBlocksContactMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, formSection: { __typename: 'PageBlocksContactMockup17FormSection', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, note: string | null, formAction: string | null, subject: string | null } | null, inboxes: { __typename: 'PageBlocksContactMockup17Inboxes', eyebrow: string | null, title: string | null, cards: Array<{ __typename: 'PageBlocksContactMockup17InboxesCards', title: string | null, description: string | null, email: string | null, note: string | null } | null> | null } | null, requests: { __typename: 'PageBlocksContactMockup17Requests', eyebrow: string | null, title: string | null, intro: string | null, cards: Array<{ __typename: 'PageBlocksContactMockup17RequestsCards', icon: string | null, title: string | null, text: string | null } | null> | null } | null }
@@ -2716,7 +2672,7 @@ export type PageConnectionQueryVariables = Exact<{
 
 
 export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, viewPageShortcut: string | null, title: string, permalink: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, seo: { __typename: 'PageSeo', metaTitle: string | null, metaDescription: string | null, ogTitle: string | null, ogDescription: string | null, ogImage: string | null, canonicalUrl: string | null, noindex: boolean | null, nofollow: boolean | null } | null, blocks: Array<
-          | { __typename: 'PageBlocksHomepageTemplate', hero: { __typename: 'PageBlocksHomepageTemplateHero', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, why: { __typename: 'PageBlocksHomepageTemplateWhy', eyebrow: string | null, title: string | null, paragraphOne: string | null, paragraphTwo: string | null, ctaText: string | null, ctaLink: string | null, standardsEyebrow: string | null, standardsTitle: string | null, standards: Array<{ __typename: 'PageBlocksHomepageTemplateWhyStandards', label: string | null, title: string | null, text: string | null, practiceLabel: string | null, practiceText: string | null } | null> | null } | null, newsroom: { __typename: 'PageBlocksHomepageTemplateNewsroom', heading: string | null, subheading: string | null, submitHeading: string | null, submitButtonText: string | null, submitButtonLink: string | null, prompts: Array<{ __typename: 'PageBlocksHomepageTemplateNewsroomPrompts', title: string | null, text: string | null } | null> | null } | null, wireFeature: { __typename: 'PageBlocksHomepageTemplateWireFeature', eyebrow: string | null, quote: string | null, author: string | null, byline: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, coverage: { __typename: 'PageBlocksHomepageTemplateCoverage', title: string | null, description: string | null, topics: Array<{ __typename: 'PageBlocksHomepageTemplateCoverageTopics', number: string | null, title: string | null, text: string | null } | null> | null } | null, contact: { __typename: 'PageBlocksHomepageTemplateContact', eyebrow: string | null, title: string | null, description: string | null, note: string | null, leadLabel: string | null, cards: Array<{ __typename: 'PageBlocksHomepageTemplateContactCards', title: string | null, email: string | null, image: string | null, imageAlt: string | null, text: string | null, accent: boolean | null } | null> | null } | null }
+          | { __typename: 'PageBlocksHomepageTemplate', hero: { __typename: 'PageBlocksHomepageTemplateHero', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, buttonLink: string | null, image: string | null, imageAlt: string | null } | null, why: { __typename: 'PageBlocksHomepageTemplateWhy', eyebrow: string | null, title: string | null, paragraphOne: string | null, paragraphTwo: string | null, standards: Array<{ __typename: 'PageBlocksHomepageTemplateWhyStandards', label: string | null, title: string | null, text: string | null } | null> | null } | null, newsroom: { __typename: 'PageBlocksHomepageTemplateNewsroom', heading: string | null, subheading: string | null, submitHeading: string | null, submitButtonText: string | null, submitButtonLink: string | null, prompts: Array<{ __typename: 'PageBlocksHomepageTemplateNewsroomPrompts', title: string | null, text: string | null } | null> | null } | null, wireFeature: { __typename: 'PageBlocksHomepageTemplateWireFeature', eyebrow: string | null, quote: string | null, author: string | null, byline: string | null, image: string | null, imageAlt: string | null } | null, coverage: { __typename: 'PageBlocksHomepageTemplateCoverage', title: string | null, description: string | null, topics: Array<{ __typename: 'PageBlocksHomepageTemplateCoverageTopics', number: string | null, title: string | null, text: string | null } | null> | null } | null, contact: { __typename: 'PageBlocksHomepageTemplateContact', eyebrow: string | null, title: string | null, description: string | null, note: string | null, cards: Array<{ __typename: 'PageBlocksHomepageTemplateContactCards', title: string | null, email: string | null, text: string | null, accent: boolean | null } | null> | null } | null }
           | { __typename: 'PageBlocksAboutMockup17', hero: { __typename: 'PageBlocksAboutMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, purpose: { __typename: 'PageBlocksAboutMockup17Purpose', eyebrow: string | null, title: string | null, paragraphOne: string | null, pullquote: string | null, paragraphTwo: string | null } | null, coverage: { __typename: 'PageBlocksAboutMockup17Coverage', eyebrow: string | null, title: string | null, intro: string | null, items: Array<{ __typename: 'PageBlocksAboutMockup17CoverageItems', number: string | null, title: string | null, text: string | null, link: string | null } | null> | null } | null, standardsSection: { __typename: 'PageBlocksAboutMockup17StandardsSection', eyebrow: string | null, title: string | null, intro: string | null, items: Array<{ __typename: 'PageBlocksAboutMockup17StandardsSectionItems', number: string | null, title: string | null, text: string | null } | null> | null } | null, independence: { __typename: 'PageBlocksAboutMockup17Independence', eyebrow: string | null, title: string | null, image: string | null, imageAlt: string | null, paragraphOne: string | null, paragraphTwo: string | null, buttonText: string | null, buttonLink: string | null } | null, newsroom: { __typename: 'PageBlocksAboutMockup17Newsroom', eyebrow: string | null, title: string | null, intro: string | null, contacts: Array<{ __typename: 'PageBlocksAboutMockup17NewsroomContacts', icon: string | null, title: string | null, email: string | null, text: string | null } | null> | null } | null }
           | { __typename: 'PageBlocksOurTeamMockup17', hero: { __typename: 'PageBlocksOurTeamMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, leadership: { __typename: 'PageBlocksOurTeamMockup17Leadership', eyebrow: string | null, title: string | null, people: Array<{ __typename: 'PageBlocksOurTeamMockup17LeadershipPeople', name: string | null, role: string | null, location: string | null, image: string | null, imageAlt: string | null, bio: string | null } | null> | null } | null, seniorStaff: { __typename: 'PageBlocksOurTeamMockup17SeniorStaff', eyebrow: string | null, title: string | null, people: Array<{ __typename: 'PageBlocksOurTeamMockup17SeniorStaffPeople', name: string | null, role: string | null, location: string | null, image: string | null, imageAlt: string | null, bio: string | null } | null> | null } | null }
           | { __typename: 'PageBlocksContactMockup17', hero: { __typename: 'PageBlocksContactMockup17Hero', eyebrow: string | null, headline: string | null, lede: string | null } | null, formSection: { __typename: 'PageBlocksContactMockup17FormSection', eyebrow: string | null, title: string | null, description: string | null, buttonText: string | null, note: string | null, formAction: string | null, subject: string | null } | null, inboxes: { __typename: 'PageBlocksContactMockup17Inboxes', eyebrow: string | null, title: string | null, cards: Array<{ __typename: 'PageBlocksContactMockup17InboxesCards', title: string | null, description: string | null, email: string | null, note: string | null } | null> | null } | null, requests: { __typename: 'PageBlocksContactMockup17Requests', eyebrow: string | null, title: string | null, intro: string | null, cards: Array<{ __typename: 'PageBlocksContactMockup17RequestsCards', icon: string | null, title: string | null, text: string | null } | null> | null } | null }
@@ -2898,17 +2854,11 @@ export const PagePartsFragmentDoc = gql`
         title
         paragraphOne
         paragraphTwo
-        ctaText
-        ctaLink
-        standardsEyebrow
-        standardsTitle
         standards {
           __typename
           label
           title
           text
-          practiceLabel
-          practiceText
         }
       }
       newsroom {
@@ -2930,8 +2880,6 @@ export const PagePartsFragmentDoc = gql`
         quote
         author
         byline
-        buttonText
-        buttonLink
         image
         imageAlt
       }
@@ -2952,13 +2900,10 @@ export const PagePartsFragmentDoc = gql`
         title
         description
         note
-        leadLabel
         cards {
           __typename
           title
           email
-          image
-          imageAlt
           text
           accent
         }

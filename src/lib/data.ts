@@ -204,19 +204,42 @@ function toTinaEditableBlog<T extends Record<string, any>>(node: T): T {
 	} as unknown as T;
 }
 
+
+function readRuntimeEnvValue(key: string) {
+	for (const root of localContentRoots()) {
+		for (const filename of ['.env.americasnewstoday', '.env']) {
+			try {
+				const text = readFileSync(join(root, filename), 'utf8');
+				for (const line of text.split(/\r?\n/)) {
+					if (!line || line.trim().startsWith('#') || !line.includes('=')) continue;
+					const [rawKey, ...rest] = line.split('=');
+					if (rawKey.trim() !== key) continue;
+					return rest.join('=').trim().replace(/^['"]|['"]$/g, '');
+				}
+			} catch (_error) {
+				// Try next env file/root.
+			}
+		}
+	}
+	return '';
+}
+
 function tinaDirectContentApiUrl() {
 	const clientId =
 		process.env.NEXT_PUBLIC_TINA_CLIENT_ID ||
 		process.env.PUBLIC_TINA_CLIENT_ID ||
 		process.env.TINA_PUBLIC_CLIENT_ID ||
+		readRuntimeEnvValue('NEXT_PUBLIC_TINA_CLIENT_ID') ||
+		readRuntimeEnvValue('PUBLIC_TINA_CLIENT_ID') ||
+		readRuntimeEnvValue('TINA_PUBLIC_CLIENT_ID') ||
 		'fc6d8b6a-9072-4ac2-9a4b-12a482200442';
-	const branch = process.env.NEXT_PUBLIC_TINA_BRANCH || process.env.TINA_BRANCH || 'main';
+	const branch = process.env.NEXT_PUBLIC_TINA_BRANCH || process.env.TINA_BRANCH || readRuntimeEnvValue('NEXT_PUBLIC_TINA_BRANCH') || readRuntimeEnvValue('TINA_BRANCH') || 'main';
 	if (!clientId) return null;
 	return `https://content.tinajs.io/2.4/content/${encodeURIComponent(clientId)}/github/${encodeURIComponent(branch)}`;
 }
 
 function tinaApiToken() {
-	return process.env.NEXT_PUBLIC_TINA_TOKEN || process.env.TINA_PUBLIC_TINA_TOKEN || process.env.TINA_TOKEN || '';
+	return process.env.NEXT_PUBLIC_TINA_TOKEN || process.env.TINA_PUBLIC_TINA_TOKEN || process.env.TINA_TOKEN || readRuntimeEnvValue('NEXT_PUBLIC_TINA_TOKEN') || readRuntimeEnvValue('TINA_PUBLIC_TINA_TOKEN') || readRuntimeEnvValue('TINA_TOKEN') || '';
 }
 
 function hasUnsupportedFieldError(json: any) {
@@ -248,8 +271,8 @@ function tinaProxyEndpoints() {
 }
 
 async function fetchGithubPageFrontmatter(relativePath: string) {
-	const branch = process.env.TINA_BRANCH || process.env.NEXT_PUBLIC_TINA_BRANCH || 'main';
-	const repo = process.env.GITHUB_CONTENT_REPO || 'bliss-tinacms/boilerplate';
+	const branch = process.env.TINA_BRANCH || process.env.NEXT_PUBLIC_TINA_BRANCH || readRuntimeEnvValue('TINA_BRANCH') || readRuntimeEnvValue('NEXT_PUBLIC_TINA_BRANCH') || 'main';
+	const repo = process.env.GITHUB_CONTENT_REPO || readRuntimeEnvValue('GITHUB_CONTENT_REPO') || 'bliss-tinacms/americasnewstoday';
 	const url = `https://raw.githubusercontent.com/${repo}/${branch}/src/content/page/${relativePath}`;
 	try {
 		const response = await fetch(url, { cache: 'no-store', headers: { 'cache-control': 'no-cache' } });

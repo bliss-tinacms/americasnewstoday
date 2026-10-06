@@ -323,3 +323,104 @@ html{scroll-behavior:smooth}
 .about-source-body .cl p{font-size:16px}
 .about-source-body .acc-p{font-size:17px}
 }
+
+/* About demo correction: force source-demo text colors/typography to win over global site heading rules. */
+.about-source-body .ph h1{color:#fff!important;text-transform:none!important}
+.about-source-body .h2{text-transform:none!important}
+.about-source-body .ph-kick span,
+.about-source-body .pp-tag,
+.about-source-body .pp-ck,
+.about-source-body .sec-eye span,
+.about-source-body .bh-q span,
+.about-source-body .st th,
+.about-source-body .ist-l,
+.about-source-body .crc-t,
+.about-source-body .crc-a,
+.about-source-body .cl-cta{line-height:normal!important}
+
+/* About demo isolation: force uploaded demo text styling to beat legacy/global site heading rules. */
+.about-source-body :where(h1,h2,h3,h4,h5,h6,p,div,span,a,td,th){
+  text-decoration:none;
+  text-shadow:none;
+}
+.about-source-body :where(h1,h2,h3,h4,h5,h6,p,div,span,a,td,th)::before,
+.about-source-body :where(h1,h2,h3,h4,h5,h6,p,div,span,a,td,th)::after{
+  text-decoration:none;
+}
+.about-source-body .ph h1{
+  color:#fff;
+  font-family:var(--ser);
+  font-size:52px;
+  font-weight:700;
+  line-height:1.06;
+  letter-spacing:-.03em;
+  text-transform:none;
+  text-decoration:none;
+  border-bottom:none;
+}
+.about-source-body .ph p{
+  color:rgba(255,255,255,.88);
+  font-size:18px;
+  font-weight:400;
+  line-height:1.75;
+  text-transform:none;
+  border-bottom:none;
+}
+.about-source-body .ph-kick span{
+  color:#D9B84A;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  line-height:normal;
+  border-bottom:none;
+}
+.about-source-body .h2{
+  color:var(--navy);
+  font-family:var(--ser);
+  font-size:40px;
+  font-weight:700;
+  letter-spacing:-.03em;
+  line-height:1.04;
+  text-transform:none;
+  text-decoration:none;
+  border-bottom:none;
+}
+.about-source-body .h2::before,
+.about-source-body .h2::after{
+  content:none;
+  display:none;
+}
+.about-source-body .pp-tag,
+.about-source-body .crc-t{
+  line-height:normal;
+  border-bottom:none;
+}
+.about-source-body .pp-lead,
+.about-source-body .cg-t,
+.about-source-body .cg-x,
+.about-source-body .bh-q p,
+.about-source-body .st-n,
+.about-source-body .st-d,
+.about-source-body .ind h2,
+.about-source-body .ind p,
+.about-source-body .crc-a,
+.about-source-body .cl h2,
+.about-source-body .cl p{
+  text-decoration:none;
+  border-bottom:none;
+}
+.about-source-body .ind h2,
+.about-source-body .cl h2{
+  color:#fff;
+  text-transform:none;
+}
+@media(max-width:960px){
+  .about-source-body .ph h1{font-size:36px}
+  .about-source-body .h2,.about-source-body .ind h2{font-size:30px}
+}
+@media(max-width:600px){
+  .about-source-body .ph h1{font-size:28px}
+  .about-source-body .h2,.about-source-body .ind h2{font-size:25px}
+}
+

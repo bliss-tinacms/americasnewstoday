@@ -98,7 +98,7 @@ export const BlogCollection: Collection = {
       ui: {
         component: CategoryCheckboxGroupField,
       },
-      description: "Assign this post to one or more categories.",
+      description: "Assign this post to one or more categories. Values save as category document paths.",
     },
 
     {

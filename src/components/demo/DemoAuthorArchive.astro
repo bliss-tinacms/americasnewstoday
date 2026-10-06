@@ -20,6 +20,17 @@ const {
   basePath = '/author',
 } = Astro.props;
 
+const localBlogModules = import.meta.glob('../../content/blog/*.mdx', { eager: true });
+const localCategoryLabelsByFilename = new Map(
+  Object.entries(localBlogModules).map(([filePath, mod]) => {
+    const filename = filePath.split('/').pop()?.replace(/\.mdx$/i, '') || '';
+    const frontmatter = (mod as any).frontmatter || (mod as any).default?.frontmatter || {};
+    const category = frontmatter.category || (Array.isArray(frontmatter.categories) ? frontmatter.categories[0] : null);
+    const label = typeof category === 'string' ? category.split('/').pop()?.replace(/\.(json|mdx?)$/i, '').replace(/[-_]+/g, ' ') : '';
+    return [filename, label];
+  }).filter(([filename, label]) => filename && label)
+);
+
 function formatDate(value?: string | Date | null) {
   if (!value) return '';
   const date = new Date(value);
@@ -34,7 +45,10 @@ function pagePath(page: number) {
   return page <= 1 ? `${base}/` : `${base}/page/${page}/`;
 }
 function postCategoryLabel(post: any) {
-  if (post?.categoryLabel) return post.categoryLabel;
+  if (post?.categoryLabel && post.categoryLabel !== 'News') return post.categoryLabel;
+  const filename = post?._sys?.filename || '';
+  const localLabel = filename ? localCategoryLabelsByFilename.get(filename) : '';
+  if (localLabel) return localLabel;
   const categories = getPostCategories(post);
   return labelFromReference(Array.isArray(categories) ? categories[0] : categories, 'News');
 }

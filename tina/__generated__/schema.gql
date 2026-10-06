@@ -314,8 +314,6 @@ type PageBlocksHomepageTemplateCoverage {
 type PageBlocksHomepageTemplateContactCards {
   title: String
   email: String
-  image: String
-  imageAlt: String
   text: String
   accent: Boolean
 }
@@ -693,8 +691,6 @@ input PageBlocksHomepageTemplateCoverageFilter {
 input PageBlocksHomepageTemplateContactCardsFilter {
   title: StringFilter
   email: StringFilter
-  image: ImageFilter
-  imageAlt: StringFilter
   text: StringFilter
   accent: BooleanFilter
 }
@@ -1337,8 +1333,6 @@ input PageBlocksHomepageTemplateCoverageMutation {
 input PageBlocksHomepageTemplateContactCardsMutation {
   title: String
   email: String
-  image: String
-  imageAlt: String
   text: String
   accent: Boolean
 }

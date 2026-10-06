@@ -110,8 +110,6 @@ export const homepageTemplateBlockSchema = {
               fields: [
                 { name: 'title', label: 'Card Title', type: 'string' },
                 { name: 'email', label: 'Role / Location', type: 'string' },
-                { name: 'image', label: 'Team Member Image', type: 'image' },
-                { name: 'imageAlt', label: 'Team Member Image Alt Text', type: 'string' },
                 { name: 'text', label: 'Bio / Card Text', type: 'string', ui: { component: 'textarea' } },
                 { name: 'accent', label: 'Lead Team Member', type: 'boolean' },
               ],

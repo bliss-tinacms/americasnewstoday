@@ -561,7 +561,7 @@ html{scroll-behavior:smooth;scroll-padding-top:120px}
 .contact-source-body .ph h1{font-family:var(--ser);font-size:52px;font-weight:700;line-height:1.06;letter-spacing:-.03em;margin-bottom:20px;text-wrap:pretty}
 .contact-source-body .ph p{font-size:18px;line-height:1.75;color:rgba(255,255,255,.88)}
 /* MAIN SPLIT */
-.contact-source-body .ms{padding:76px 0;border-bottom:1px solid var(--bdr)}
+.contact-source-body .ms{padding:76px 0;background:#fff;color:var(--ink);border-bottom:1px solid var(--bdr)}
 .contact-source-body .ms-in{display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:start}
 .contact-source-body .eye{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .contact-source-body .eye i{width:28px;height:3px;background:var(--gold);display:block;flex:none}

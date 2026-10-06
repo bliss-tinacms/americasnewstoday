@@ -1,5 +1,39 @@
 ---
 // 404 body copied from uploaded 404.html demo source. Global Header/Footer remain from Base layout.
+// Latest Reporting rows are dynamic from backend posts passed by the route, preserving demo classes/CSS.
+import { getBlogPermalink } from '../../lib/permalinks';
+import { firstImage, getAuthorName, getPostCategories, labelFromReference, normalizeText } from './DemoHelpers';
+
+const { posts = [] } = Astro.props;
+const latestPosts = Array.isArray(posts) ? posts.slice(0, 3) : [];
+const fallbackImages = [
+  '/brand-assets/404-demo/404-demo-3.jpg',
+  '/brand-assets/404-demo/404-demo-4.jpg',
+  '/brand-assets/404-demo/404-demo-5.jpg',
+];
+function postImage(post: any, index: number) {
+  return firstImage(post) || fallbackImages[index % fallbackImages.length];
+}
+function postCategoryLabel(post: any) {
+  const categories = getPostCategories(post);
+  return labelFromReference(Array.isArray(categories) ? categories[0] : categories, 'News');
+}
+function postTitle(post: any) {
+  return normalizeText(post?.title || post?.seo?.metaTitle || post?._sys?.filename, 'Untitled story');
+}
+function postExcerpt(post: any) {
+  return normalizeText(post?.description || post?.excerpt || post?.seo?.metaDescription, 'Read the latest reporting from Americas News Today.');
+}
+function postAuthor(post: any) {
+  return getAuthorName(post?.author || post?.authorAlt, 'Americas News Today Staff');
+}
+function postDate(post: any) {
+  const value = post?.pubDate || post?.date;
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date);
+}
 ---
 <main class="error-source-body">
 <header class="er"><div class="w"><div class="er-in">
@@ -16,32 +50,16 @@
   <div class="eye"><i></i><span>Published this week</span></div>
   <h2 class="h2">Latest Reporting</h2>
   <div>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/404-demo/404-demo-3.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Business</div>
-        <div class="pr-t">Index Funds Now Hold a Quarter of the Market. Few Investors Voted.</div>
-        <p class="pr-x">Passive ownership has grown faster than the governance rules written for it, leaving fund managers casting ballots for millions who never saw the resolution.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Sept 18</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/404-demo/404-demo-4.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Education</div>
-        <div class="pr-t">A District Adopted a New Curriculum in a Meeting With No Public Comment</div>
-        <p class="pr-x">The vote is recorded as unanimous. Teachers received the materials eleven days before term began.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Nicholas Griffin</div><div class="pr-dt">Sept 12</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/404-demo/404-demo-5.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Environment</div>
-        <div class="pr-t">A Permit Was Renewed for the Ninth Year of a Two-Year Programme</div>
-        <p class="pr-x">The original authorisation described the arrangement as temporary. Nothing in the file explains what changed.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Catherine Palmer</div><div class="pr-dt">Aug 30</div></div>
-    </a>
+    {latestPosts.map((post: any, index: number) => (
+      <a href={`${getBlogPermalink(post)}/`} class="pr">
+        <div class="pr-img" style={`background-image: url("${postImage(post, index)}");`}></div>
+        <div>
+          <div class="pr-cat">{postCategoryLabel(post)}</div>
+          <div class="pr-t">{postTitle(post)}</div>
+          <p class="pr-x">{postExcerpt(post)}</p>
+        </div>
+        <div class="pr-m"><div class="pr-by">{postAuthor(post)}</div>{postDate(post) && <div class="pr-dt">{postDate(post)}</div>}</div>
+      </a>
+    ))}
   </div></div></section>
 </main>

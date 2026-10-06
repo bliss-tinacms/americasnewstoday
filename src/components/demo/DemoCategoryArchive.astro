@@ -68,6 +68,7 @@ function pagesToShow() {
 const visiblePages = pagesToShow();
 const safeCurrentPage = Math.max(1, Number(currentPage) || 1);
 const safeTotalPages = Math.max(1, Number(totalPages) || 1);
+const hasPosts = posts.length > 0;
 ---
 <main class="category-source-body">
   <header class="ah">
@@ -89,7 +90,7 @@ const safeTotalPages = Math.max(1, Number(totalPages) || 1);
     </div>
 
     <div class="pl-l">
-      {posts.map((post, index) => (
+      {hasPosts ? posts.map((post, index) => (
         <a href={getBlogPermalink(post) + '/'} class="pr">
           <div class="pr-img" style={`background-image: url(${postImage(post, index)});`}></div>
           <div>
@@ -99,7 +100,13 @@ const safeTotalPages = Math.max(1, Number(totalPages) || 1);
           </div>
           <div class="pr-m"><div class="pr-by">{postAuthor(post)}</div><div class="pr-dt">{formatDate(post?.pubDate || post?.date)}</div></div>
         </a>
-      ))}
+      )) : (
+        <div class="pr-empty">
+          <div class="pr-cat">{archiveTitle}</div>
+          <div class="pr-t">There are no published posts in this category yet.</div>
+          <p class="pr-x">Please check back soon for the latest reporting.</p>
+        </div>
+      )}
     </div>
   </div></section>
 

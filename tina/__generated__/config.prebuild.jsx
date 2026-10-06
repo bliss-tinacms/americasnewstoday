@@ -369,7 +369,6 @@ var GlobalConfigCollection = {
         { name: "formspreeEndpoint", label: "Formspree Endpoint URL", type: "string" },
         { name: "heading", label: "Heading", type: "string" },
         { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-        { name: "buttonText", label: "Button Text", type: "string" },
         { name: "note", label: "Form Note", type: "string", ui: { component: "textarea" } },
         { name: "subject", label: "Email Subject", type: "string" }
       ]
@@ -760,9 +759,7 @@ var aboutMockup17BlockSchema = {
         { name: "image", label: "Image", type: "image" },
         { name: "imageAlt", label: "Image Alt Text", type: "string" },
         { name: "paragraphOne", label: "Paragraph 1", type: "string", ui: { component: "textarea" } },
-        { name: "paragraphTwo", label: "Paragraph 2", type: "string", ui: { component: "textarea" } },
-        { name: "buttonText", label: "Button Text", type: "string" },
-        { name: "buttonLink", label: "Button Link", type: "string" }
+        { name: "paragraphTwo", label: "Paragraph 2", type: "string", ui: { component: "textarea" } }
       ]
     },
     {
@@ -813,7 +810,6 @@ var contactMockup17BlockSchema = {
         { name: "eyebrow", label: "Eyebrow", type: "string" },
         { name: "title", label: "Title", type: "string" },
         { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-        { name: "buttonText", label: "Button Text", type: "string" },
         { name: "note", label: "Form Note", type: "string", ui: { component: "textarea" } },
         { name: "formAction", label: "Form Action URL / Formspree Endpoint", type: "string", description: "Optional. Leave blank to keep the form non-submitting until an endpoint is added." },
         { name: "subject", label: "Email Subject", type: "string" }
@@ -914,8 +910,6 @@ var homepageTemplateBlockSchema = {
         { name: "eyebrow", label: "Eyebrow", type: "string" },
         { name: "title", label: "Headline", type: "string" },
         { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-        { name: "buttonText", type: "string", description: "Editorial note CTA text." },
-        { name: "buttonLink", type: "string", description: "Editorial note CTA link." },
         { name: "image", label: "Hero Image", type: "image" },
         { name: "imageAlt", label: "Hero Image Alt Text", type: "string" }
       ]

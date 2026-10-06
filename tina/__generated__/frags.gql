@@ -94,8 +94,6 @@ fragment PageParts on Page {
         eyebrow
         title
         description
-        buttonText
-        buttonLink
         image
         imageAlt
       }
@@ -208,8 +206,6 @@ fragment PageParts on Page {
         imageAlt
         paragraphOne
         paragraphTwo
-        buttonText
-        buttonLink
       }
       newsroom {
         __typename
@@ -273,7 +269,6 @@ fragment PageParts on Page {
         eyebrow
         title
         description
-        buttonText
         note
         formAction
         subject
@@ -434,7 +429,6 @@ fragment ConfigParts on Config {
     formspreeEndpoint
     heading
     description
-    buttonText
     note
     subject
   }

@@ -51,7 +51,6 @@ export const GlobalConfigCollection: Collection = {
         { name: "formspreeEndpoint", label: "Formspree Endpoint URL", type: "string" },
         { name: "heading", label: "Heading", type: "string" },
         { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-        { name: "buttonText", label: "Button Text", type: "string" },
         { name: "note", label: "Form Note", type: "string", ui: { component: "textarea" } },
         { name: "subject", label: "Email Subject", type: "string" },
       ],

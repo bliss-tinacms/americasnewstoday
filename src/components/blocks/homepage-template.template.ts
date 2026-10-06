@@ -10,8 +10,6 @@ export const homepageTemplateBlockSchema = {
             { name: 'eyebrow', label: 'Eyebrow', type: 'string' },
             { name: 'title', label: 'Headline', type: 'string' },
             { name: 'description', label: 'Description', type: 'string', ui: { component: 'textarea' } },
-            { name: 'buttonText', type: 'string', description: 'Editorial note CTA text.' },
-            { name: 'buttonLink', type: 'string', description: 'Editorial note CTA link.' },
             { name: 'image', label: 'Hero Image', type: 'image' },
             { name: 'imageAlt', label: 'Hero Image Alt Text', type: 'string' },
           ],

@@ -104,8 +104,6 @@ export const PagePartsFragmentDoc = gql`
         eyebrow
         title
         description
-        buttonText
-        buttonLink
         image
         imageAlt
       }
@@ -218,8 +216,6 @@ export const PagePartsFragmentDoc = gql`
         imageAlt
         paragraphOne
         paragraphTwo
-        buttonText
-        buttonLink
       }
       newsroom {
         __typename
@@ -283,7 +279,6 @@ export const PagePartsFragmentDoc = gql`
         eyebrow
         title
         description
-        buttonText
         note
         formAction
         subject
@@ -447,7 +442,6 @@ export const ConfigPartsFragmentDoc = gql`
     formspreeEndpoint
     heading
     description
-    buttonText
     note
     subject
   }

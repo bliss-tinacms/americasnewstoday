@@ -1,111 +1,115 @@
 ---
-// Category archive body copied from uploaded category-archive.html demo source. Global Header/Footer remain from Base layout.
-const categoryDemoBody = `<header class="ah">
-  <div class="w"><div class="ah-b">
-    <div>
-      <div class="ah-kick"><i></i><span>Category Archive</span></div>
-      <h1>Business</h1>
-    </div>
-  </div></div></header><section class="pl"><div class="w">
-  <div class="pl-h">
-    <div>
-      <div class="pl-eye"><i></i><span>Most recent first</span></div>
-      <div class="pl-t">Latest Reporting</div>
-    </div>
-    <div class="pl-c">Page 1 of 18</div>
-  </div>
-  <div class="pl-l">
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-3.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Markets</div>
-        <div class="pr-t">Index Funds Now Hold a Quarter of the Market. Few Investors Voted.</div>
-        <p class="pr-x">Passive ownership has grown faster than the governance rules written for it, leaving fund managers casting ballots on behalf of millions of people who never saw the resolution.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Sept 18</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-4.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Labor</div>
-        <div class="pr-t">The Reclassification That Moved 40,000 Workers Off the Payroll</div>
-        <p class="pr-x">An internal job-code change converted warehouse staff to contract status. The company calls it a title correction; the workers lost overtime the same week.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Sept 16</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-5.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Retail</div>
-        <div class="pr-t">Forty New Storefronts Before the Holidays, and a Quiet Rent Clause</div>
-        <p class="pr-x">The rollout covers eleven states. In eight of them, the leases carry an exit provision most landlords did not negotiate.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Nicholas Griffin</div><div class="pr-dt">Sept 14</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-6.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Economy</div>
-        <div class="pr-t">Shipping Costs Fell for Six Months. Shelf Prices Did Not.</div>
-        <p class="pr-x">Freight rates have returned to pre-surge levels across three major lanes. Retail pricing has moved four percent the other way.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Sept 11</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-7.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Companies</div>
-        <div class="pr-t">A Headquarters Move Was Announced Twice, With Different Numbers</div>
-        <p class="pr-x">The first filing put the job count at 1,200. The press release said 3,000. Neither figure has a schedule attached.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Sept 9</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-8.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Companies</div>
-        <div class="pr-t">The Board Vote That Happened Before the Board Met</div>
-        <p class="pr-x">Minutes record a unanimous decision at a meeting two directors say they did not attend. The company declined to explain the discrepancy.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Catherine Palmer</div><div class="pr-dt">Sept 5</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-3.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Markets</div>
-        <div class="pr-t">A Small-Cap Listing Doubled on a Filing Nobody Read Closely</div>
-        <p class="pr-x">The prospectus discloses a related-party arrangement on page 94. The trading volume suggests most buyers stopped at the summary.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Sept 2</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-4.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Labor</div>
-        <div class="pr-t">Overtime Claims Are Up. The Office That Reviews Them Lost Staff.</div>
-        <p class="pr-x">Filings have risen by a third over two years while the review unit shrank by nearly half, according to internal staffing rosters.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Nicholas Griffin</div><div class="pr-dt">Aug 29</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-6.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Economy</div>
-        <div class="pr-t">The Tariff Line That Changed a Definition, and With It a Bill</div>
-        <p class="pr-x">One reclassified category moved thousands of shipments into a higher duty bracket. Importers learned when the invoices arrived.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Aug 26</div></div>
-    </a>
-    <a href="#" class="pr">
-      <div class="pr-img" style="background-image: url(&quot;/brand-assets/category-demo/category-demo-5.jpg&quot;);"></div>
-      <div>
-        <div class="pr-cat">Retail</div>
-        <div class="pr-t">A Loyalty Program Changed Its Terms. The Notice Ran to 4,000 Words.</div>
-        <p class="pr-x">Members were told the update was routine. Three of the new clauses narrow what a point is worth and when it expires.</p>
-      </div>
-      <div class="pr-m"><div class="pr-by">Denise Chapman</div><div class="pr-dt">Aug 22</div></div>
-    </a>
-  </div></div></section><section class="pg"><div class="w"><div class="pg-in">
-  <a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><span class="gap">…</span><a href="#">18</a><a href="#" class="nx">Next →</a></div></div></section>`;
+// Category archive body structure copied from uploaded category-archive.html demo source.
+// Rows are dynamic from the posts passed by the category route. Global Header/Footer remain from Base layout.
+import { getBlogPermalink } from '../../lib/permalinks';
+import { labelFromReference, getAuthorName, getPostCategories, firstImage } from './DemoHelpers';
+
+interface Props {
+  archiveTitle?: string;
+  posts?: any[];
+  currentPage?: number;
+  totalPages?: number;
+  basePath?: string;
+  category?: any;
+  showCategoryBadge?: boolean;
+}
+
+const {
+  archiveTitle = 'Business',
+  posts = [],
+  currentPage = 1,
+  totalPages = 1,
+  basePath = '/business',
+  showCategoryBadge = true,
+} = Astro.props;
+
+function formatDate(value?: string | Date | null) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date).replace('.', '');
+}
+
+function cleanPath(path: string) {
+  return ('/' + String(path || '').replace(/^\/+|\/+$/g, '')).replace(/\/+/g, '/');
+}
+
+function pagePath(page: number) {
+  const base = cleanPath(basePath);
+  return page <= 1 ? `${base}/` : `${base}/page/${page}/`;
+}
+
+function postCategoryLabel(post: any) {
+  const categories = getPostCategories(post);
+  if (showCategoryBadge === false) return 'News';
+  return labelFromReference(Array.isArray(categories) ? categories[0] : categories, archiveTitle || 'News');
+}
+
+function postExcerpt(post: any) {
+  return post?.description || post?.excerpt || post?.seo?.metaDescription || '';
+}
+
+function postAuthor(post: any) {
+  return post?.authorAlt || getAuthorName(post?.author, 'Americas News Today Staff');
+}
+
+function postImage(post: any, index: number) {
+  return firstImage(post) || `/brand-assets/category-demo/category-demo-${3 + (index % 6)}.jpg`;
+}
+
+function pagesToShow() {
+  const total = Math.max(1, Number(totalPages) || 1);
+  const current = Math.min(Math.max(1, Number(currentPage) || 1), total);
+  if (total <= 5) return Array.from({ length: total }, (_, index) => index + 1);
+  const set = new Set<number>([1, current - 1, current, current + 1, total]);
+  return Array.from(set).filter((page) => page >= 1 && page <= total).sort((a, b) => a - b);
+}
+
+const visiblePages = pagesToShow();
+const safeCurrentPage = Math.max(1, Number(currentPage) || 1);
+const safeTotalPages = Math.max(1, Number(totalPages) || 1);
 ---
-<main class="category-source-body" set:html={categoryDemoBody} />
+<main class="category-source-body">
+  <header class="ah">
+    <div class="w"><div class="ah-b">
+      <div>
+        <div class="ah-kick"><i></i><span>Category Archive</span></div>
+        <h1>{archiveTitle}</h1>
+      </div>
+    </div></div>
+  </header>
+
+  <section class="pl"><div class="w">
+    <div class="pl-h">
+      <div>
+        <div class="pl-eye"><i></i><span>Most recent first</span></div>
+        <div class="pl-t">Latest Reporting</div>
+      </div>
+      <div class="pl-c">Page {safeCurrentPage} of {safeTotalPages}</div>
+    </div>
+
+    <div class="pl-l">
+      {posts.map((post, index) => (
+        <a href={getBlogPermalink(post) + '/'} class="pr">
+          <div class="pr-img" style={`background-image: url(${postImage(post, index)});`}></div>
+          <div>
+            <div class="pr-cat">{postCategoryLabel(post)}</div>
+            <div class="pr-t">{post?.title || 'Untitled'}</div>
+            <p class="pr-x">{postExcerpt(post)}</p>
+          </div>
+          <div class="pr-m"><div class="pr-by">{postAuthor(post)}</div><div class="pr-dt">{formatDate(post?.pubDate || post?.date)}</div></div>
+        </a>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="pg"><div class="w"><div class="pg-in">
+    {visiblePages.map((page, index) => (
+      <>
+        {index > 0 && page - visiblePages[index - 1] > 1 && <span class="gap">…</span>}
+        <a href={pagePath(page)} class={page === safeCurrentPage ? 'on' : undefined}>{page}</a>
+      </>
+    ))}
+    {safeCurrentPage < safeTotalPages && <a href={pagePath(safeCurrentPage + 1)} class="nx">Next →</a>}
+  </div></div></section>
+</main>

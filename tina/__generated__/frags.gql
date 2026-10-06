@@ -17,7 +17,7 @@ fragment BlogParts on Blog {
   }
   pubDate
   updatedDate
-  categories
+  category
   author {
     ... on User {
       __typename

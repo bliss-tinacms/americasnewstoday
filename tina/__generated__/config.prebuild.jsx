@@ -259,11 +259,11 @@ function CategoryCheckboxGroupField({ input, field, disabled = false }) {
           "Cache-Control": "no-cache"
         },
         body: JSON.stringify({
-          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ categories category } }`,
+          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ category } }`,
           variables: { relativePath }
         })
       }).then((response) => response.json()).then((payload) => {
-        const values = canonicalize(payload?.data?.blog?.categories?.length ? payload.data.blog.categories : payload?.data?.blog?.category);
+        const values = canonicalize(payload?.data?.blog?.category);
         if (values.length) setHydratedSelected(values);
       }).catch(() => {
       });
@@ -287,8 +287,8 @@ function CategoryCheckboxGroupField({ input, field, disabled = false }) {
         method: "POST",
         headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
         body: JSON.stringify({
-          query: `mutation UpdateBlogCategories($relativePath:String!,$params:BlogMutation!){ updateBlog(relativePath:$relativePath, params:$params){ categories } }`,
-          variables: { relativePath: `${slug}.mdx`, params: { categories: values } }
+          query: `mutation UpdateBlogCategories($relativePath:String!,$params:BlogMutation!){ updateBlog(relativePath:$relativePath, params:$params){ category } }`,
+          variables: { relativePath: `${slug}.mdx`, params: { category: values } }
         })
       }).catch(() => {
       });
@@ -407,7 +407,7 @@ var BlogCollection = {
     { name: "pubDate", label: "Publication Date", type: "datetime" },
     { name: "updatedDate", label: "Updated Date", type: "datetime" },
     {
-      name: "categories",
+      name: "category",
       label: "Categories",
       type: "string",
       list: true,
@@ -415,7 +415,7 @@ var BlogCollection = {
       ui: {
         component: CategoryCheckboxGroupField
       },
-      description: "Assign this post to one or more categories. Values save as category document paths."
+      description: "Assign this post to one or more categories."
     },
     {
       name: "author",

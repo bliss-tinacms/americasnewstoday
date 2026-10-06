@@ -28,7 +28,7 @@ const BlogEditorStaleCompatibleDocument = `query Blog($relativePath: String!) {
     permalink
     pubDate
     updatedDate
-    category { ... on Category { title description _sys { filename } } }
+    category
     author { ... on User { name role avatar bio email _sys { filename } } }
     heroImage
     authorAlt
@@ -233,12 +233,10 @@ function ensureBlogCategories<T extends Record<string, any>>(node: T, local?: Re
 
 function toTinaEditableBlog<T extends Record<string, any>>(node: T): T {
 	const hydrated = hydrateBlogCategories(node as any) as Record<string, any>;
+	const category = Array.isArray(hydrated.categories) ? hydrated.categories : [];
 	return {
 		...hydrated,
-		// Tina Cloud is still schema-stale for this field. Keep the form payload empty
-		// so its validator does not reject either string or object category values.
-		// The custom field hydrates/persists the real selections through /tina-content-proxy.
-		categories: [],
+		category,
 	} as unknown as T;
 }
 
@@ -594,7 +592,7 @@ export async function getBlog(slug: string) {
 			permalink
 			pubDate
 			updatedDate
-			categories
+			category
 			author { ... on User { name role avatar bio email _sys { filename } } }
 			heroImage
 			authorAlt
@@ -722,7 +720,7 @@ export async function listBlogs() {
 					heroImage
 					heroImageAlt
 					seo { metaTitle metaDescription ogTitle ogDescription ogImage canonicalUrl noindex nofollow }
-					categories
+					category
 					author { ... on User { name role avatar bio email _sys { filename } } }
 					_sys { filename }
 				}

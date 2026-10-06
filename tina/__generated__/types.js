@@ -25,7 +25,7 @@ export const BlogPartsFragmentDoc = gql`
   }
   pubDate
   updatedDate
-  categories
+  category
   author {
     ... on User {
       __typename

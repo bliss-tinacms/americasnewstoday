@@ -56,7 +56,6 @@ function categoryOptions() {
   return CATEGORY_OPTIONS;
 }
 
-
 export const BlogCollection: Collection = {
   name: "blog",
   label: "Blogs",
@@ -84,7 +83,7 @@ export const BlogCollection: Collection = {
     { name: "pubDate", label: "Publication Date", type: "datetime" },
     { name: "updatedDate", label: "Updated Date", type: "datetime" },
     {
-      name: "categories",
+      name: "category",
       label: "Categories",
       type: "string",
       list: true,
@@ -92,7 +91,7 @@ export const BlogCollection: Collection = {
       ui: {
         component: CategoryCheckboxGroupField,
       },
-      description: "Assign this post to one or more categories. Values save as category document paths.",
+      description: "Assign this post to one or more categories.",
     },
 
     {

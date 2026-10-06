@@ -3,6 +3,7 @@ import React from "react";
 
 const CATEGORY_OPTIONS = [
   { label: "Business", value: "src/content/category/Business.json" },
+  { label: "Environment", value: "src/content/category/Environment.json" },
   { label: "Featured", value: "src/content/category/Featured.json" },
   { label: "Health", value: "src/content/category/Health.json" },
   { label: "Lifestyle", value: "src/content/category/Lifestyle.json" },
@@ -78,13 +79,13 @@ export function CategoryCheckboxGroupField({ input, field, disabled = false }: a
           "Cache-Control": "no-cache",
         },
         body: JSON.stringify({
-          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ categories } }`,
+          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ categories category } }`,
           variables: { relativePath },
         }),
       })
         .then((response) => response.json())
         .then((payload) => {
-          const values = canonicalize(payload?.data?.blog?.categories);
+          const values = canonicalize(payload?.data?.blog?.categories?.length ? payload.data.blog.categories : payload?.data?.blog?.category);
           if (values.length) setHydratedSelected(values);
         })
         .catch(() => {});

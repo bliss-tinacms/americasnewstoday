@@ -195,9 +195,7 @@ function normalizeBlogMutationParams(params: any) {
     next.body = normalizeTinaRichText(next.body);
   }
   if (Object.prototype.hasOwnProperty.call(next, 'categories')) {
-    const categories = normalizeBlogCategoryList(next.categories);
-    if (categories.length && !next.category) next.category = categories[0];
-    delete next.categories;
+    next.categories = normalizeBlogCategoryList(next.categories);
   }
   return next;
 }

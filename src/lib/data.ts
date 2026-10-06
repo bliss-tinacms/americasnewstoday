@@ -28,7 +28,6 @@ const BlogEditorStaleCompatibleDocument = `query Blog($relativePath: String!) {
     permalink
     pubDate
     updatedDate
-    category
     author { ... on User { name role avatar bio email _sys { filename } } }
     heroImage
     authorAlt

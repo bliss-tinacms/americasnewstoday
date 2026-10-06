@@ -853,3 +853,33 @@ html{scroll-behavior:smooth;scroll-padding-top:120px}
 .page-source-body .pg-prose h3{font-family:var(--ser)!important;color:var(--navy)!important;font-weight:700!important;text-transform:none!important;text-decoration:none!important;border:0!important}
 .page-source-body .pg-prose p,
 .page-source-body .pg-prose li{font-family:var(--san)!important;color:var(--ink)!important;font-weight:400!important;text-transform:none!important}
+
+/* Sitemap equal Pages/Stories panel widths. */
+.ffn-demo-sitemap .sitemap-grid,
+.sitemap-template .sitemap-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:28px!important;
+  align-items:start!important;
+}
+.ffn-demo-sitemap .sitemap-panel,
+.sitemap-template .sitemap-group,
+.sitemap-template .sitemap-panel{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+}
+.ffn-demo-sitemap .sitemap-list--posts li,
+.sitemap-template .sitemap-list--posts li{
+  grid-template-columns:minmax(0,1fr) auto!important;
+}
+.ffn-demo-sitemap .sitemap-list a,
+.sitemap-template .sitemap-list a{
+  min-width:0!important;
+}
+@media(max-width:900px){
+  .ffn-demo-sitemap .sitemap-grid,
+  .sitemap-template .sitemap-grid{
+    grid-template-columns:1fr!important;
+  }
+}

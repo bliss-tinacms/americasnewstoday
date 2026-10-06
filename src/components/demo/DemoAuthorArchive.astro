@@ -1,11 +1,4 @@
 ---
-import { tinaField } from '@tinacms/astro/tina-field';
-import { getBlogPermalink } from '../../lib/permalinks';
-import { labelFromReference, getPostCategories } from './DemoHelpers';
-const { archiveTitle='Author', author=null, posts=[], currentPage=1, totalPages=1, basePath='/blog/author/admin' }=Astro.props;
-function postUrl(post:any){const url=getBlogPermalink(post);return url.endsWith('/')?url:url+'/'}
-function pagePath(page:number){return page<=1?basePath+'/':basePath+'/page/'+page+'/'}
-function dt(post:any){return post.pubDate ? new Date(post.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}).replace(',', '') : ''}
-const bio=author?.bio||`${archiveTitle} writes and edits coverage for Americas News Today.`; const avatar=author?.avatar||'';
+// Blank body only. Global Base layout keeps Header and Footer.
 ---
-<main class="ffn-demo ffn-demo-author"><header class="ah"><div class="w"><div class="ab">{avatar?<img class="ab-img" src={avatar} alt={archiveTitle} data-tina-field={author?tinaField(author,'avatar'):undefined}/>:<div class="ab-img demo-img"></div>}<div><div class="ab-kick"><i></i><span>Author Archive</span></div><h1 data-tina-field={author?tinaField(author,'name'):undefined}>{archiveTitle}</h1><p class="ab-bio" data-tina-field={author?tinaField(author,'bio'):undefined}>{bio}</p></div></div></div></header><section class="pl"><div class="w"><div class="pl-h"><div><div class="pl-eye"><i></i><span>Most recent first</span></div><div class="pl-t">Stories by {archiveTitle}</div></div><div class="pl-c">Page {currentPage} of {totalPages}</div></div><div class="pl-l">{posts.map((post:any)=><a href={postUrl(post)} class="pr"><div class="pr-img" style={post.heroImage?`background-image: url(&quot;${post.heroImage}&quot;);`:undefined}></div><div><div class="pr-cat">{labelFromReference(getPostCategories(post),'News')}</div><div class="pr-t" data-tina-field={tinaField(post,'title')}>{post.title}</div>{post.description&&<p class="pr-x" data-tina-field={tinaField(post,'description')}>{post.description}</p>}</div><div class="pr-m"><div class="pr-dt">{dt(post)}</div></div></a>)}</div></div></section>{totalPages>1&&<section class="pg"><div class="w"><div class="pg-in"><a href={pagePath(1)} class={currentPage===1?'on':''}>1</a>{totalPages>=2&&<a href={pagePath(2)} class={currentPage===2?'on':''}>2</a>}{totalPages>=3&&<a href={pagePath(3)} class={currentPage===3?'on':''}>3</a>}<span class="gap">…</span><a href={pagePath(totalPages)}>{totalPages}</a><a href={pagePath(Math.min(totalPages,currentPage+1))} class="nx">Next →</a></div></div></section>}</main>
+<main id="author-clean-page"></main>

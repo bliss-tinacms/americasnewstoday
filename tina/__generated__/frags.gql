@@ -155,6 +155,8 @@ fragment PageParts on Page {
           __typename
           title
           email
+          image
+          imageAlt
           text
           accent
         }

@@ -136,6 +136,9 @@ const teamCards = list(contact.cards, [
   { title: 'Denise Chapman', email: 'Business Editor · Grand Rapids', text: 'A decade covering business, finance, and labor. Reaches for the underlying numbers and separates what a company announced from what its release implied.', accent: false, image: '/brand-assets/b7138736-79a8-4f15-8b02-4a2cca5ed7a6.jpg', imageAlt: 'Denise Chapman' },
   { title: 'Scott Coleman', email: 'Publisher · Dallas', text: 'Background in media and business operations. Holds responsibility for the site’s direction and for keeping the editorial operation independent of the commercial side.', accent: false, image: '/brand-assets/aff9501c-b302-4049-832e-3b9703c1186e.jpg', imageAlt: 'Scott Coleman' },
 ]);
+function teamImage(person: any, index: number) {
+  return person?.image || mockupTeamImages[index] || fallbackReportImages[index % fallbackReportImages.length];
+}
 const leadTeam = teamCards[0];
 const otherTeam = teamCards.slice(1, 4);
 ---
@@ -204,12 +207,12 @@ const otherTeam = teamCards.slice(1, 4);
 
   <section class="tm" aria-labelledby="team-title"><div class="w">
     <div class="tm-top"><div class="tm-eye"><i></i><span data-tina-field={tf(editContact, 'eyebrow')}>{value(contact.eyebrow, 'The newsroom')}</span></div><div class="tm-title" id="team-title" data-tina-field={tf(editContact, 'title')}>{value(contact.title, 'Our Team')}</div></div>
-    {leadTeam && <div class="tml"><img class="tml-img" src={mockupTeamImages[0]} alt={leadTeam.imageAlt || leadTeam.title || ''} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
+    {leadTeam && <div class="tml"><img class="tml-img" src={teamImage(leadTeam, 0)} alt={leadTeam.imageAlt || leadTeam.title || ''} data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'image')} /><div class="tml-b"><span class="tml-bar">Leads the newsroom</span><div class="tml-n" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'title')}>{leadTeam.title}</div><div class="tml-r" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'email')}>{leadTeam.email}</div><p class="tml-x" data-tina-field={tf(editContact?.cards?.[0] ?? leadTeam, 'text')}>{leadTeam.text}</p></div></div>}
     <div class="tmr">
       {otherTeam.map((person, index) => {
         const realIndex = index + 1;
         const editPerson = editContact?.cards?.[realIndex] ?? person;
-        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={mockupTeamImages[realIndex] || fallbackReportImages[index % fallbackReportImages.length]} alt={person.imageAlt || person.title || ''} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
+        return <div class="tmi"><div class="tmi-top"><span class="tmi-n">{String(realIndex + 1).padStart(2, '0')}</span><img class="tmi-img" src={teamImage(person, realIndex)} alt={person.imageAlt || person.title || ''} data-tina-field={tf(editPerson, 'image')} /><div><div class="tmi-n2" data-tina-field={tf(editPerson, 'title')}>{person.title}</div><div class="tmi-r" data-tina-field={tf(editPerson, 'email')}>{person.email}</div></div></div><p class="tmi-x" data-tina-field={tf(editPerson, 'text')}>{person.text}</p></div>;
       })}
     </div>
   </div></section>

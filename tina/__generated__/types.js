@@ -165,6 +165,8 @@ export const PagePartsFragmentDoc = gql`
           __typename
           title
           email
+          image
+          imageAlt
           text
           accent
         }
@@ -867,7 +869,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "https://content.tinajs.io/2.4/content/fc6d8b6a-9072-4ac2-9a4b-12a482200442/github/main",
+      url: "http://localhost:4001/graphql",
       queries
     })
   )

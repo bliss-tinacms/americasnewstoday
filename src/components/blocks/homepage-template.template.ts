@@ -96,7 +96,7 @@ export const homepageTemplateBlockSchema = {
         {
           type: 'object',
           name: 'contact',
-          label: 'Get In Touch Section',
+          label: 'Our Team Section',
           fields: [
             { name: 'eyebrow', label: 'Eyebrow', type: 'string' },
             { name: 'title', label: 'Heading', type: 'string' },
@@ -106,12 +106,14 @@ export const homepageTemplateBlockSchema = {
               type: 'object',
               list: true,
               name: 'cards',
-              label: 'Contact Cards',
+              label: 'Team Member Cards',
               fields: [
                 { name: 'title', label: 'Card Title', type: 'string' },
-                { name: 'email', label: 'Email', type: 'string' },
-                { name: 'text', label: 'Card Text', type: 'string', ui: { component: 'textarea' } },
-                { name: 'accent', label: 'Accent Card', type: 'boolean' },
+                { name: 'email', label: 'Role / Location', type: 'string' },
+                { name: 'image', label: 'Team Member Image', type: 'image' },
+                { name: 'imageAlt', label: 'Team Member Image Alt Text', type: 'string' },
+                { name: 'text', label: 'Bio / Card Text', type: 'string', ui: { component: 'textarea' } },
+                { name: 'accent', label: 'Lead Team Member', type: 'boolean' },
               ],
             },
           ],

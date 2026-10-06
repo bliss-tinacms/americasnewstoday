@@ -34,6 +34,7 @@ function pagePath(page: number) {
   return page <= 1 ? `${base}/` : `${base}/page/${page}/`;
 }
 function postCategoryLabel(post: any) {
+  if (post?.categoryLabel) return post.categoryLabel;
   const categories = getPostCategories(post);
   return labelFromReference(Array.isArray(categories) ? categories[0] : categories, 'News');
 }

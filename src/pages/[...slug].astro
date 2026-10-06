@@ -113,12 +113,14 @@ function mergeLocalBlogFrontmatter(post: any) {
   const local = localBlogFrontmatterByFilename.get(filename) as Record<string, any> | undefined;
   if (!local) return post;
   const hasCategories = Array.isArray(post?.categories) && post.categories.length;
+  const categories = hasCategories
+    ? post.categories
+    : (post?.category ? [post.category] : (local.category ? [local.category] : (Array.isArray(local.categories) ? local.categories : [])));
   return {
     ...local,
     ...post,
-    categories: hasCategories
-      ? post.categories
-      : (post?.category ? [post.category] : (local.category ? [local.category] : (Array.isArray(local.categories) ? local.categories : []))),
+    categories,
+    categoryLabel: labelFromReference(Array.isArray(categories) ? categories[0] : categories) || post?.categoryLabel,
     heroImage: post?.heroImage || local.heroImage,
     authorAlt: post?.authorAlt || local.authorAlt,
     description: post?.description || local.description,

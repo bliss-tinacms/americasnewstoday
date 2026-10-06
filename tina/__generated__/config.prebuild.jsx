@@ -259,7 +259,7 @@ function CategoryCheckboxGroupField({ input, field, disabled = false }) {
           "Cache-Control": "no-cache"
         },
         body: JSON.stringify({
-          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ category { ... on Category { title _sys { filename } } } } }`,
+          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ category } }`,
           variables: { relativePath }
         })
       }).then((response) => response.json()).then((payload) => {
@@ -378,6 +378,9 @@ function cleanPublicSlug(value) {
 function filenameFromDocument(document) {
   return cleanPublicSlug(document?._sys?.filename || document?._sys?.basename || "");
 }
+function categoryOptions() {
+  return CATEGORY_OPTIONS;
+}
 var BlogCollection = {
   name: "blog",
   label: "Blogs",
@@ -406,8 +409,9 @@ var BlogCollection = {
     {
       name: "category",
       label: "Categories",
-      type: "reference",
-      collections: ["category"],
+      type: "string",
+      list: true,
+      options: categoryOptions(),
       ui: {
         component: CategoryCheckboxGroupField
       },

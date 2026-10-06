@@ -2,7 +2,7 @@ import type { Collection } from "tinacms";
 import { youTubeEmbedTemplate } from "../../src/components/mdx/YouTubeEmbed.template";
 import { seoFields } from "../fields/seo";
 import { viewFrontendField } from "../fields/view-frontend";
-import { CategoryCheckboxGroupField } from "../fields/category-checkbox-group";
+import { CategoryCheckboxGroupField, CATEGORY_OPTIONS } from "../fields/category-checkbox-group";
 
 
 function slugifyFilename(value?: string | null): string {
@@ -52,6 +52,10 @@ function filenameFromDocument(document: any): string {
   return cleanPublicSlug(document?._sys?.filename || document?._sys?.basename || "");
 }
 
+function categoryOptions() {
+  return CATEGORY_OPTIONS;
+}
+
 export const BlogCollection: Collection = {
   name: "blog",
   label: "Blogs",
@@ -81,8 +85,9 @@ export const BlogCollection: Collection = {
     {
       name: "category",
       label: "Categories",
-      type: "reference",
-      collections: ["category"],
+      type: "string",
+      list: true,
+      options: categoryOptions(),
       ui: {
         component: CategoryCheckboxGroupField,
       },

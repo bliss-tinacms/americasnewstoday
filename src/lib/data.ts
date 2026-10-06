@@ -28,7 +28,7 @@ const BlogEditorStaleCompatibleDocument = `query Blog($relativePath: String!) {
     permalink
     pubDate
     updatedDate
-    category { ... on Category { title description _sys { filename } } }
+    category
     author { ... on User { name role avatar bio email _sys { filename } } }
     heroImage
     authorAlt
@@ -592,7 +592,7 @@ export async function getBlog(slug: string) {
 			permalink
 			pubDate
 			updatedDate
-			category { ... on Category { title description _sys { filename } } }
+			category
 			author { ... on User { name role avatar bio email _sys { filename } } }
 			heroImage
 			authorAlt
@@ -720,7 +720,7 @@ export async function listBlogs() {
 					heroImage
 					heroImageAlt
 					seo { metaTitle metaDescription ogTitle ogDescription ogImage canonicalUrl noindex nofollow }
-					category { ... on Category { title description _sys { filename } } }
+					category
 					author { ... on User { name role avatar bio email _sys { filename } } }
 					_sys { filename }
 				}

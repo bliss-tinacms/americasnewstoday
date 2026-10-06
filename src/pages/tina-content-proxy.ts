@@ -94,14 +94,14 @@ function persistBlogCategoryOverride(bodyText: string) {
     const filename = relativePath.endsWith('.mdx') ? relativePath : `${relativePath}.mdx`;
     const directParams = variables.params ?? {};
     const blogParams = directParams.blog ?? directParams;
-    const categories = normalizeBlogCategoryList(blogParams.category ?? blogParams.categories ?? []);
+    const categories = normalizeBlogCategoryList(blogParams.categories ?? []);
     const hasBlogParams = blogParams && typeof blogParams === 'object' && Object.keys(blogParams).length > 0;
     if (!categories.length && !hasBlogParams) return;
     const overrides = readBlogOverrides();
     overrides[filename] = {
       ...(overrides[filename] ?? {}),
       ...blogParams,
-      ...(categories.length ? { category: categories, categories } : {}),
+      ...(categories.length ? { categories } : {}),
       ...(blogParams.body ? { body: normalizeTinaRichText(blogParams.body) } : {}),
       _sys: { filename: filename.replace(/\.mdx$/, ''), relativePath: filename },
       updatedAt: new Date().toISOString(),
@@ -194,9 +194,6 @@ function normalizeBlogMutationParams(params: any) {
   if (Object.prototype.hasOwnProperty.call(next, 'body')) {
     next.body = normalizeTinaRichText(next.body);
   }
-  if (Object.prototype.hasOwnProperty.call(next, 'category')) {
-    next.category = normalizeBlogCategoryList(next.category);
-  }
   if (Object.prototype.hasOwnProperty.call(next, 'categories')) {
     next.categories = normalizeBlogCategoryList(next.categories);
   }
@@ -274,7 +271,7 @@ function overrideBlogResponse(text: string, bodyText: string) {
     const override = getBlogOverride(relativePath);
     const params = payload?.variables?.params ?? {};
     const blogParams = params.blog ?? params;
-    const requestedCategories = normalizeBlogCategoryList(blogParams.category ?? blogParams.categories ?? []);
+    const requestedCategories = normalizeBlogCategoryList(blogParams.categories ?? []);
     const json = JSON.parse(text || '{}');
     if (!json.data) json.data = {};
     const targetKeys = /\bupdateBlog\s*\(/.test(String(payload.query || ''))
@@ -286,9 +283,9 @@ function overrideBlogResponse(text: string, bodyText: string) {
           : ['blog'];
     for (const key of targetKeys) {
       const existing = json.data[key] ?? {};
-      const overrideCategories = normalizeBlogCategoryList(override?.category ?? override?.categories ?? []);
-      const localCategories = normalizeBlogCategoryList((localBlog as any)?.category ?? (localBlog as any)?.categories ?? []);
-      const existingCategories = normalizeBlogCategoryList(existing.category ?? existing.categories ?? []);
+      const overrideCategories = normalizeBlogCategoryList(override?.categories ?? []);
+      const localCategories = normalizeBlogCategoryList((localBlog as any)?.categories ?? []);
+      const existingCategories = normalizeBlogCategoryList(existing.categories ?? []);
       const categories = requestedCategories.length
         ? requestedCategories
         : overrideCategories.length
@@ -300,7 +297,6 @@ function overrideBlogResponse(text: string, bodyText: string) {
         ...existing,
         ...(localBlog ?? {}),
         ...(override ?? {}),
-        category: categories,
         categories,
       };
       json.data[key] = merged;

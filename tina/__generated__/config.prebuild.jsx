@@ -259,7 +259,7 @@ function CategoryCheckboxGroupField({ input, field, disabled = false }) {
           "Cache-Control": "no-cache"
         },
         body: JSON.stringify({
-          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ categories category { ... on Category { title _sys { filename path relativePath } } } } }`,
+          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ categories } }`,
           variables: { relativePath }
         })
       }).then((response) => response.json()).then((payload) => {
@@ -407,13 +407,6 @@ var BlogCollection = {
     { name: "pubDate", label: "Publication Date", type: "datetime" },
     { name: "updatedDate", label: "Updated Date", type: "datetime" },
     {
-      name: "category",
-      label: "Legacy Primary Category",
-      type: "reference",
-      collections: ["category"],
-      description: "Legacy single-category field kept for TinaCloud schema compatibility. Use Categories below for assigning one or more categories."
-    },
-    {
       name: "categories",
       label: "Categories",
       type: "string",
@@ -422,7 +415,7 @@ var BlogCollection = {
       ui: {
         component: CategoryCheckboxGroupField
       },
-      description: "Assign this post to one or more categories."
+      description: "Assign this post to one or more categories. Values save as category document paths."
     },
     {
       name: "author",

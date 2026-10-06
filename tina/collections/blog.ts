@@ -83,13 +83,6 @@ export const BlogCollection: Collection = {
     { name: "pubDate", label: "Publication Date", type: "datetime" },
     { name: "updatedDate", label: "Updated Date", type: "datetime" },
     {
-      name: "category",
-      label: "Legacy Primary Category",
-      type: "reference",
-      collections: ["category"],
-      description: "Legacy single-category field kept for TinaCloud schema compatibility. Use Categories below for assigning one or more categories.",
-    },
-    {
       name: "categories",
       label: "Categories",
       type: "string",

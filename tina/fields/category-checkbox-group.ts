@@ -78,7 +78,7 @@ export function CategoryCheckboxGroupField({ input, field, disabled = false }: a
           "Cache-Control": "no-cache",
         },
         body: JSON.stringify({
-          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ categories category { ... on Category { title _sys { filename path relativePath } } } } }`,
+          query: `query BlogCategoryRead($relativePath:String!){ blog(relativePath:$relativePath){ categories } }`,
           variables: { relativePath },
         }),
       })

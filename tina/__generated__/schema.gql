@@ -113,8 +113,6 @@ type BlogSeo {
   nofollow: Boolean
 }
 
-union BlogCategory = Category
-
 union BlogAuthor = User
 
 type Blog implements Node & Document {
@@ -125,7 +123,6 @@ type Blog implements Node & Document {
   seo: BlogSeo
   pubDate: String
   updatedDate: String
-  category: BlogCategory
   categories: [String]
   author: BlogAuthor
   heroImage: String
@@ -175,10 +172,6 @@ input DatetimeFilter {
   in: [String]
 }
 
-input BlogCategoryFilter {
-  category: CategoryFilter
-}
-
 input BlogAuthorFilter {
   user: UserFilter
 }
@@ -199,7 +192,6 @@ input BlogFilter {
   seo: BlogSeoFilter
   pubDate: DatetimeFilter
   updatedDate: DatetimeFilter
-  category: BlogCategoryFilter
   categories: StringFilter
   author: BlogAuthorFilter
   heroImage: ImageFilter
@@ -1249,7 +1241,6 @@ input BlogMutation {
   seo: BlogSeoMutation
   pubDate: String
   updatedDate: String
-  category: String
   categories: [String]
   author: String
   heroImage: String

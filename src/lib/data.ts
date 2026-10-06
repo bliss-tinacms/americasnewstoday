@@ -203,15 +203,6 @@ function hydrateBlogCategories<T extends Record<string, any>>(node: T): T {
 			return { ...node, categories: references } as T;
 		}
 	}
-	const legacyCategory = node?.category;
-	if (legacyCategory) {
-		const references = (Array.isArray(legacyCategory) ? legacyCategory : [legacyCategory])
-			.map((item) => (typeof item === 'string' ? item : item?.category || item?._sys?.path || item?._sys?.relativePath))
-			.filter(Boolean);
-		if (references.length) {
-			return { ...node, categories: references } as T;
-		}
-	}
 	return { ...node } as T;
 }
 
@@ -220,17 +211,11 @@ function ensureBlogCategories<T extends Record<string, any>>(node: T, local?: Re
 	if (categories.length) return node;
 	const localCategories = Array.isArray(local?.categories) ? local.categories : [];
 	if (localCategories.length) return { ...node, categories: localCategories } as T;
-	if (!local?.category) return node;
-	return { ...node, categories: Array.isArray(local.category) ? local.category : [local.category] } as T;
+	return node;
 }
 
 function toTinaEditableBlog<T extends Record<string, any>>(node: T): T {
-	const hydrated = hydrateBlogCategories(node as any) as Record<string, any>;
-	const category = Array.isArray(hydrated.categories) ? hydrated.categories : [];
-	return {
-		...hydrated,
-		category,
-	} as unknown as T;
+	return hydrateBlogCategories(node as any) as unknown as T;
 }
 
 
@@ -585,7 +570,6 @@ export async function getBlog(slug: string) {
 			permalink
 			pubDate
 			updatedDate
-			category { ... on Category { title description _sys { filename path relativePath } } }
 			categories
 			author { ... on User { name role avatar bio email _sys { filename } } }
 			heroImage
@@ -714,8 +698,7 @@ export async function listBlogs() {
 					heroImage
 					heroImageAlt
 					seo { metaTitle metaDescription ogTitle ogDescription ogImage canonicalUrl noindex nofollow }
-					category { ... on Category { title description _sys { filename path relativePath } } }
-			categories
+					categories
 					author { ... on User { name role avatar bio email _sys { filename } } }
 					_sys { filename }
 				}

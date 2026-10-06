@@ -1,6 +1,12 @@
 ---
+import { getBlogPermalink } from '../lib/permalinks';
+import { labelFromReference, getAuthorName, getPostCategories } from '../components/demo/DemoHelpers';
+
 // Homepage body copied from uploaded home.html demo source. Global Header/Footer remain from Base layout.
-const homeDemoBody = `<section class="chero" style="background-image: url(&quot;/brand-assets/home-demo/home-demo-1.jpg&quot;);">
+// Only the .dsp-ledger rows are dynamic, using the exact demo row classes/structure.
+const { posts = [] } = Astro.props;
+const reportingPosts = Array.isArray(posts) ? posts.slice(0, 4) : [];
+const homeDemoBeforeReporting = `<section class="chero" style="background-image: url(&quot;/brand-assets/home-demo/home-demo-1.jpg&quot;);">
   <div class="chero-in"><div class="chero-w">
     <div>
       <div class="ch-kick"><i></i><span>About the Publication</span></div>
@@ -15,48 +21,8 @@ const homeDemoBody = `<section class="chero" style="background-image: url(&quot;
       <div class="dsp-title">More Reporting</div>
     </div>
   </div>
-  <div class="dsp-ledger">
-    <a href="#" class="dr">
-      <div class="dr-n">01</div>
-      <div class="dr-img" style="background-image: url(&quot;/brand-assets/home-demo/home-demo-2.jpg&quot;);"></div>
-      <div>
-        <div class="dr-cat">Technology</div>
-        <div class="dr-h">The Automated Systems Deciding Who Qualifies for Public Benefits</div>
-        <p class="dr-d">Eligibility software now makes millions of determinations a year, with limited oversight and few routes to appeal.</p>
-      </div>
-      <div class="dr-m"><div class="dr-by">Nicholas Griffin</div><div class="dr-dt">September 16</div></div>
-    </a>
-    <a href="#" class="dr">
-      <div class="dr-n">02</div>
-      <div class="dr-img" style="background-image: url(&quot;/brand-assets/home-demo/home-demo-3.jpg&quot;);"></div>
-      <div>
-        <div class="dr-cat">Business</div>
-        <div class="dr-h">What the Latest Debt Projections Mean for Households</div>
-        <p class="dr-d">New figures suggest the public debate understates the structural pressures building over the next decade.</p>
-      </div>
-      <div class="dr-m"><div class="dr-by">Denise Chapman</div><div class="dr-dt">September 15</div></div>
-    </a>
-    <a href="#" class="dr">
-      <div class="dr-n">03</div>
-      <div class="dr-img" style="background-image: url(&quot;/brand-assets/home-demo/home-demo-4.jpg&quot;);"></div>
-      <div>
-        <div class="dr-cat">Health</div>
-        <div class="dr-h">Research Funding Delays Are Pushing Back Clinical Trial Timelines</div>
-        <p class="dr-d">Researchers say repeated funding uncertainty has already delayed trials that take years to enroll and cannot easily be restarted.</p>
-      </div>
-      <div class="dr-m"><div class="dr-by">Pamela Owens</div><div class="dr-dt">September 12</div></div>
-    </a>
-    <a href="#" class="dr">
-      <div class="dr-n">04</div>
-      <div class="dr-img" style="background-image: url(&quot;/brand-assets/home-demo/home-demo-5.jpg&quot;);"></div>
-      <div>
-        <div class="dr-cat">Politics</div>
-        <div class="dr-h">Student Loan Rule Changes Are Leaving Borrowers With Conflicting Guidance</div>
-        <p class="dr-d">Millions of borrowers report receiving different answers from their servicers as the new rules take effect.</p>
-      </div>
-      <div class="dr-m"><div class="dr-by">Catherine Palmer</div><div class="dr-dt">September 10</div></div>
-    </a>
-  </div></div></section><section class="about"><div class="w"><div class="about-in">
+  <div class="dsp-ledger">`;
+const homeDemoAfterReporting = `</div></div></section><section class="about"><div class="w"><div class="about-in">
   <div class="about-l">
     <p class="about-l-eye">About America’s News Today</p>
     <h2 class="about-l-h">Independent thinking starts with better information</h2>
@@ -174,5 +140,37 @@ const homeDemoBody = `<section class="chero" style="background-image: url(&quot;
       <p class="tmi-x">Background in media and business operations. Holds responsibility for the site’s direction and for keeping the editorial operation independent of the commercial side.</p>
     </div>
   </div></div></section>`;
+
+function postUrl(post: any) {
+  const url = getBlogPermalink(post);
+  return url.endsWith('/') ? url : url + '/';
+}
+function postDate(post: any) {
+  const raw = post?.pubDate || post?.date || post?.updatedDate;
+  if (!raw) return '';
+  try {
+    return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' }).format(new Date(raw));
+  } catch (_error) {
+    return '';
+  }
+}
+function postImageStyle(post: any) {
+  return post?.heroImage ? `background-image: url("${post.heroImage}");` : undefined;
+}
 ---
-<main class="home-source-body" set:html={homeDemoBody} />
+<main class="home-source-body">
+  <Fragment set:html={homeDemoBeforeReporting} />
+  {reportingPosts.map((post: any, index: number) => (
+    <a href={postUrl(post)} class="dr">
+      <div class="dr-n">{String(index + 1).padStart(2, '0')}</div>
+      <div class="dr-img" style={postImageStyle(post)}></div>
+      <div>
+        <div class="dr-cat">{labelFromReference(getPostCategories(post), 'News')}</div>
+        <div class="dr-h">{post.title || 'Untitled story'}</div>
+        {post.description && <p class="dr-d">{post.description}</p>}
+      </div>
+      <div class="dr-m"><div class="dr-by">{getAuthorName(post.author, 'Americas News Today Staff')}</div><div class="dr-dt">{postDate(post)}</div></div>
+    </a>
+  ))}
+  <Fragment set:html={homeDemoAfterReporting} />
+</main>

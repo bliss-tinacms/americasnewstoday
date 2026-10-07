@@ -15,14 +15,33 @@ const endpoint = String(globalContact?.formspreeEndpoint || formSection?.formAct
 const subject = String(globalContact?.subject || formSection?.subject || 'Americas News Today contact form submission').trim();
 const buttonText = formSection?.buttonText || globalContact?.buttonText || 'Send';
 const note = formSection?.note || globalContact?.note || '';
+const heroEyebrow = hero.eyebrow || 'Contact America’s News Today';
+const heroHeadline = hero.headline || 'Every message reaches a person in the newsroom.';
+const heroLede = hero.lede || 'America’s News Today handles most correspondence through two addresses. Routing your message to the right one helps it reach the appropriate team faster.';
+const formEyebrow = formSection.eyebrow || 'Send a message';
+const formTitle = formSection.title || globalContact.heading || 'Americas News Today';
+const formDescription = formSection.description || globalContact.description || '';
+const sidebarTitle = inboxes.title || 'Direct inboxes';
+const sidebarEyebrow = inboxes.eyebrow || 'Where to write';
+const fallbackInboxCards = inboxCards.length ? inboxCards : [
+  { title: 'The Newsroom', description: 'Story tips, correction requests, letters to the editor, contributor pitches, and other correspondence intended for the editorial team.', email: 'editorial@americasnewstoday.org', note: 'If your tip concerns a sensitive matter, please indicate whether you want to speak on the record, on background, or off the record.' },
+  { title: 'General Inquiries', description: 'Advertising and partnership inquiries, technical issues with the site, newsletter and account questions, and general reader correspondence.', email: 'info@americasnewstoday.org', note: 'This inbox is staffed during U.S. business hours and typically responds within two business days.' },
+];
+const requestsEyebrow = requests.eyebrow || 'Specific requests';
+const requestsTitle = requests.title || 'Corrections, Legal, and Letters';
+const fallbackRequestCards = requestCards.length ? requestCards : [
+  { title: 'Corrections', text: 'If you have identified a factual error in a published piece, send the article URL, the specific error, and the corrected information to editorial@americasnewstoday.org. Verified corrections are handled promptly and appended to the affected article with a dated correction note.' },
+  { title: 'DMCA & Legal Notices', text: 'Copyright takedown notices, counter-notifications, and other legal correspondence reach the publication through the editorial address. The DMCA Policy page describes the elements a valid notice must include.' },
+  { title: 'Letters to the Editor', text: 'Letters written for publication as reader correspondence should be flagged as such in the subject line. Published letters carry the writer’s name and city. The publication reserves the right to edit for length and clarity, with the writer’s consent.' },
+];
 ---
 <main class="contact-source-body">
   <header class="ph">
     <div class="w">
       <div class="ph-in">
-        <div class="ph-kick" data-tina-field={tinaField(hero, 'eyebrow')}><i></i><span>{hero.eyebrow}</span></div>
-        <h1 data-tina-field={tinaField(hero, 'headline')}>{hero.headline}</h1>
-        <p data-tina-field={tinaField(hero, 'lede')}>{hero.lede}</p>
+        <div class="ph-kick" data-tina-field={tinaField(hero, 'eyebrow')}><i></i><span>{heroEyebrow}</span></div>
+        <h1 data-tina-field={tinaField(hero, 'headline')}>{heroHeadline}</h1>
+        <p data-tina-field={tinaField(hero, 'lede')}>{heroLede}</p>
       </div>
     </div>
   </header>
@@ -31,9 +50,9 @@ const note = formSection?.note || globalContact?.note || '';
     <div class="w">
       <div class="ms-in">
         <div>
-          <div class="eye" data-tina-field={tinaField(formSection, 'eyebrow')}><i></i><span>{formSection.eyebrow}</span></div>
-          <h2 class="h2" data-tina-field={tinaField(formSection, 'title')}>{formSection.title || globalContact.heading}</h2>
-          <p class="ms-lead" data-tina-field={tinaField(formSection, 'description')}>{formSection.description || globalContact.description}</p>
+          <div class="eye" data-tina-field={tinaField(formSection, 'eyebrow')}><i></i><span>{formEyebrow}</span></div>
+          <h2 class="h2" data-tina-field={tinaField(formSection, 'title')}>{formTitle}</h2>
+          <p class="ms-lead" data-tina-field={tinaField(formSection, 'description')}>{formDescription}</p>
           <form method="POST" action={endpoint} data-formspree-endpoint={endpoint}>
             <input type="hidden" name="_subject" value={subject} />
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
@@ -52,9 +71,9 @@ const note = formSection?.note || globalContact?.note || '';
           </form>
         </div>
         <aside class="sb">
-          <div class="sb-t" data-tina-field={tinaField(inboxes, 'title')}>{inboxes.title}</div>
-          <p class="sb-x" data-tina-field={tinaField(inboxes, 'eyebrow')}>{inboxes.eyebrow}</p>
-          {inboxCards.map((card) => (
+          <div class="sb-t" data-tina-field={tinaField(inboxes, 'title')}>{sidebarTitle}</div>
+          <p class="sb-x" data-tina-field={tinaField(inboxes, 'eyebrow')}>{sidebarEyebrow}</p>
+          {fallbackInboxCards.map((card) => (
             <div class="sbr" data-tina-field={tinaField(card)}>
               <div class="sbr-k" data-tina-field={tinaField(card, 'title')}>{card.title}</div>
               <div class="sbr-v">
@@ -71,11 +90,11 @@ const note = formSection?.note || globalContact?.note || '';
 
   <section class="nt">
     <div class="w">
-      <div class="eye" data-tina-field={tinaField(requests, 'eyebrow')}><i></i><span>{requests.eyebrow}</span></div>
-      <h2 class="h2" data-tina-field={tinaField(requests, 'title')}>{requests.title}</h2>
+      <div class="eye" data-tina-field={tinaField(requests, 'eyebrow')}><i></i><span>{requestsEyebrow}</span></div>
+      <h2 class="h2" data-tina-field={tinaField(requests, 'title')}>{requestsTitle}</h2>
       {requests.intro && <p class="ms-lead" data-tina-field={tinaField(requests, 'intro')}>{requests.intro}</p>}
       <div class="nt-l">
-        {requestCards.map((card, index) => (
+        {fallbackRequestCards.map((card, index) => (
           <div class="ntr" data-tina-field={tinaField(card)}>
             <div class="ntr-n">{String(index + 1).padStart(2, '0')}</div>
             <div class="ntr-t" data-tina-field={tinaField(card, 'title')}>{card.title}</div>

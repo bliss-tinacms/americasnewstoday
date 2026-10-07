@@ -242,7 +242,9 @@ function tinaBranch() {
 	// Public/runtime must use the same branch as the Tina admin bundle. Do NOT let
 	// a stale cPanel process-level TINA_BRANCH=main override editor saves; that was
 	// why admin showed Business+Featured while public still rendered Politics+World.
-	return process.env.NEXT_PUBLIC_TINA_BRANCH ||
+	return import.meta.env.NEXT_PUBLIC_TINA_BRANCH ||
+		import.meta.env.PUBLIC_TINA_BRANCH ||
+		process.env.NEXT_PUBLIC_TINA_BRANCH ||
 		readRuntimeEnvValue('NEXT_PUBLIC_TINA_BRANCH') ||
 		process.env.PUBLIC_TINA_BRANCH ||
 		readRuntimeEnvValue('PUBLIC_TINA_BRANCH') ||

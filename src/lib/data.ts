@@ -238,6 +238,19 @@ function readRuntimeEnvValue(key: string) {
 	return '';
 }
 
+function tinaBranch() {
+	// Public/runtime must use the same branch as the Tina admin bundle. Prefer the
+	// deployed public Tina branch from env files before any cPanel process-level
+	// TINA_BRANCH, because cPanel can keep stale process env values after deploys.
+	return process.env.NEXT_PUBLIC_TINA_BRANCH ||
+		readRuntimeEnvValue('NEXT_PUBLIC_TINA_BRANCH') ||
+		process.env.PUBLIC_TINA_BRANCH ||
+		readRuntimeEnvValue('PUBLIC_TINA_BRANCH') ||
+		process.env.TINA_BRANCH ||
+		readRuntimeEnvValue('TINA_BRANCH') ||
+		'main';
+}
+
 function tinaDirectContentApiUrl() {
 	const clientId =
 		process.env.NEXT_PUBLIC_TINA_CLIENT_ID ||
@@ -247,7 +260,7 @@ function tinaDirectContentApiUrl() {
 		readRuntimeEnvValue('PUBLIC_TINA_CLIENT_ID') ||
 		readRuntimeEnvValue('TINA_PUBLIC_CLIENT_ID') ||
 		'fc6d8b6a-9072-4ac2-9a4b-12a482200442';
-	const branch = process.env.NEXT_PUBLIC_TINA_BRANCH || process.env.TINA_BRANCH || readRuntimeEnvValue('NEXT_PUBLIC_TINA_BRANCH') || readRuntimeEnvValue('TINA_BRANCH') || 'main';
+	const branch = tinaBranch();
 	if (!clientId) return null;
 	return `https://content.tinajs.io/2.4/content/${encodeURIComponent(clientId)}/github/${encodeURIComponent(branch)}`;
 }
@@ -266,7 +279,6 @@ function stripUnsupportedLaggingSchemaFields(query: string) {
 		.replace(/\bseo\s*\{[^{}]*\}/g, '')
 		.replace(/\bexperience\b/g, '')
 		.replace(/\bfocus\b/g, '')
-		.replace(/\bcategories\b/g, 'category')
 		.replace(/[ 	]+\n/g, '\n')
 		.replace(/\n{3,}/g, '\n\n');
 }
@@ -285,7 +297,7 @@ function tinaProxyEndpoints() {
 }
 
 async function fetchGithubPageFrontmatter(relativePath: string) {
-	const branch = process.env.TINA_BRANCH || process.env.NEXT_PUBLIC_TINA_BRANCH || readRuntimeEnvValue('TINA_BRANCH') || readRuntimeEnvValue('NEXT_PUBLIC_TINA_BRANCH') || 'main';
+	const branch = tinaBranch();
 	const repo = process.env.GITHUB_CONTENT_REPO || readRuntimeEnvValue('GITHUB_CONTENT_REPO') || 'bliss-tinacms/americasnewstoday';
 	const url = `https://raw.githubusercontent.com/${repo}/${branch}/src/content/page/${relativePath}`;
 	try {

@@ -8,7 +8,7 @@
     "footerLogo": "https://res.cloudinary.com/qwdyyii2/image/upload/v1791213989/americasnewstoday/America%27s-News-Today-Logo-White.png"
   },
   "contactForm": {
-    "formspreeEndpoint": "https://formspree.io/f/xqpekzoz?hermes_verify=1791372709",
+    "formspreeEndpoint": "https://formspree.io/f/xqpekzoz",
     "heading": "Americas News Today ",
     "description": "Story tips, corrections, letters, and general reader correspondence all reach a person on the newsroom staff.",
     "note": "Fields marked * are required. Read during U.S. business hours. Do not use a work account if your message is sensitive.",

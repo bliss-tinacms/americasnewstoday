@@ -132,6 +132,22 @@ function readLocalPageFrontmatter(slug?: string | null) {
 	return readLocalFrontmatter('page', slug);
 }
 
+function mergeMissingFields<T>(primary: T, fallback: any): T {
+	if (primary === null || primary === undefined || primary === '') return fallback ?? primary;
+	if (Array.isArray(primary)) {
+		if (!primary.length && Array.isArray(fallback)) return fallback as T;
+		return primary.map((item, index) => mergeMissingFields(item, Array.isArray(fallback) ? fallback[index] : undefined)) as T;
+	}
+	if (typeof primary === 'object' && primary && fallback && typeof fallback === 'object' && !Array.isArray(fallback)) {
+		const merged: Record<string, any> = { ...(fallback as Record<string, any>), ...(primary as Record<string, any>) };
+		for (const key of Object.keys(merged)) {
+			merged[key] = mergeMissingFields((primary as Record<string, any>)[key], (fallback as Record<string, any>)[key]);
+		}
+		return merged as T;
+	}
+	return primary;
+}
+
 function readLocalBlogFrontmatter(slug?: string | null) {
 	return readLocalFrontmatter('blog', slug);
 }
@@ -507,14 +523,18 @@ async function getLivePage(slug: string) {
 		}
 	}`;
 
-	// Public pages must be CMS-live-first so Tina backend saves appear without a redeploy.
-	const livePage = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.page);
-	if (livePage) return { data: { page: livePage } } as any;
-
 	const githubPage = await fetchGithubPageFrontmatter(relativePath);
+	const localPage = readLocalPageFrontmatter(relativePath);
+	const fallbackPage = githubPage || (localPage ? { ...localPage, _sys: { filename: relativePath.replace(/\.mdx$/, '') } } : null);
+
+	// Public pages must be CMS-live-first so Tina backend saves appear without a redeploy.
+	// If Tina Cloud returns a partial block after schema/content drift, fill only missing
+	// fields from GitHub/local fallback instead of letting blanks render publicly.
+	const livePage = await fetchLiveTina(query, { relativePath }, (json) => json?.data?.page);
+	if (livePage) return { data: { page: mergeMissingFields(livePage, fallbackPage) } } as any;
+
 	if (githubPage) return { data: { page: githubPage } } as any;
 
-	const localPage = readLocalPageFrontmatter(relativePath);
 	if (localPage) {
 		return {
 			data: {

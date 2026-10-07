@@ -151,6 +151,10 @@ const shareUrl = data ? getPostUrl(data) : '/blog/';
 const shareTitle = data?.title || 'Americas News Today';
 const tocItems = getTocItems(data?.body);
 const hasToc = tocItems.length > 0;
+const visibleRelatedPosts = relatedPosts
+	.filter((post) => post && post._sys?.filename && getPostTitle(post).trim())
+	.slice(0, 3);
+const hasRelatedPosts = visibleRelatedPosts.length > 0;
 
 const heroImageAlt = (() => {
   const sources = [];
@@ -292,13 +296,13 @@ const heroImageAlt = (() => {
 				}
 			})();
 		</script>
-		{relatedPosts.length > 0 && (
+		{hasRelatedPosts && (
 	<section id="more-stories" class="mo" aria-labelledby="related-articles-heading">
 		<div class="w">
 			<div class="eye"><i></i><span>Keep reading</span></div>
 			<div class="h2" id="related-articles-heading">More in {categoryLabel}</div>
 			<div class="mo-g">
-				{relatedPosts.slice(0, 3).map((post) => (
+				{visibleRelatedPosts.map((post) => (
 					<a href={getPostUrl(post)} class="mi">
 						{post.heroImage && <img src={post.heroImage} alt="" class="mi-img" width={420} height={262} />}
 						<div class="mi-c">

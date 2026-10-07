@@ -239,16 +239,14 @@ function readRuntimeEnvValue(key: string) {
 }
 
 function tinaBranch() {
-	// Public/runtime must use the same branch as the Tina admin bundle. Prefer the
-	// deployed public Tina branch from env files before any cPanel process-level
-	// TINA_BRANCH, because cPanel can keep stale process env values after deploys.
+	// Public/runtime must use the same branch as the Tina admin bundle. Do NOT let
+	// a stale cPanel process-level TINA_BRANCH=main override editor saves; that was
+	// why admin showed Business+Featured while public still rendered Politics+World.
 	return process.env.NEXT_PUBLIC_TINA_BRANCH ||
 		readRuntimeEnvValue('NEXT_PUBLIC_TINA_BRANCH') ||
 		process.env.PUBLIC_TINA_BRANCH ||
 		readRuntimeEnvValue('PUBLIC_TINA_BRANCH') ||
-		process.env.TINA_BRANCH ||
-		readRuntimeEnvValue('TINA_BRANCH') ||
-		'main';
+		'tina-categories-live';
 }
 
 function tinaDirectContentApiUrl() {

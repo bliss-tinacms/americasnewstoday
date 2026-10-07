@@ -168,7 +168,7 @@ const heroImageAlt = (() => {
 ---
 
 {data && (
-	<>
+	<div class="single-post-source-body">
 		<header class="ah">
 			<div class="w">
 				<div class="ah-in">
@@ -292,10 +292,7 @@ const heroImageAlt = (() => {
 				}
 			})();
 		</script>
-	</>
-)}
-
-{data && relatedPosts.length > 0 && (
+		{relatedPosts.length > 0 && (
 	<section id="more-stories" class="mo" aria-labelledby="related-articles-heading">
 		<div class="w">
 			<div class="eye"><i></i><span>Keep reading</span></div>
@@ -314,4 +311,6 @@ const heroImageAlt = (() => {
 			</div>
 		</div>
 	</section>
+		)}
+	</div>
 )}
